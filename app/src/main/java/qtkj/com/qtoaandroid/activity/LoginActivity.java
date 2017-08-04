@@ -7,6 +7,7 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.utils.StatusBarUtil;
 
 /**
  * Created by Administrator on 2017/8/3 0003.
@@ -25,6 +26,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void Initialize() {
+        StatusBarUtil.transparencyBar(this);
+        StatusBarUtil.StatusBarLightMode(this);
 
     }
 
