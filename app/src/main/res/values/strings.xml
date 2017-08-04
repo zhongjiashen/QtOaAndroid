@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">QtOaAndroid</string>
+    <string name="account_hit">请输入手机号</string>
+    <string name="new_account_hit">请输入新手机号</string>
+    <string name="pass_hit">请输入密码</string>
+    <string name="forget_pass">忘记密码？</string>
+    <string name="forget_pass_t">忘记密码</string>
+    <string name="phone_login">手机验证码登录</string>
+    <string name="sen_code">发送验证码</string>
+    <string name="pass_login">密码登录</string>
+    <string name="code_hit">请输入验证码</string>
+    <string name="new_pass_hit">请输入新密码（至少6位）</string>
+    <string name="ok_pass_hit">请确认新密码（至少6位）</string>
+    <string name="ok_update">确认修改</string>
+    <string name="sign_in">签到</string>
+    <string name="now_location">实时位置</string>
+    <string name="address_book">通讯录</string>
+    <string name="personal_center">个人中心</string>
+    <string name="sign_in_title">龙子湖办事处</string>
+    <string name="sign_in_record">签到记录</string>
+    <string name="photo_record">照片记录</string>
+    <string name="attendance_management">考勤管理</string>
+    <string name="personal_information">个人信息</string>
+    <string name="change_phone">修改手机号</string>
+    <string name="change_pass">修改密码</string>
+    <string name="longzihu_office">龙子湖办事处</string>
+    <string name="contact_us">联系我们</string>
+    <string name="log_out">退出登录</string>
+    <string name="next_step">下一步</string>
+    <string name="head_portrait">头像</string>
+    <string name="name">姓名</string>
+    <string name="jobs">岗位</string>
+    <string name="jobs_numbers">岗位编号</string>
+    <string name="working_time">工作时间</string>
+    <string name="insufficient_permissions">权限不足，无法查看当前模块</string>
+</resources>

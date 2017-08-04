@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="@color/colorPrimary">
+
+
+        <TextView
+            style="@style/text_18_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/address_book"/>
+    </RelativeLayout>
+    <include
+
+        layout="@layout/view_null_data"
+        android:visibility="gone"/>
+    <ExpandableListView
+        android:id="@+id/elv"
+        android:groupIndicator="@null"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+       />
+</LinearLayout>
