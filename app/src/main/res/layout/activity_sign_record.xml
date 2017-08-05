@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:padding="10dp"
+            android:src="@mipmap/ic_arrow_left"/>
+            <RadioButton
+                android:id="@+id/rb_month"
+               android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:button="@null"
+                android:text="7月"
+                android:textColor="@color/white"
+                android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <qtkj.com.qtoaandroid.viewbar.calenderview.CalendarView
+                android:id="@+id/calendar"
+                android:layout_width="match_parent"
+                android:layout_height="392dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grayline"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_14_whigtgray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:drawableLeft="@drawable/shap_circle_blue"
+                    android:drawablePadding="9dp"
+                    android:text="@string/normal"/>
+
+                <TextView
+                    style="@style/text_14_whigtgray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:drawableLeft="@drawable/shap_circle_purple"
+                    android:drawablePadding="9dp"
+                    android:text="@string/late_or_leave_earlyl"/>
+
+                <TextView
+                    style="@style/text_14_whigtgray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:drawableLeft="@drawable/shap_circle_pink"
+                    android:drawablePadding="9dp"
+                    android:text="@string/forget_sign_in"/>
+
+                <TextView
+                    style="@style/text_14_whigtgray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:drawableLeft="@drawable/shap_circle_orange"
+                    android:drawablePadding="9dp"
+                    android:text="@string/absenteeism"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grayline"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

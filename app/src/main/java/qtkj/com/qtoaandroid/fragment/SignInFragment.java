@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.activity.AttendanceManagementActivity;
 import qtkj.com.qtoaandroid.activity.PhotoRecordActivity;
+import qtkj.com.qtoaandroid.activity.SignRecordActivity;
 
 /**
  * Created by Administrator on 2017/8/3 0003.
@@ -77,6 +78,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_sign_in_record:
+                startActivity(new Intent(getActivity(), SignRecordActivity.class));
                 break;
             case R.id.tv_photo_record:
                 startActivity(new Intent(getActivity(), PhotoRecordActivity.class));

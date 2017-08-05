@@ -63,7 +63,7 @@
                 style="@style/text_10_blue"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:background="@drawable/shape_rounded_rectangle5_orange_line_bg"
+                android:background="@drawable/shape_rounded_blue_bg"
                 android:text="固定岗"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/tv_nick"

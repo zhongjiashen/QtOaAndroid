@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <RadioButton
+            android:text="2017年"
+            style="@style/attendance_management_rbt"/>
+        <RadioButton
+            android:text="08月"
+            style="@style/attendance_management_rbt"/>
+        <RadioButton
+
+            android:text="05日"
+            style="@style/attendance_management_rbt"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayline"
+       />
+    <ExpandableListView
+        android:id="@+id/elv"
+        android:groupIndicator="@null"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        />
+</LinearLayout>

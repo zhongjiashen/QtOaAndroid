@@ -12,4 +12,7 @@
     <color name="whigtgray">#666666</color>
     <color name="line">#dddddd</color>
     <color name="grayline">#f5f5f5</color>
+    <color name="orange">#fc9756</color>
+    <color name="pink">#ff6464</color>
+    <color name="purple">#9556fc</color>
 </resources>

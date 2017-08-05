@@ -32,4 +32,5 @@ dependencies {
     compile 'com.android.support:design:26.+'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.jph.takephoto:takephoto_library:4.0.3'
+    compile 'com.czp.arcProgressBar:ArcProgressBar:1.0.1'
 }

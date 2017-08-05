@@ -24,6 +24,7 @@
         <activity android:name=".activity.PersonalInformationActivity"/>
         <activity android:name=".activity.PhotoRecordActivity"/>
         <activity android:name=".activity.AttendanceManagementActivity"/>
+        <activity android:name=".activity.SignRecordActivity"/>
     </application>
 
 </manifest>

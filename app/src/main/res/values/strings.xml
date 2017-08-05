@@ -33,4 +33,8 @@
     <string name="jobs_numbers">岗位编号</string>
     <string name="working_time">工作时间</string>
     <string name="insufficient_permissions">权限不足，无法查看当前模块</string>
+    <string name="normal">正常</string>
+    <string name="late_or_leave_earlyl">迟到/早退</string>
+    <string name="forget_sign_in">忘记打卡</string>
+    <string name="absenteeism">缺勤</string>
 </resources>
