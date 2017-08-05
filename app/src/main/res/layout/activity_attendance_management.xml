@@ -3,5 +3,38 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="@color/colorPrimary">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_arrow_left"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:padding="10dp"/>
+        <RadioGroup
+            android:id="@+id/rg_bottom"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
 
+            <RadioButton
+                android:id="@+id/rb_day"
+                style="@style/RadioButtonTheme"
+                android:checked="true"
+                android:text="日报"
+                android:background="@drawable/selector_day_radiobutton"/>
+
+            <RadioButton
+                android:id="@+id/rb_month"
+                style="@style/RadioButtonTheme"
+                android:text="月报"
+                android:background="@drawable/selector_month_radiobutton"/>
+        </RadioGroup>
+    </RelativeLayout>
 </LinearLayout>

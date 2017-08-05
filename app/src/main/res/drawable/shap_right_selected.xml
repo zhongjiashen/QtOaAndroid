@@ -6,12 +6,8 @@
         android:color="@color/white"/>
     <solid android:color="@color/white"/>
     <corners
-        android:bottomRightRadius="14dp"
-        android:topRightRadius="14dp"/>
-    <padding
-        android:bottom="5dp"
-        android:left="30dp"
-        android:right="30dp"
-        android:top="5dp"/>
+        android:bottomRightRadius="16dp"
+        android:topRightRadius="16dp"/>
+
 
 </shape>

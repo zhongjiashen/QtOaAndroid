@@ -16,12 +16,15 @@ import qtkj.com.qtoaandroid.R;
 public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        savedInstanceState(savedInstanceState);
         super.onCreate(savedInstanceState);
         setContentView(layout());
         ButterKnife.bind(this);
         Initialize();
     }
+    protected void savedInstanceState(Bundle savedInstanceState){
 
+    };
     /**
      * 指定加载布局
      * @return 返回布局

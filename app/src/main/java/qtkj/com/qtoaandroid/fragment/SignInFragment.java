@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
 import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.InvokeParam;
 import com.jph.takephoto.model.TContextWrap;
 import com.jph.takephoto.model.TResult;
@@ -21,6 +22,7 @@ import java.io.File;
 
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.activity.AttendanceManagementActivity;
 import qtkj.com.qtoaandroid.activity.PhotoRecordActivity;
 
 /**
@@ -80,6 +82,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
                 startActivity(new Intent(getActivity(), PhotoRecordActivity.class));
                 break;
             case R.id.tv_attendance_management:
+                startActivity(new Intent(getActivity(), AttendanceManagementActivity.class));
                 break;
             case R.id.iv_take_photto:
                 File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
@@ -91,7 +94,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
                         .enableReserveRaw(true)
                         .create();
                 takePhoto.onEnableCompress(config, true);
-                takePhoto.onPickFromCapture(imageUri);
+                takePhoto.onPickFromCaptureWithCrop(imageUri,getCropOptions());
                 break;
             case R.id.iv_sign_in:
                 break;
@@ -121,5 +124,20 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
             this.invokeParam=invokeParam;
         }
         return type;
+    }
+    private CropOptions getCropOptions(){
+        int height= Integer.parseInt("50");
+        int width= Integer.parseInt("50");
+        boolean withWonCrop=true;
+
+        CropOptions.Builder builder=new CropOptions.Builder();
+
+
+//            builder.setAspectX(width).setAspectY(height);//宽/高
+
+            builder.setOutputX(width).setOutputY(height);//宽*高
+
+        builder.setWithOwnCrop(withWonCrop);
+        return builder.create();
     }
 }

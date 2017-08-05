@@ -23,6 +23,7 @@
         <activity android:name=".activity.ChangePassActivity"/>
         <activity android:name=".activity.PersonalInformationActivity"/>
         <activity android:name=".activity.PhotoRecordActivity"/>
+        <activity android:name=".activity.AttendanceManagementActivity"/>
     </application>
 
 </manifest>
