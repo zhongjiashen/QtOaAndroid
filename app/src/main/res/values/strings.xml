@@ -37,4 +37,5 @@
     <string name="late_or_leave_earlyl">迟到/早退</string>
     <string name="forget_sign_in">忘记打卡</string>
     <string name="absenteeism">缺勤</string>
+    <string name="number_attendance">出勤人数</string>
 </resources>

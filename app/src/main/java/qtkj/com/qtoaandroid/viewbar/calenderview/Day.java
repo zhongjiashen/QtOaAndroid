@@ -148,12 +148,13 @@ public class Day {
      */
     private void drawBackground(Canvas canvas, Paint paint) {
         //画背景 根据背景状态设置画笔类型
-        if (backgroundStyle == 0) {
+        if (backgroundStyle == 0||backgroundStyle==1) {
 
             return;
         }
         switch (backgroundStyle) {
             case 1:
+
                 paint.setColor(0xFFECF1F4);
                 paint.setStyle(Paint.Style.FILL);
                 break;

@@ -207,12 +207,10 @@ public class DayManager {
 
             } else if (i == select - 1) {
                 day.backgroundStyle = 2;
-
                 day.textClor = 0xFFFAFBFE;
-
             } else {
                 day.backgroundStyle = 1;
-                day.textClor = 0xFF8696A5;
+                day.textClor = 0xFF5676FC;
             }
             //设置工作状态
             if (restDays.contains(1 + i)) {

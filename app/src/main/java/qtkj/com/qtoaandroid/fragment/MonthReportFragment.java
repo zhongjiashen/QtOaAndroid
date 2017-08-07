@@ -10,6 +10,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.viewbar.RoundProgressBar;
 
 /**
  * Created by Administrator on 2017/8/5 0005.
@@ -19,7 +20,7 @@ public class MonthReportFragment extends BaseFragmengt {
     @BindView(R.id.lv)
     ListView lv;
     BaseAdapter adapter;
-
+    private int progress = 0;
     @Override
     protected int Rlayout() {
         return R.layout.fragment_month_report;
@@ -27,7 +28,35 @@ public class MonthReportFragment extends BaseFragmengt {
 
     @Override
     protected void init() {
-        lv.addHeaderView(LayoutInflater.from(getActivity()).inflate(R.layout.item_month_repord_head, null));
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_month_repord_head, null);
+        final HeadViewHolder headViewHolder = new  HeadViewHolder(view);
+        headViewHolder.tvTotalNumber.setText("/40");
+        headViewHolder.rpb.setMax(40);
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                while (progress < 37) {
+                    progress += 1;
+                    headViewHolder.rpb.setProgress(progress);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //此时已在主线程中，可以更新UI了
+                            headViewHolder.tvActualNumber.setText(progress+"");
+                        }
+                    });
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }).start();
+
+        lv.addHeaderView(view);
         lv.setAdapter(adapter = new BaseAdapter() {
             @Override
             public int getCount() {
@@ -70,6 +99,17 @@ public class MonthReportFragment extends BaseFragmengt {
     static class ViewHolder {
 
         ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+    static class HeadViewHolder {
+        @BindView(R.id.rpb)
+        RoundProgressBar rpb;
+        @BindView(R.id.tv_actual_number)
+        TextView tvActualNumber;
+        @BindView(R.id.tv_total_number)
+        TextView tvTotalNumber;
+        HeadViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
