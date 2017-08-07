@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/titlebar_height"
@@ -16,14 +17,16 @@
             android:layout_marginLeft="5dp"
             android:padding="10dp"
             android:src="@mipmap/ic_arrow_left"/>
-            <RadioButton
-                android:id="@+id/rb_month"
-               android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:button="@null"
-                android:text="7月"
-                android:textColor="@color/white"
-                android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/cb_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableRight="@mipmap/ic_triangle_down_white"
+            android:drawablePadding="10dp"
+            android:text="7月"
+            android:textColor="@color/white"/>
     </RelativeLayout>
 
     <ScrollView
