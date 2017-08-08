@@ -130,6 +130,10 @@
 
 -keep class com.soundcloud.android.crop.** { *; }
 -dontwarn com.soundcloud.android.crop.**
+#百度地图
+-keep class com.baidu.** {*;}
+-keep class vi.com.** {*;}
+-dontwarn com.baidu.**
 ##iflytek
 #-keep class com.iflytek.** { *; }
 #-keep class com.chinaMobile.** { *; }

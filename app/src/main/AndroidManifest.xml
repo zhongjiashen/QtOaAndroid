@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="qtkj.com.qtoaandroid">
-
+    <!--百度地图权限开始-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <!--百度地图权限结束-->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -26,6 +42,20 @@
         <activity android:name=".activity.PhotoRecordActivity"/>
         <activity android:name=".activity.AttendanceManagementActivity"/>
         <activity android:name=".activity.SignRecordActivity"/>
+        <activity android:name=".activity.NowLocationActivity"/>
+        <activity android:name=".activity.UpdateNameActivity"/>
+        <activity android:name=".activity.DragImageActivity"/>
+        <!--百度地图key配置-->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="1HcCivNvWRo74sCqWGGQMIcLqDziMWGL"/>
+        <!--百度地图云轨迹服务-->
+        <service
+            android:name="com.baidu.trace.LBSTraceService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote"
+            />
     </application>
 
 </manifest>

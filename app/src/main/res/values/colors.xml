@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#5676fc</color>
     <color name="colorPrimaryDark">#5676fc</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#5676fc</color>
     <!--页面背景主色-->
     <color name="pgbg">#fcfdff</color>
     <color name="hit">#775676fc</color>

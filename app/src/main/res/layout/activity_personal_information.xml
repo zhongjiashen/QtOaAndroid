@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/pgbg"
               android:orientation="vertical">
 
     <RelativeLayout
@@ -27,120 +28,149 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/ll_head_portrait"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:gravity="center_vertical">
+
         <TextView
+            android:clickable="false"
+            style="@style/text_15_black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_weight="1"
-            style="@style/text_15_black"
-            android:text="@string/head_portrait"
-            android:layout_marginLeft="15dp"/>
+            android:text="@string/head_portrait"/>
+
         <ImageView
+            android:id="@+id/iv_head_portrait"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/ic_launcher_round"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_arrow_gray_right"
-            android:layout_marginRight="14dp"/>
+            android:layout_marginRight="14dp"
+            android:src="@mipmap/ic_arrow_gray_right"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grayline"/>
+
     <LinearLayout
+        android:id="@+id/ll_name"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:gravity="center_vertical">
+
         <TextView
+            style="@style/text_15_black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_weight="1"
-            style="@style/text_15_black"
-            android:text="@string/name"
-            android:layout_marginLeft="15dp"/>
+            android:text="@string/name"/>
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_name"
             style="@style/text_14_black"
-            android:text="张三"
-            android:layout_marginRight="15dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:text="张三"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_arrow_gray_right"
-            android:layout_marginRight="14dp"/>
+            android:layout_marginRight="14dp"
+            android:src="@mipmap/ic_arrow_gray_right"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grayline"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:gravity="center_vertical">
+
         <TextView
+            style="@style/text_15_black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_weight="1"
-            style="@style/text_15_black"
-            android:text="@string/jobs"
-            android:layout_marginLeft="15dp"/>
+            android:text="@string/jobs"/>
+
         <TextView
+            android:id="@+id/tv_jobs"
+            style="@style/text_14_whigtgray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text_14_whigtgray"
-            android:text="固定岗"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:text="固定岗"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grayline"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:gravity="center_vertical">
+
         <TextView
+            style="@style/text_15_black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_weight="1"
-            style="@style/text_15_black"
-            android:text="@string/jobs_numbers"
-            android:layout_marginLeft="15dp"/>
+            android:text="@string/jobs_numbers"/>
+
         <TextView
+            android:id="@+id/tv_jobs_numbers"
+            style="@style/text_14_whigtgray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text_14_whigtgray"
-            android:text="固定岗1451454"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:text="固定岗1451454"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grayline"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:gravity="center_vertical">
+
         <TextView
+            style="@style/text_15_black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_weight="1"
-            style="@style/text_15_black"
-            android:text="@string/working_time"
-            android:layout_marginLeft="15dp"/>
+            android:text="@string/working_time"/>
+
         <TextView
+            android:id="@+id/tv_working_time"
+            style="@style/text_14_whigtgray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text_14_whigtgray"
-            android:text="8:00—6:00"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:text="8:00—6:00"/>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

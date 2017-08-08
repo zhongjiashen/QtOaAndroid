@@ -38,4 +38,11 @@
     <string name="forget_sign_in">忘记打卡</string>
     <string name="absenteeism">缺勤</string>
     <string name="number_attendance">出勤人数</string>
+
+
+    <string name="font_type">微软雅黑</string>
+    <string name="no_entity_data">未查询到实时位置信息！</string>
+    <string name="uptade_name">更改名字</string>
+    <string name="save">保存</string>
+    <string name="update_name_prompt">好名字可以让你的朋友更容易记住你</string>
 </resources>
