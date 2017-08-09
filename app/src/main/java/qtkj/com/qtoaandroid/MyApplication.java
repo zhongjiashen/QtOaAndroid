@@ -51,7 +51,7 @@ public class MyApplication extends Application {
     /**
      * Entity标识
      */
-    public String entityName = "myTrace";
+    public String entityName = "088274871644946";
 
     public static int screenWidth = 0;
 

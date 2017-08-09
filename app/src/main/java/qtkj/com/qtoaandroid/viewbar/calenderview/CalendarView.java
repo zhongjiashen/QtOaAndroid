@@ -37,6 +37,7 @@ public class CalendarView extends View {
      */
     public void setCalendar(Calendar calendar) {
         this.calendar = calendar;
+        DayManager.setSelect(-1);
         if ((calendar.get(Calendar.MONTH) + "" + calendar.get(Calendar.YEAR)).equals(DayManager.getCurrentTime())) {
             DayManager.setCurrent(DayManager.getTempcurrent());
         } else {

@@ -55,80 +55,34 @@ public class DayManager {
      */
     static Set<Integer> normalDays = new HashSet<>();
 
-    /**
-     * 添加正常天数
-     *
-     * @param i
-     */
-    public static void addNomalDays(int i) {
-        normalDays.add(i);
+    public static void setNormalDays(Set<Integer> normalDays) {
+        DayManager.normalDays = normalDays;
     }
 
     /**
-     * 移除正常的天数
-     *
-     * @param i
+     * 储存迟到/早退天数
      */
-    public static void removeNomalDays(int i) {
-        if (normalDays.contains(i)) {
-            normalDays.remove(i);
-        }
+    static Set<Integer> latearrivalDays = new HashSet<>();
+    public static void setLatearrivalDays(Set<Integer> latearrivalDays) {
+        DayManager.latearrivalDays = latearrivalDays;
     }
 
     /**
-     * 储存异常天数
+     * 储存忘记打卡天数
      */
-    static Set<Integer> abnormalDays = new HashSet<>();
+    static Set<Integer> forgetclockDays = new HashSet<>();
 
-    /**
-     * 添加异常天数
-     *
-     * @param i
-     */
-    public static void addAbnormalDays(int i) {
-        abnormalDays.add(i);
+    public static void setForgetclockDays(Set<Integer> forgetclockDays) {
+        DayManager.forgetclockDays = forgetclockDays;
     }
-
     /**
-     * 移除异常的天数
-     *
-     * @param i
+     * 储存缺勤天数
      */
-    public static void removeAbnormalDays(int i) {
-        if (abnormalDays.contains(i)) {
-            abnormalDays.remove(i);
-        }
+    static Set<Integer> absenteeismDays = new HashSet<>();
+
+    public static void setAbsenteeismDays(Set<Integer> absenteeismDays) {
+        DayManager.absenteeismDays = absenteeismDays;
     }
-
-    /**
-     * 储存外出天数
-     */
-    static Set<Integer> outDays = new HashSet<>();
-
-    /**
-     * 添加外出天数天数
-     *
-     * @param i
-     */
-    public static void addOutDays(int i) {
-        outDays.add(i);
-    }
-
-    /**
-     * 移除外出天数的天数
-     *
-     * @param i
-     */
-    public static void removeOutDays(int i) {
-        if (outDays.contains(i)) {
-            outDays.remove(i);
-        }
-    }
-
-    /**
-     * 储存休息天数
-     */
-    static Set<Integer> restDays = new HashSet<>();
 
     /**
      * 储存当前的日期
@@ -183,8 +137,6 @@ public class DayManager {
             day.location_x = i;
             day.location_y = 0;
             day.text = weeks[i];
-            //设置日期颜色
-            day.textClor = 0xFF699CF0;
             days.add(day);
 
         }
@@ -201,27 +153,30 @@ public class DayManager {
             day.location_y = calendar.get(Calendar.WEEK_OF_MONTH);
             day.location_x = calendar.get(Calendar.DAY_OF_WEEK) - 1;
             //设置日期选择状态
-            if (i == current - 1) {
+            if(i == current - 1&&i == select - 1) {//即是当前日期，也被选中
                 day.backgroundStyle = 3;
-                day.textClor = 0xFF4384ED;
-
-            } else if (i == select - 1) {
+            }else if (i == select - 1) {//选择日期
                 day.backgroundStyle = 2;
-                day.textClor = 0xFFFAFBFE;
-            } else {
+            }else if (i == current - 1) {//当前日期
                 day.backgroundStyle = 1;
-                day.textClor = 0xFF5676FC;
+            } else {//无状态
+                day.backgroundStyle = 0;
             }
             //设置工作状态
-            if (restDays.contains(1 + i)) {
-                day.workState = 0;
-            } else if (abnormalDays.contains(i + 1)) {
-
-                day.workState = 2;
-            } else if (outDays.contains(i + 1)) {
-                day.workState = 3;
-            } else {
+            if (normalDays.contains(1 + i)) {//正常
                 day.workState = 1;
+                day.textClor=0xFFFFFFFF;
+            } else if (latearrivalDays.contains(i + 1)) {//储存迟到/早退天数
+                day.workState = 2;
+                day.textClor=0xFFFFFFFF;
+            } else if (forgetclockDays.contains(i + 1)) {//忘记打卡
+                day.workState = 3;
+                day.textClor=0xFFFFFFFF;
+            }  else if (absenteeismDays.contains(i + 1)) {
+                day.workState = 4;
+                day.textClor=0xFFFFFFFF;
+            }else {
+                day.workState = 0;
             }
             days.add(day);
         }
@@ -233,16 +188,7 @@ public class DayManager {
      * 模拟数据
      */
     private static void imitateData() {
-        abnormalDays.add(2);
-        abnormalDays.add(11);
-        abnormalDays.add(16);
-        abnormalDays.add(17);
-        abnormalDays.add(23);
 
-        outDays.add(8);
-        outDays.add(9);
-        outDays.add(18);
-        outDays.add(22);
 
     }
 
@@ -252,13 +198,13 @@ public class DayManager {
      * @param calendar
      */
     private static void initRestDays(Calendar calendar) {
-        int total = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        for (int i = 0; i < total; i++) {
-            calendar.set(Calendar.DAY_OF_MONTH, i + 1);
-            if (calendar.get(Calendar.DAY_OF_WEEK) == 1 || calendar.get(Calendar.DAY_OF_WEEK) == 7) {
-                restDays.add(i + 1);
-            }
-        }
+//        int total = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+//        for (int i = 0; i < total; i++) {
+//            calendar.set(Calendar.DAY_OF_MONTH, i + 1);
+//            if (calendar.get(Calendar.DAY_OF_WEEK) == 1 || calendar.get(Calendar.DAY_OF_WEEK) == 7) {
+//                restDays.add(i + 1);
+//            }
+//        }
     }
 
 }

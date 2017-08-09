@@ -23,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:drawableRight="@mipmap/ic_triangle_down_white"
             android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/ic_triangle_down_white"
             android:text="7月"
             android:textColor="@color/white"/>
     </RelativeLayout>
@@ -95,6 +95,156 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/grayline"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="14dp"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/colorPrimary"/>
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        style="@style/text_14_blue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="2017-07-08"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grayline"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="17dp"
+                        android:layout_marginLeft="15dp"
+                        android:background="@mipmap/ic_gray_location"/>
+
+                    <TextView
+                        android:id="@+id/tv_sign_in_address"
+                        style="@style/text_14_whigtgray"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="9dp"
+                        android:text="绿地新都会"/>
+                    <TextView
+                        android:id="@+id/tv_sign_in_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        style="@style/text_13_gray"
+                        android:text="08:30"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grayline"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="17dp"
+                        android:layout_marginLeft="15dp"
+                        android:background="@mipmap/ic_gray_location"/>
+
+                    <TextView
+                        android:id="@+id/tv_sign_out_address"
+                        style="@style/text_14_whigtgray"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="9dp"
+                        android:text="绿地新都会"/>
+                    <TextView
+                        android:id="@+id/tv_sign_out_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        style="@style/text_13_gray"
+                        android:text="08:30"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grayline"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="14dp"
+                        android:layout_marginLeft="15dp"
+                        android:background="@color/colorPrimary"/>
+
+                    <TextView
+                        style="@style/text_14_blue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/movement"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grayline"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/ic_clocks"
+                    android:drawablePadding="9dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    style="@style/text_14_whigtgray"
+                    android:text="08:23-11:30"/>
+                <FrameLayout
+                    android:id="@+id/map1"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginLeft="41dp"
+                    android:layout_marginRight="20dp"
+                   />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/ic_clocks"
+                    android:drawablePadding="9dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    style="@style/text_14_whigtgray"
+                    android:text="08:23-11:30"/>
+                <FrameLayout
+                    android:id="@+id/map2"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginLeft="41dp"
+                    android:layout_marginRight="20dp"
+                    />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

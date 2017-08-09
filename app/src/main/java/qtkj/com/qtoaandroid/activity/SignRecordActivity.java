@@ -1,16 +1,31 @@
 package qtkj.com.qtoaandroid.activity;
 
+import android.support.v4.app.FragmentManager;
 import android.view.View;
-import android.widget.CheckBox;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.SupportMapFragment;
+import com.baidu.mapapi.model.LatLng;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.R;
-import qtkj.com.qtoaandroid.viewbar.MyTimePickerDialog;
+import qtkj.com.qtoaandroid.fragment.BaseMapFragment;
+import qtkj.com.qtoaandroid.fragment.MapFragment;
+import qtkj.com.qtoaandroid.viewbar.calenderview.CalendarView;
+import qtkj.com.qtoaandroid.viewbar.calenderview.DayManager;
 
 /**
  * Created by Administrator on 2017/8/5 0005.
@@ -20,6 +35,16 @@ import qtkj.com.qtoaandroid.viewbar.MyTimePickerDialog;
 public class SignRecordActivity extends BaseActivity implements OnDateSetListener {
 
     TimePickerDialog mDialogYearMonth;
+    @BindView(R.id.cb_month)
+    TextView cbMonth;
+    @BindView(R.id.calendar)
+    CalendarView mCalendarView;
+    Set<Integer> normalDays = new HashSet<>();
+    Set<Integer> latearrivalDays = new HashSet<>();
+    Set<Integer> forgetclockDays = new HashSet<>();
+    Set<Integer> absenteeismDays = new HashSet<>();
+
+    private static final LatLng GEO_SHANGHAI = new LatLng(31.227, 121.481);
     @Override
     protected int layout() {
         return R.layout.activity_sign_record;
@@ -27,6 +52,8 @@ public class SignRecordActivity extends BaseActivity implements OnDateSetListene
 
     @Override
     protected void Initialize() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月");
+        cbMonth.setText(sdf.format(new Date()));
         mDialogYearMonth = new TimePickerDialog.Builder()
                 .setType(Type.YEAR_MONTH)
                 .setThemeColor(getResources().getColor(R.color.colorPrimary))
@@ -37,13 +64,69 @@ public class SignRecordActivity extends BaseActivity implements OnDateSetListene
                 .setCallBack(this)
                 .setTitleStringId("")
                 .build();
+        mCalendarView.setOnSelectChangeListener(new CalendarView.OnSelectChangeListener() {
+            @Override
+            public void selectChange(CalendarView calendarView, Date date) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+                Toast.makeText(SignRecordActivity.this, sdf.format(date), Toast.LENGTH_SHORT).show();
+            }
+        });
+        BaseMapFragment map1 = BaseMapFragment.newInstance();
+        MapFragment map2 = MapFragment.newInstance();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().add(R.id.map1, map1, "map_fragment").commit();
+        manager.beginTransaction().add(R.id.map2, map2, "map_fragment").commit();
+
+//        final BaseMapFragment map2 = (BaseMapFragment) (getSupportFragmentManager()
+//                .findFragmentById(R.id.map2));
+//        new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                int i=0;
+//                while (i < 37) {
+//                   i += 1;
+//                    if(i==10) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                //此时已在主线程中，可以更新UI了
+////                                map2.start();
+//                            }
+//                        });
+//                    }
+//                    try {
+//                        Thread.sleep(500);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//            }
+//        }).start();
 
 
     }
 
     @Override
     public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
-
+        Date d = new Date(millseconds);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月");
+        cbMonth.setText(sdf.format(d));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(d);
+        normalDays.add(1);
+        normalDays.add(2);
+        normalDays.add(4);
+        normalDays.add(9);
+        latearrivalDays.add(3);
+        forgetclockDays.add(7);
+        absenteeismDays.add(8);
+        DayManager.setNormalDays(normalDays);
+        DayManager.setLatearrivalDays(latearrivalDays);
+        DayManager.setForgetclockDays(forgetclockDays);
+        DayManager.setAbsenteeismDays(absenteeismDays);
+        mCalendarView.setCalendar(calendar);
     }
 
     @OnClick({R.id.iv_back, R.id.cb_month})
