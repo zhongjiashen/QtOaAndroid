@@ -4,8 +4,8 @@
 
     <gradient
         android:angle="90"
-        android:endColor="#EBEBEB"
-        android:startColor="#EBEBEB" />
+        android:endColor="@color/pgbg"
+        android:startColor="@color/pgbg" />
     <!--
     <stroke
         android:dashGap="2dp"
@@ -13,7 +13,9 @@
         android:width="2dp"
         android:color="#FF00ff00" >
     </stroke>
-		描边
+		描边
+
+
     -->
 
     <corners

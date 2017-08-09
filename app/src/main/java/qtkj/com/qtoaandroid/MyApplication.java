@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import qtkj.com.qtoaandroid.utils.CommonUtil;
+import qtkj.com.qtoaandroid.utils.MyBDLocation;
 import qtkj.com.qtoaandroid.utils.NetUtil;
 
 /**
@@ -55,6 +56,9 @@ public class MyApplication extends Application {
     public static int screenWidth = 0;
 
     public static int screenHeight = 0;
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.activity.AttendanceManagementActivity;
 import qtkj.com.qtoaandroid.activity.PhotoRecordActivity;
+import qtkj.com.qtoaandroid.activity.SignOutActivity;
 import qtkj.com.qtoaandroid.activity.SignRecordActivity;
 
 /**
@@ -99,6 +100,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
                 takePhoto.onPickFromCaptureWithCrop(imageUri,getCropOptions());
                 break;
             case R.id.iv_sign_in:
+                startActivity(new Intent(getActivity(), SignOutActivity.class));
                 break;
         }
     }

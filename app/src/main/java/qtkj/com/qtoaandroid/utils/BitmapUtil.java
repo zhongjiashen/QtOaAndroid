@@ -29,9 +29,9 @@ public class BitmapUtil {
      * 创建bitmap，在MainActivity onCreate()中调用
      */
     public static void init() {
-        bmArrowPoint = BitmapDescriptorFactory.fromResource(R.mipmap.icon_point);
-        bmStart = BitmapDescriptorFactory.fromResource(R.mipmap.icon_start);
-        bmEnd = BitmapDescriptorFactory.fromResource(R.mipmap.icon_end);
+        bmArrowPoint = BitmapDescriptorFactory.fromResource(R.mipmap.ic_point);
+        bmStart = BitmapDescriptorFactory.fromResource(R.mipmap.ic_start);
+        bmEnd = BitmapDescriptorFactory.fromResource(R.mipmap.ic_end);
         bmGeo = BitmapDescriptorFactory.fromResource(R.mipmap.icon_geo);
         bmGcoding = BitmapDescriptorFactory.fromResource(R.mipmap.icon_gcoding);
     }

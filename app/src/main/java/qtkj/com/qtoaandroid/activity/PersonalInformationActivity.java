@@ -2,7 +2,9 @@ package qtkj.com.qtoaandroid.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -14,12 +16,16 @@ import android.widget.TextView;
 
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.InvokeParam;
 import com.jph.takephoto.model.TContextWrap;
 import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.permission.InvokeListener;
 import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -135,6 +141,16 @@ public class PersonalInformationActivity extends BaseActivity implements TakePho
     }
 
     private void showDialog() {
+        File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+        final Uri imageUri = Uri.fromFile(file);
+        CompressConfig config = new CompressConfig.Builder()
+                .setMaxSize(51200)
+                .setMaxPixel(800)
+                .enableReserveRaw(true)
+                .create();
+        takePhoto.onEnableCompress(config, true);
+
         View view = getLayoutInflater().inflate(R.layout.photo_choose_dialog, null);
         ViewHolder viewHolder = new ViewHolder(view);
 
@@ -142,6 +158,20 @@ public class PersonalInformationActivity extends BaseActivity implements TakePho
         viewHolder.btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        viewHolder.btTakingPictures.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                takePhoto.onPickFromCaptureWithCrop(imageUri,getCropOptions());
+                dialog.dismiss();
+            }
+        });
+        viewHolder.btGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                takePhoto.onPickFromDocumentsWithCrop(imageUri,getCropOptions());
                 dialog.dismiss();
             }
         });
@@ -175,5 +205,20 @@ public class PersonalInformationActivity extends BaseActivity implements TakePho
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+    }
+    private CropOptions getCropOptions(){
+        int height= Integer.parseInt("50");
+        int width= Integer.parseInt("50");
+        boolean withWonCrop=true;
+
+        CropOptions.Builder builder=new CropOptions.Builder();
+
+
+//            builder.setAspectX(width).setAspectY(height);//宽/高
+
+        builder.setOutputX(width).setOutputY(height);//宽*高
+
+        builder.setWithOwnCrop(withWonCrop);
+        return builder.create();
     }
 }

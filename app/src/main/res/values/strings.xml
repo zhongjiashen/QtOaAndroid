@@ -45,4 +45,6 @@
     <string name="uptade_name">更改名字</string>
     <string name="save">保存</string>
     <string name="update_name_prompt">好名字可以让你的朋友更容易记住你</string>
+    <string name="sign_out">签退</string>
+    <string name="confirm_to_submit">确认提交</string>
 </resources>

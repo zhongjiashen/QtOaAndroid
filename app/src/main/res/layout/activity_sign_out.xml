@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:padding="10dp"
+            android:src="@mipmap/ic_arrow_left"/>
+
+        <TextView
+            android:id="@+id/cb_month"
+            style="@style/text_18_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/sign_out"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="312dp"
+        android:orientation="vertical"
+        android:elevation="4dp">
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="188dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:clickable="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="16dp"
+                android:background="@mipmap/ic_clocks"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/text_14_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="1dp"
+                android:text="2017-07-28 18:30"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="16dp"
+                android:background="@mipmap/ic_address"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                style="@style/text_14_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="1dp"
+                android:text="北三环与中州大道交叉口龙湖中心办事处龙湖中心办事处"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/hit"
+        android:elevation="4dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="37dp"
+        android:layout_marginLeft="37dp"
+        android:background="@drawable/shape_button_bg"
+        style="@style/text_16_white"
+        android:text="@string/confirm_to_submit"/>
+</LinearLayout>

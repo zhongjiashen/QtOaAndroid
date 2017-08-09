@@ -64,7 +64,6 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
         viewUtil = new ViewUtil();
         trackApp = (MyApplication) getApplicationContext();
         mapUtil = MapUtil.getInstance();
-        mapUtil = MapUtil.getInstance();
         mapUtil.init((MapView) findViewById(R.id.mapView));
         mapUtil.baiduMap.setOnMarkerClickListener(this);
         mapUtil.setCenter(trackApp);
@@ -120,7 +119,7 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
                     mEntityListRequest.setPageIndex(++pageIndex);
                     queryEntityList();
                 } else {
-                    mapUtil.updateStatus(entityPoints.get(0), true);
+//                    mapUtil.updateStatus(entityPoints.get(0), true);
 //                    mapUtil.drawHistoryTrack(entityPoints, SortType.asc);
                 }
                 Log.e("实时位置",response.toString());
@@ -139,7 +138,7 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
     protected void onDestroy() {
         super.onDestroy();
         mapUtil.clear();
-
+        BitmapUtil.clear();
     }
 
     @Override
