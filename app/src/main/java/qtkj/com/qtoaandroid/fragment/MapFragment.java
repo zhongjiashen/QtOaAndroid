@@ -34,7 +34,6 @@ import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.Constants;
 import qtkj.com.qtoaandroid.utils.MapUtil;
-import qtkj.com.qtoaandroid.utils.TMapUtil;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 
 /**
@@ -52,7 +51,7 @@ public class MapFragment extends Fragment {
     /**
      * 地图工具
      */
-    private TMapUtil mapUtil = null;
+    private MapUtil mapUtil = null;
 
     /**
      * 历史轨迹请求
@@ -118,7 +117,7 @@ public class MapFragment extends Fragment {
         super.onCreate(var1);
         trackApp = (MyApplication) getActivity().getApplicationContext();
         viewUtil = new ViewUtil();
-        mapUtil = TMapUtil.getInstance();
+        mapUtil = MapUtil.getNewInstance();
         BitmapUtil.init();
     }
 

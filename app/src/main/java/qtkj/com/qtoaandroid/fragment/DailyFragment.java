@@ -21,7 +21,7 @@ public class DailyFragment extends BaseFragmengt {
     DailyExpandableListViewAdapter adapte;
 
     private int progress = 0;
-
+    private boolean thread=true;
     @Override
     protected int Rlayout() {
         return R.layout.fragment_daily;
@@ -37,7 +37,7 @@ public class DailyFragment extends BaseFragmengt {
 
             @Override
             public void run() {
-                while (progress < 37) {
+                while (progress < 37&&thread) {
                     progress += 1;
                     viewHolder.rpb.setProgress(progress);
                     getActivity().runOnUiThread(new Runnable() {
@@ -71,5 +71,11 @@ public class DailyFragment extends BaseFragmengt {
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        thread=false;
+
     }
 }

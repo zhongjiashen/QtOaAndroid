@@ -55,6 +55,7 @@ public class SignOutActivity extends BaseActivity {
 
     @OnClick(R.id.iv_back)
     public void onClick() {
+        super.onBackPressed();
     }
 
     private class MyBroadcastReciver extends BroadcastReceiver {

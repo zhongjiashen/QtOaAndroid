@@ -226,6 +226,7 @@
                     android:layout_marginTop="14dp"
                     android:layout_marginLeft="41dp"
                     android:layout_marginRight="20dp"
+                    android:clickable="true"
                    />
                 <TextView
                     android:layout_width="wrap_content"
@@ -243,6 +244,7 @@
                     android:layout_marginTop="14dp"
                     android:layout_marginLeft="41dp"
                     android:layout_marginRight="20dp"
+                    android:clickable="true"
                     />
             </LinearLayout>
         </LinearLayout>

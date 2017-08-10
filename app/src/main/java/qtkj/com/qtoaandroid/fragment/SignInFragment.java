@@ -26,6 +26,7 @@ import qtkj.com.qtoaandroid.activity.AttendanceManagementActivity;
 import qtkj.com.qtoaandroid.activity.PhotoRecordActivity;
 import qtkj.com.qtoaandroid.activity.SignOutActivity;
 import qtkj.com.qtoaandroid.activity.SignRecordActivity;
+import qtkj.com.qtoaandroid.utils.ViewUtil;
 
 /**
  * Created by Administrator on 2017/8/3 0003.
@@ -100,7 +101,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
                 takePhoto.onPickFromCaptureWithCrop(imageUri,getCropOptions());
                 break;
             case R.id.iv_sign_in:
-                startActivity(new Intent(getActivity(), SignOutActivity.class));
+                ViewUtil.startActivity(getActivity(), SignOutActivity.class);
                 break;
         }
     }

@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.fragment.BaseMapFragment;
 import qtkj.com.qtoaandroid.fragment.MapFragment;
+import qtkj.com.qtoaandroid.utils.ViewUtil;
 import qtkj.com.qtoaandroid.viewbar.calenderview.CalendarView;
 import qtkj.com.qtoaandroid.viewbar.calenderview.DayManager;
 
@@ -72,38 +73,11 @@ public class SignRecordActivity extends BaseActivity implements OnDateSetListene
             }
         });
         BaseMapFragment map1 = BaseMapFragment.newInstance();
+       map1.setStype(1);
         MapFragment map2 = MapFragment.newInstance();
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().add(R.id.map1, map1, "map_fragment").commit();
-        manager.beginTransaction().add(R.id.map2, map2, "map_fragment").commit();
-
-//        final BaseMapFragment map2 = (BaseMapFragment) (getSupportFragmentManager()
-//                .findFragmentById(R.id.map2));
-//        new Thread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                int i=0;
-//                while (i < 37) {
-//                   i += 1;
-//                    if(i==10) {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                //此时已在主线程中，可以更新UI了
-////                                map2.start();
-//                            }
-//                        });
-//                    }
-//                    try {
-//                        Thread.sleep(500);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//            }
-//        }).start();
+        manager.beginTransaction().replace(R.id.map1, map1, "map_fragment").commit();
+        manager.beginTransaction().replace(R.id.map2, map2, "map_fragment").commit();
 
 
     }
@@ -129,13 +103,19 @@ public class SignRecordActivity extends BaseActivity implements OnDateSetListene
         mCalendarView.setCalendar(calendar);
     }
 
-    @OnClick({R.id.iv_back, R.id.cb_month})
+    @OnClick({R.id.iv_back, R.id.cb_month, R.id.map1, R.id.map2})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 break;
             case R.id.cb_month:
                 mDialogYearMonth.show(getSupportFragmentManager(), "year_month");
+                break;
+            case R.id.map1:
+                ViewUtil.startActivity(this,MovementActivity.class);
+                break;
+            case R.id.map2:
+                ViewUtil.startActivity(this,MovementActivity.class);
                 break;
         }
     }

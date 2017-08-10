@@ -60,8 +60,11 @@ public class MapUtil {
     private MapUtil() {
     }
 
-    public static MapUtil getInstance() {
+    public static  MapUtil getInstance() {
         return INSTANCE;
+    }
+    public static  MapUtil getNewInstance() {
+        return new MapUtil();
     }
 
     public void init(MapView view) {

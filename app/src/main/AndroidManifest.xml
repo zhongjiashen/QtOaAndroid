@@ -64,6 +64,7 @@
         <activity android:name=".activity.UpdateNameActivity"/>
         <activity android:name=".activity.DragImageActivity"/>
         <activity android:name=".activity.SignOutActivity"/>
+        <activity android:name=".activity.MovementActivity"/>
         <!--百度地图key配置-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

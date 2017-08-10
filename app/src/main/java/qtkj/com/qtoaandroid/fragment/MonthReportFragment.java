@@ -21,6 +21,8 @@ public class MonthReportFragment extends BaseFragmengt {
     ListView lv;
     BaseAdapter adapter;
     private int progress = 0;
+    private boolean thread=true;
+
     @Override
     protected int Rlayout() {
         return R.layout.fragment_month_report;
@@ -36,7 +38,7 @@ public class MonthReportFragment extends BaseFragmengt {
 
             @Override
             public void run() {
-                while (progress < 37) {
+                while (progress < 37&&thread) {
                     progress += 1;
                     headViewHolder.rpb.setProgress(progress);
                     getActivity().runOnUiThread(new Runnable() {
@@ -112,5 +114,12 @@ public class MonthReportFragment extends BaseFragmengt {
         HeadViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        thread=false;
+
     }
 }

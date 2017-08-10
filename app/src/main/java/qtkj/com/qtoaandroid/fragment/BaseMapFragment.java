@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BaiduMapOptions;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
@@ -32,6 +33,8 @@ import java.util.List;
 
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.activity.MovementActivity;
+import qtkj.com.qtoaandroid.activity.SignRecordActivity;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.Constants;
@@ -42,7 +45,7 @@ import qtkj.com.qtoaandroid.utils.ViewUtil;
  * Created by Administrator on 2017/8/9 0009.
  */
 
-public class BaseMapFragment extends Fragment {
+public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickListener{
     private static final String a = SupportMapFragment.class.getSimpleName();
     private MapView b;
     private BaiduMapOptions c;
@@ -89,6 +92,12 @@ public class BaseMapFragment extends Fragment {
      */
     private long lastQueryTime = 0;
     private int pageIndex = 1;
+    private  int stype=0;
+
+    public void setStype(int stype) {
+        this.stype = stype;
+    }
+
     public BaseMapFragment() {
     }
 
@@ -97,7 +106,7 @@ public class BaseMapFragment extends Fragment {
         this.c = var1;
     }
 
-    public static BaseMapFragment newInstance() {
+    public static   BaseMapFragment newInstance() {
         return new BaseMapFragment();
     }
 
@@ -125,6 +134,8 @@ public class BaseMapFragment extends Fragment {
 
     public View onCreateView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
         this.b = new MapView(this.getActivity(), this.c);
+        this.b.getMap().setOnMapClickListener(this);
+
         mapUtil.init(b);
         mapUtil.setCenter(trackApp);
         initListener();
@@ -290,5 +301,23 @@ public void start(){
         historyTrackRequest.setPageIndex(pageIndex);
         historyTrackRequest.setPageSize(Constants.PAGE_SIZE);
         trackApp.mClient.queryHistoryTrack(historyTrackRequest, mTrackListener);
+    }
+
+    @Override
+    public void onMapClick(LatLng lng) {
+        switch (stype){
+            case 0:
+                break;
+            case 1:
+                ViewUtil.startActivity(getActivity(),MovementActivity.class);
+                break;
+        }
+
+
+    }
+
+    @Override
+    public boolean onMapPoiClick(MapPoi poi) {
+        return false;
     }
 }
