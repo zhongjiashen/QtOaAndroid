@@ -301,11 +301,11 @@ public class MapUtil {
         baiduMap.addOverlay(endOptions);
         polylineOverlay = baiduMap.addOverlay(polylineOptions);
 
-        OverlayOptions markerOptions =
-                new MarkerOptions().flat(true).anchor(0.5f, 0.5f).icon(bmArrowPoint)
-                        .position(points.get(points.size() - 1))
-                        .rotate((float) CommonUtil.getAngle(points.get(0), points.get(1)));
-        mMoveMarker = (Marker) baiduMap.addOverlay(markerOptions);
+//        OverlayOptions markerOptions =
+//                new MarkerOptions().flat(true).anchor(0.5f, 0.5f).icon(bmArrowPoint)
+//                        .position(points.get(points.size() - 1))
+//                        .rotate((float) CommonUtil.getAngle(points.get(0), points.get(1)));
+//        mMoveMarker = (Marker) baiduMap.addOverlay(markerOptions);
 
         animateMapStatus(points);
     }
