@@ -64,7 +64,6 @@ public class RxRetrofitCache {
         fromNetwork = fromNetwork.map(new Func1<T, T>() {
             @Override
             public T call(T result) {
-                Log.e("ASDF",result.toString());
                 return result;
             }
         });

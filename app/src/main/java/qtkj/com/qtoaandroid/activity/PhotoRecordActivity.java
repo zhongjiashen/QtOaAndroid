@@ -10,13 +10,14 @@ import butterknife.OnClick;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.adapter.recycleview.BaseRecycleViewAdapter;
 import qtkj.com.qtoaandroid.adapter.recycleview.PhotoRecordAdapter;
+import qtkj.com.qtoaandroid.view.PhotoRecordP;
 
 /**
  * Created by Administrator on 2017/8/4 0004.
  * 照片记录
  */
 
-public class PhotoRecordActivity extends BaseActivity {
+public class PhotoRecordActivity extends BaseActivity <PhotoRecordP>{
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.SwipeRefreshLayout)
@@ -31,6 +32,7 @@ public class PhotoRecordActivity extends BaseActivity {
 
     @Override
     protected void Initialize() {
+        presenter=new PhotoRecordP(this,this);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

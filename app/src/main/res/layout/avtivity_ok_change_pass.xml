@@ -19,61 +19,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/text_18_white"
-            android:text="@string/forget_pass_t"
+            android:text="@string/change_pass"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
     <EditText
-        android:id="@+id/et_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:hint="@string/account_hit"
+        android:id="@+id/et_old_pass"
         style="@style/ettext_14_gray_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginRight="40dp"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line"
-        android:layout_marginTop="14dp"
-        android:layout_marginLeft="@dimen/margin_38"
-        android:layout_marginRight="@dimen/margin_38"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/et_code"
-            style="@style/ettext_14_gray_gray"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="17dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="@string/code_hit"/>
-        <TextView
-            android:id="@+id/tv_send_code"
-            style="@style/text_14_blue"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="52dp"
-            android:layout_alignParentRight="true"
-            android:text="@string/sen_code"
-            android:layout_marginTop="17dp"
-            android:gravity="center_vertical"/>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="17dp"
-            android:background="@color/line"
-            android:layout_toLeftOf="@id/tv_send_code"/>
-    </RelativeLayout>
+        android:layout_marginTop="17dp"
+        android:background="@null"
+        android:hint="@string/new_pass_hit"
+        android:inputType="textPassword"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -125,5 +83,5 @@
         android:text="@string/ok_update"
         android:textColor="@color/white"
         android:textSize="16sp"
-       />
+        />
 </LinearLayout>

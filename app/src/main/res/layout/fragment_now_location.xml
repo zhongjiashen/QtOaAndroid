@@ -18,7 +18,7 @@
             android:layout_centerInParent="true"
             android:text="@string/now_location"/>
     </RelativeLayout>
-
+<include layout="@layout/view_null_data"/>
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/SwipeRefreshLayout"
         android:layout_width="match_parent"

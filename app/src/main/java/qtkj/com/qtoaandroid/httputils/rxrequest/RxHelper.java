@@ -1,9 +1,14 @@
 package qtkj.com.qtoaandroid.httputils.rxrequest;
 
 
+import android.renderscript.Type;
 import android.util.Log;
 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import qtkj.com.qtoaandroid.model.BaseModel;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -26,26 +31,28 @@ public class RxHelper {
      * @param <T>
      * @return
      */
-//    public static <T> Observable.Transformer<BaseModel<T>, T> handleResult() {
-//        Log.e("RxHelper","1=============");
-//        return new Observable.Transformer<BaseModel<T>, T>() {
-//            @Override
-//            public Observable<T> call(Observable<BaseModel<T>> tObservable) {
-//                return tObservable.flatMap(new Func1<BaseModel<T>, Observable<T>>() {
-//                    @Override
-//                    public Observable<T> call(BaseModel<T> result) {
-//                        Log.e("RxHelper","=============");
-//                        if (result.success()) {
-//                            return createData(result.spread);
-//                        } else {
-//                            return Observable.error(new ServerException(result.resultdesc));
-//                        }
-//
-//                    }
-//                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-//            }
-//        };
-//    }
+    public static <T> Observable.Transformer<BaseModel<T>, T> handleResult() {
+        Log.e("RxHelper","1=============");
+        return new Observable.Transformer<BaseModel<T>, T>() {
+            @Override
+            public Observable<T> call(Observable<BaseModel<T>> tObservable) {
+                return tObservable.flatMap(new Func1<BaseModel<T>, Observable<T>>() {
+                    @Override
+                    public Observable<T> call(BaseModel<T> result) {
+                        Log.e("RxHelper","=============");
+                        if (result.success()) {
+
+                            Log.e("RxHelper",result.getMsg()+"============="+result.getData());
+                            return createData(result.getData());
+                        } else {
+                            return Observable.error(new ServerException(result.getMsg()));
+                        }
+
+                    }
+                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
 
     /**
      * 创建成功的数据
@@ -69,4 +76,5 @@ public class RxHelper {
             }
         });
     }
+
 }

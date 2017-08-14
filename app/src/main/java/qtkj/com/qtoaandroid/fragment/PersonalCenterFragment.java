@@ -5,12 +5,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import qtkj.com.qtoaandroid.Contest;
+import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.activity.ChangePassActivity;
 import qtkj.com.qtoaandroid.activity.ChangePhoneActivity;
 import qtkj.com.qtoaandroid.activity.PersonalInformationActivity;
+import qtkj.com.qtoaandroid.model.Login;
 
 /**
  * Created by Administrator on 2017/8/3 0003.
@@ -34,7 +39,13 @@ public class PersonalCenterFragment extends BaseFragmengt {
 
     @Override
     protected void init() {
-
+        Login login= MyApplication.login;
+        if(login!=null){
+            tvNick.setText(login.getUser_name());
+            tvKind.setText(login.getPost_name());
+            tvKindNumber.setText(login.getPost_name()+login.getPost_id());
+            Glide.with(this).load(Contest.baseurl+login.getImg()).into(ivPhoto);
+        }
     }
 
     @OnClick({R.id.iv_back, R.id.tv_personal_information, R.id.tv_change_phone, R.id.tv_change_pass, R.id.tv_longzihu_office, R.id.tv_contact_us, R.id.tv_log_out})

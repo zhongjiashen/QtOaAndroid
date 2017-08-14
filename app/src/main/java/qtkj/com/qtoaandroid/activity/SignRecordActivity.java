@@ -25,6 +25,7 @@ import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.fragment.BaseMapFragment;
 import qtkj.com.qtoaandroid.fragment.MapFragment;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
+import qtkj.com.qtoaandroid.view.SignRecordP;
 import qtkj.com.qtoaandroid.viewbar.calenderview.CalendarView;
 import qtkj.com.qtoaandroid.viewbar.calenderview.DayManager;
 
@@ -33,7 +34,7 @@ import qtkj.com.qtoaandroid.viewbar.calenderview.DayManager;
  * 签到记录
  */
 
-public class SignRecordActivity extends BaseActivity implements OnDateSetListener {
+public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnDateSetListener {
 
     TimePickerDialog mDialogYearMonth;
     @BindView(R.id.cb_month)
@@ -78,7 +79,8 @@ public class SignRecordActivity extends BaseActivity implements OnDateSetListene
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.map1, map1, "map_fragment").commit();
         manager.beginTransaction().replace(R.id.map2, map2, "map_fragment").commit();
-
+        presenter=new SignRecordP(this,this);
+        presenter.getDate(0,null);
 
     }
 

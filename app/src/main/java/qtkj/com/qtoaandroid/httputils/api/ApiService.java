@@ -6,6 +6,8 @@ package qtkj.com.qtoaandroid.httputils.api;
 import java.util.Map;
 
 import okhttp3.RequestBody;
+import qtkj.com.qtoaandroid.model.BaseModel;
+import qtkj.com.qtoaandroid.model.Login;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -20,7 +22,7 @@ import rx.Observable;
  * Created by 1363655717 on 2017/3/21.
  */
 
-public interface ApiService <T >{
+public interface ApiService{
 
     /*登录*/
 //    @POST("applogin.do")
@@ -32,11 +34,11 @@ public interface ApiService <T >{
 //        params.addBodyParameter("psw", MD5Encrypt.md5(pass));
 
 
-//    @FormUrlEncoded
-//    @POST("{url}")
-//    Observable<BaseModel<String>> executePost(
-//            @Path("url") String url,
-//            @FieldMap Map<String, String> maps);
+    @FormUrlEncoded
+    @POST("{url}")
+    Observable<BaseModel<Object>> executePost(
+            @Path("url") String url,
+            @FieldMap Map<String, String> maps);
     /**
      * 登录
      *

@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        qtoaandroid {
+            keyPassword 'QTKJOA'
+            storeFile file('D:/work/QtOaAndroid/app/qtoaandroid.jks')
+            storePassword 'QTKJOA'
+            keyAlias '乾唐科技OA'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
@@ -16,11 +24,13 @@ android {
             jniLibs.srcDir 'libs'
         }
     }
-
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.qtoaandroid
         }
     }
 }
@@ -49,4 +59,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-scalars:2.0.2'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.3'
+    compile files('libs/sun.misc.BASE64Decoder.jar')
 }

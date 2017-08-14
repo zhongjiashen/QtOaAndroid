@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jph.takephoto.app.TakePhoto;
@@ -19,10 +20,15 @@ import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import butterknife.BindView;
 import butterknife.OnClick;
+import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.activity.AttendanceManagementActivity;
+import qtkj.com.qtoaandroid.activity.MainActivity;
 import qtkj.com.qtoaandroid.activity.PhotoRecordActivity;
 import qtkj.com.qtoaandroid.activity.SignOutActivity;
 import qtkj.com.qtoaandroid.activity.SignRecordActivity;
@@ -33,9 +39,16 @@ import qtkj.com.qtoaandroid.utils.ViewUtil;
  * 签到
  */
 
-public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResultListener,InvokeListener {
+public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResultListener, InvokeListener {
+    @BindView(R.id.tv_date)
+    TextView tvDate;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_woke_time)
+    TextView tvWokeTime;
     private InvokeParam invokeParam;
     private TakePhoto takePhoto;
+
     @Override
     protected int Rlayout() {
         return R.layout.fragment_sign_in;
@@ -43,39 +56,52 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
 
     @Override
     protected void init() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM月dd日 E HH:mm");
+        tvDate.setText(formatter.format(date));
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        tvTime.setText(formater.format(date));
+//        tvWokeTime.setText("工作时间："+ MyApplication.login.getWorkStartTime()+" — "+MyApplication.login.getWorkEndTime());
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         getTakePhoto().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         getTakePhoto().onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         getTakePhoto().onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionManager.TPermissionType type=PermissionManager.onRequestPermissionsResult(requestCode,permissions,grantResults);
-        PermissionManager.handlePermissionsResult(getActivity(),type,invokeParam,this);
+        PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.handlePermissionsResult(getActivity(), type, invokeParam, this);
     }
+
     /**
-     *  获取TakePhoto实例
+     * 获取TakePhoto实例
+     *
      * @return
      */
-    public TakePhoto getTakePhoto(){
-        if (takePhoto==null){
-            takePhoto= (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this,this));
+    public TakePhoto getTakePhoto() {
+        if (takePhoto == null) {
+            takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
         }
         return takePhoto;
     }
+
     @OnClick({R.id.tv_sign_in_record, R.id.tv_photo_record, R.id.tv_attendance_management, R.id.iv_take_photto, R.id.iv_sign_in})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -91,16 +117,18 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
             case R.id.iv_take_photto:
                 File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
                 if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
-                Uri  imageUri = Uri.fromFile(file);
+                Uri imageUri = Uri.fromFile(file);
                 CompressConfig config = new CompressConfig.Builder()
                         .setMaxSize(51200)
                         .setMaxPixel(800)
                         .enableReserveRaw(true)
                         .create();
                 takePhoto.onEnableCompress(config, true);
-                takePhoto.onPickFromCaptureWithCrop(imageUri,getCropOptions());
+                takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
                 break;
             case R.id.iv_sign_in:
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.startTrac();
                 ViewUtil.startActivity(getActivity(), SignOutActivity.class);
                 break;
         }
@@ -108,7 +136,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
 
     @Override
     public void takeSuccess(TResult result) {
-        Toast.makeText(getActivity(),"成功",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "成功", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -124,23 +152,24 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
 
     @Override
     public PermissionManager.TPermissionType invoke(InvokeParam invokeParam) {
-        PermissionManager.TPermissionType type=PermissionManager.checkPermission(TContextWrap.of(this),invokeParam.getMethod());
-        if(PermissionManager.TPermissionType.WAIT.equals(type)){
-            this.invokeParam=invokeParam;
+        PermissionManager.TPermissionType type = PermissionManager.checkPermission(TContextWrap.of(this), invokeParam.getMethod());
+        if (PermissionManager.TPermissionType.WAIT.equals(type)) {
+            this.invokeParam = invokeParam;
         }
         return type;
     }
-    private CropOptions getCropOptions(){
-        int height= Integer.parseInt("50");
-        int width= Integer.parseInt("50");
-        boolean withWonCrop=true;
 
-        CropOptions.Builder builder=new CropOptions.Builder();
+    private CropOptions getCropOptions() {
+        int height = Integer.parseInt("50");
+        int width = Integer.parseInt("50");
+        boolean withWonCrop = true;
+
+        CropOptions.Builder builder = new CropOptions.Builder();
 
 
 //            builder.setAspectX(width).setAspectY(height);//宽/高
 
-            builder.setOutputX(width).setOutputY(height);//宽*高
+        builder.setOutputX(width).setOutputY(height);//宽*高
 
         builder.setWithOwnCrop(withWonCrop);
         return builder.create();

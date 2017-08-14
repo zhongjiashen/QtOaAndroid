@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.MyBDLocation;
 import qtkj.com.qtoaandroid.utils.NetUtil;
@@ -38,6 +39,16 @@ public class MyApplication extends Application {
      * 轨迹客户端
      */
     public LBSTraceClient mClient = null;
+    public boolean isRegisterReceiver = false;
+    /**
+     * 服务是否开启标识
+     */
+    public boolean isTraceStarted = false;
+
+    /**
+     * 采集是否开启标识
+     */
+    public boolean isGatherStarted = false;
 
     /**
      * 轨迹服务
@@ -46,6 +57,7 @@ public class MyApplication extends Application {
     /**
      * 轨迹服务ID
      */
+//    public long serviceId = 148016;
     public long serviceId = 147652;
 
     /**
@@ -57,7 +69,7 @@ public class MyApplication extends Application {
 
     public static int screenHeight = 0;
 
-
+    public static Login login;
 
     @Override
     public void onCreate() {

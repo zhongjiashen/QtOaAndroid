@@ -18,6 +18,8 @@ public abstract class RxSubscribe<T> extends Subscriber<T> {
     private String msg;
     private boolean showDialog=true;
 
+    public RxSubscribe() {
+    }
 
     /**
      *
@@ -52,10 +54,14 @@ public abstract class RxSubscribe<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
-//        if (showDialog)
-//            dialog.dismiss();
+        mUnsubscribe();
     }
-
+public void mUnsubscribe(){
+    if(!isUnsubscribed()){
+        unsubscribe();
+        Log.e("RxSubscribe", "取消订阅");
+    }
+}
     @Override
     public void onStart() {
         super.onStart();
@@ -91,7 +97,7 @@ public abstract class RxSubscribe<T> extends Subscriber<T> {
         } else if (e instanceof ServerException) {
             _onError(e.getMessage());
         } else {
-            _onError("请求失败，请稍后再试...");
+            _onError("服务器异常，请求失败，请稍后再试...");
         }
 //        if (showDialog)
 //            dialog.dismiss();
