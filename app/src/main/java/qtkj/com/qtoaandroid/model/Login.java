@@ -27,7 +27,7 @@ public class Login {
      */
 
     private String pm_start_time;
-    private int is_sign;
+    private int is_sign;//签到状态，0签到，1签退
     private String am_start_time;
     private String am_end_time;
     private int type;//权限字段1管理员0普通员工

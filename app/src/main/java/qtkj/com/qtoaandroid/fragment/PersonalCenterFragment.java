@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
@@ -39,20 +40,29 @@ public class PersonalCenterFragment extends BaseFragmengt {
 
     @Override
     protected void init() {
+
+    }
+
+    /**
+     * Called when the fragment is visible to the user and actively running.
+     * This is generally
+     * Activity's lifecycle.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
         Login login= MyApplication.login;
         if(login!=null){
             tvNick.setText(login.getUser_name());
             tvKind.setText(login.getPost_name());
-            tvKindNumber.setText(login.getPost_name()+login.getPost_id());
-            Glide.with(this).load(Contest.baseurl+login.getImg()).into(ivPhoto);
+            tvKindNumber.setText(login.getPost_name()+login.getUser_id());
+            Glide.with(this).load(Contest.baseurl+login.getImg()).error(R.mipmap.ic_launcher_round).bitmapTransform(new CropCircleTransformation(getActivity())).into(ivPhoto);
         }
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_personal_information, R.id.tv_change_phone, R.id.tv_change_pass, R.id.tv_longzihu_office, R.id.tv_contact_us, R.id.tv_log_out})
+    @OnClick({ R.id.tv_personal_information, R.id.tv_change_phone, R.id.tv_change_pass, R.id.tv_longzihu_office, R.id.tv_contact_us, R.id.tv_log_out})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_back:
-                break;
             case R.id.tv_personal_information:
                 startActivity(new Intent(getActivity(), PersonalInformationActivity.class));
                 break;

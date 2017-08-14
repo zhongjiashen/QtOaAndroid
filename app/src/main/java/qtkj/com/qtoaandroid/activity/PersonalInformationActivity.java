@@ -35,6 +35,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
@@ -71,7 +72,7 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
         Log.e("Personal",Contest.baseurl+data.toString());
         switch (requestCode){
             case 0:
-                Glide.with(this).load(Contest.baseurl+data.toString()).into(ivHeadPortrait);
+                Glide.with(this).load(Contest.baseurl+data.toString()).bitmapTransform(new CropCircleTransformation(this)).into(ivHeadPortrait);
                 login.setImg(data.toString());
                 MyApplication.login=login;
                 break;
@@ -84,14 +85,20 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
     @Override
     protected void Initialize() {
         login= MyApplication.login;
+
+        presenter=new PersonalInformationP(this,this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         if(login!=null){
             tvName.setText(login.getUser_name());
             tvJobs.setText(login.getPost_name());
             tvJobsNumbers.setText(login.getPost_name()+login.getPost_id());
             tvWorkingTime.setText(login.getWorkStartTime()+" — "+login.getWorkEndTime());
-            Glide.with(this).load(Contest.baseurl+login.getImg()).into(ivHeadPortrait);
+            Glide.with(this).load(Contest.baseurl+login.getImg()).bitmapTransform(new CropCircleTransformation(this)).into(ivHeadPortrait);
         }
-        presenter=new PersonalInformationP(this,this);
     }
 
     @Override

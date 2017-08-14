@@ -1,6 +1,7 @@
 package qtkj.com.qtoaandroid.activity;
 
 import android.app.Notification;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,6 +12,8 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.widget.RadioGroup;
 
+import com.baidu.location.BDLocation;
+import com.baidu.mapapi.model.LatLng;
 import com.baidu.trace.api.fence.FenceAlarmPushInfo;
 import com.baidu.trace.api.fence.MonitoredAction;
 import com.baidu.trace.model.OnTraceListener;
@@ -30,7 +33,9 @@ import qtkj.com.qtoaandroid.fragment.NowLocationFragment;
 import qtkj.com.qtoaandroid.fragment.PersonalCenterFragment;
 import qtkj.com.qtoaandroid.fragment.SignInFragment;
 import qtkj.com.qtoaandroid.receiver.TrackReceiver;
+import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
+import qtkj.com.qtoaandroid.utils.MyBDLocation;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 
 /**
@@ -43,6 +48,9 @@ public class MainActivity extends BaseActivity{
     private PowerManager.WakeLock wakeLock = null;
     private TrackReceiver trackReceiver = null;
     private ViewUtil viewUtil = null;
+    private MyBDLocation myBDLocation;
+    private MyBroadcastReciver myBroadcastReciver;
+    private int type;
     /**
      * 轨迹服务监听器
      */
@@ -65,14 +73,24 @@ public class MainActivity extends BaseActivity{
         fragments.add(new AddressBookFragment());
         fragments.add(new PersonalCenterFragment());
         FragmentTabAdapter tabAdapter = new FragmentTabAdapter(this, fragments, R.id.fl_main, rgBottom);
-    }
+        myBDLocation = new MyBDLocation(getApplicationContext());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.qtoaandroid.myLocation");
+        this.registerReceiver(myBroadcastReciver = new MyBroadcastReciver(), intentFilter);
 
+    }
+    public void startBDLocation(int type){
+        this.type=type;
+        myBDLocation.start();
+    }
     /**
      * 开启鹰眼轨迹服务和采集
      */
     public void startTrac(){
+        trackApp.initTrace();
         initListener();
         if (!trackApp.isTraceStarted) {
+
             trackApp.mClient.startTrace(trackApp.mTrace, traceListener);
         }
         if (!trackApp.isGatherStarted) {
@@ -280,5 +298,24 @@ public class MainActivity extends BaseActivity{
 
             }
         };
+    }
+    private class MyBroadcastReciver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("com.qtoaandroid.myLocation")) {
+                BDLocation bdLocation = intent.getParcelableExtra("location");
+                LatLng latLng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
+
+
+            }
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myBroadcastReciver);
+
+
     }
 }

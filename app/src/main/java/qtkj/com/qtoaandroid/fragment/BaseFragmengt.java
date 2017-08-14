@@ -6,19 +6,43 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import qtkj.com.qtoaandroid.view.BaseView;
 
 /**
  * Created by 1363655717 on 2017-06-01.
  */
 
-public abstract class BaseFragmengt extends Fragment  {
-
+public abstract class BaseFragmengt<T> extends Fragment implements BaseView {
+    protected T presenter;
     Unbinder unbinder;
+    protected Map<String,String> map;
+    /**
+     * 显示显示吐司
+     *
+     * @param text 吐司显示文本
+     */
+    @Override
+    public void showShortToast(String text) {
+        Toast.makeText(getActivity(),text,Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 网路请求返回数据
+     *
+     * @param requestCode 请求码
+     * @param data        数据
+     */
+    @Override
+    public void returnData(int requestCode, Object data) {
+
+    }
 
     @Nullable
     @Override

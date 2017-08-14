@@ -16,13 +16,13 @@
     <RelativeLayout
         android:id="@+id/rl_view"
         android:layout_width="0dp"
-        android:layout_height="154dp"
+        android:layout_height="218dp"
         android:layout_marginEnd="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="18dp"
-        android:background="@mipmap/ic_personal_bg"
+        android:background="@mipmap/ic_4_3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view">
@@ -76,10 +76,46 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="10dp"
-            android:text="固定岗"
-            />
+            android:text="固定岗"/>
+        <TextView
+            android:id="@+id/tv_worke_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="工作时间：9:00 - 18:00"
+            style="@style/text_14_gray"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_kind_number"
+            android:layout_marginTop="15dp"/>
+        <LinearLayout
+            android:id="@+id/ll_call_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_worke_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_14_gray"
+                android:text="联系方式：18336302752"
+                android:layout_marginTop="5dp"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@mipmap/ic_call_phone"
+                android:layout_marginLeft="16dp"/>
+        </LinearLayout>
     </RelativeLayout>
-
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_arrow_left"
+        android:padding="10dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -94,8 +130,11 @@
             android:layout_height="1dp"
             android:background="@color/grayline"/>
 
+
+
+
         <TextView
-            android:id="@+id/tv_personal_information"
+            android:id="@+id/tv_sign_in_record"
             style="@style/text_16_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -103,7 +142,7 @@
             android:layout_marginRight="29dp"
             android:drawableRight="@mipmap/ic_arrow_gray_right"
             android:gravity="center_vertical"
-            android:text="@string/personal_information"/>
+            android:text="@string/sign_in_record"/>
 
         <View
             android:layout_width="match_parent"
@@ -113,7 +152,7 @@
             android:background="@color/grayline"/>
 
         <TextView
-            android:id="@+id/tv_change_phone"
+            android:id="@+id/tv_photo_record"
             style="@style/text_16_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -121,89 +160,12 @@
             android:layout_marginRight="29dp"
             android:drawableRight="@mipmap/ic_arrow_gray_right"
             android:gravity="center_vertical"
-            android:text="@string/change_phone"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/grayline"/>
-
-        <TextView
-            android:id="@+id/tv_change_pass"
-            style="@style/text_16_black"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="29dp"
-            android:drawableRight="@mipmap/ic_arrow_gray_right"
-            android:gravity="center_vertical"
-            android:text="@string/change_pass"/>
+            android:text="@string/photo_record"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/grayline"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/grayline"/>
-
-        <TextView
-            android:id="@+id/tv_longzihu_office"
-            style="@style/text_16_black"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="29dp"
-            android:drawableRight="@mipmap/ic_arrow_gray_right"
-            android:gravity="center_vertical"
-            android:text="@string/longzihu_office"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/grayline"/>
-
-        <TextView
-            android:id="@+id/tv_contact_us"
-            style="@style/text_16_black"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="29dp"
-            android:drawableRight="@mipmap/ic_arrow_gray_right"
-            android:gravity="center_vertical"
-            android:text="@string/contact_us"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grayline"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/grayline"/>
-
-        <TextView
-            android:id="@+id/tv_log_out"
-            style="@style/text_15_blue"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center"
-            android:text="@string/log_out"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grayline"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

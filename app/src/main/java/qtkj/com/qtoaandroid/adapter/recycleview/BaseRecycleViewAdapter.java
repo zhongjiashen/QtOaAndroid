@@ -11,6 +11,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.model.NowLocationF;
 
 /**
  * Created by Administrator on 2017/8/4 0004.
@@ -71,11 +72,16 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 10;
-//        if (list.size() == 0)
-//            return 1;
-//        else
-//            return list.size();
+
+        if (list.size() == 0)
+            return 1;
+        else
+            return list.size();
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     static class NullDataViewHolder extends RecyclerView.ViewHolder {

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import qtkj.com.qtoaandroid.activity.MainActivity;
 import qtkj.com.qtoaandroid.activity.PhotoRecordActivity;
 import qtkj.com.qtoaandroid.activity.SignOutActivity;
 import qtkj.com.qtoaandroid.activity.SignRecordActivity;
+import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 
 /**
@@ -46,6 +48,10 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     TextView tvTime;
     @BindView(R.id.tv_woke_time)
     TextView tvWokeTime;
+    @BindView(R.id.iv_sign_in)
+    ImageView ivSignIn;
+    Login mLogin;
+
     private InvokeParam invokeParam;
     private TakePhoto takePhoto;
 
@@ -61,7 +67,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
         tvDate.setText(formatter.format(date));
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         tvTime.setText(formater.format(date));
-//        tvWokeTime.setText("工作时间："+ MyApplication.login.getWorkStartTime()+" — "+MyApplication.login.getWorkEndTime());
+        tvWokeTime.setText("工作时间："+ MyApplication.login.getWorkStartTime()+" — "+MyApplication.login.getWorkEndTime());
 
     }
 
@@ -102,6 +108,23 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
         return takePhoto;
     }
 
+    /**
+     * Called when the fragment is visible to the user and actively running.
+     * This is generally
+     * Activity's lifecycle.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+       mLogin=MyApplication.login;
+        if(mLogin.getIs_sign()==1){
+            ivSignIn.setBackgroundResource(R.mipmap.ic_sign_out);
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.startTrac();
+        }
+
+    }
+
     @OnClick({R.id.tv_sign_in_record, R.id.tv_photo_record, R.id.tv_attendance_management, R.id.iv_take_photto, R.id.iv_sign_in})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -127,9 +150,13 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
                 takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
                 break;
             case R.id.iv_sign_in:
-                MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.startTrac();
-                ViewUtil.startActivity(getActivity(), SignOutActivity.class);
+                if(mLogin.getIs_sign()==1) {
+
+                    ViewUtil.startActivity(getActivity(), SignOutActivity.class);
+                }else {
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.startTrac();
+                }
                 break;
         }
     }

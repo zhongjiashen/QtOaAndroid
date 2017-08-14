@@ -1,6 +1,8 @@
 package qtkj.com.qtoaandroid.adapter.expandablelistview;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
@@ -10,11 +12,15 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.activity.AddressBookDetailActivity;
+import qtkj.com.qtoaandroid.model.AddressBook;
 
 /**
  * Created by wt-pc on 2017/6/21.
@@ -22,20 +28,27 @@ import qtkj.com.qtoaandroid.R;
 
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
+
     private Context context;
+    private List<AddressBook> list = new ArrayList<>();
 
     public ExpandableListViewAdapter(Context context) {
         this.context = context;
     }
 
+    public void setList(List<AddressBook> list) {
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getGroupCount() {
-        return 3;
+        return list.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 4;
+        return list.get(groupPosition).getDept().size();
     }
 
     @Override
@@ -71,26 +84,48 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_address_book_group, parent, false);
             groupViewHolder = new GroupViewHolder(convertView);
             convertView.setTag(groupViewHolder);
-        } else {
-            groupViewHolder = (GroupViewHolder) convertView.getTag();
-            if(!isExpanded)
-                groupViewHolder.ivArrow.setBackground(context.getResources().getDrawable(R.mipmap.ic_group_close));
-            else
-                groupViewHolder.ivArrow.setBackground(context.getResources().getDrawable(R.mipmap.ic_group_open));
         }
+        groupViewHolder = (GroupViewHolder) convertView.getTag();
+        if (!isExpanded)
+            groupViewHolder.ivArrow.setBackground(context.getResources().getDrawable(R.mipmap.ic_group_close));
+        else
+            groupViewHolder.ivArrow.setBackground(context.getResources().getDrawable(R.mipmap.ic_group_open));
+        groupViewHolder.tvDepartmentName.setText(list.get(groupPosition).getPostName() + "(" + list.get(groupPosition).getNumber() + ")");
+
         return convertView;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         SubitemViewHolder subitemViewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_address_book_subitem, parent, false);
             subitemViewHolder = new SubitemViewHolder(convertView);
             convertView.setTag(subitemViewHolder);
-        } else {
-            subitemViewHolder = (SubitemViewHolder) convertView.getTag();
         }
+        subitemViewHolder = (SubitemViewHolder) convertView.getTag();
+        if(MyApplication.login.getType()==0)
+            subitemViewHolder.ivArrow.setVisibility(View.GONE);
+        else {
+            subitemViewHolder.ivArrow.setVisibility(View.VISIBLE);
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    context.startActivity(new Intent(context, AddressBookDetailActivity.class).putExtra("userid",list.get(groupPosition).getDept().get(childPosition).getUserId()+""));
+                }
+            });
+        }
+        subitemViewHolder.tvName.setText(list.get(groupPosition).getDept().get(childPosition).getUserName());
+        subitemViewHolder.ivCallPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + list.get(groupPosition).getDept().get(childPosition).getUserPhone());
+                intent.setData(data);
+                context.startActivity(intent);
+            }
+        });
+        subitemViewHolder.tvKind.setText(list.get(groupPosition).getPostName()+list.get(groupPosition).getDept().get(childPosition).getUserId());
         return convertView;
     }
 
@@ -104,6 +139,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         TextView tvDepartmentName;
         @BindView(R.id.iv_arrow)
         ImageView ivArrow;
+
         public GroupViewHolder(View itemView) {
 
             ButterKnife.bind(this, itemView);
@@ -112,7 +148,16 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     }
 
     static class SubitemViewHolder {
-
+        @BindView(R.id.iv_head_portrait)
+        ImageView ivHeadPortrait;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.tv_kind)
+        TextView tvKind;
+        @BindView(R.id.iv_call_phone)
+        ImageView ivCallPhone;
+        @BindView(R.id.iv_arrow)
+        ImageView ivArrow;
         public SubitemViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
         }

@@ -63,7 +63,7 @@ public class MyApplication extends Application {
     /**
      * Entity标识
      */
-    public String entityName = "088274871644946";
+    public static String entityName = "5151515151";
 
     public static int screenWidth = 0;
 
@@ -80,20 +80,28 @@ public class MyApplication extends Application {
             return;
         }
         SDKInitializer.initialize(mContext);
-        mClient = new LBSTraceClient(mContext);
-        mTrace = new Trace(serviceId, entityName);
         trackConf = getSharedPreferences("track_conf", MODE_PRIVATE);
+        getScreenSize();
+        clearTraceStatus();
+    }
+    public  void initTrace(){
+        if(login!=null){
+            trackConf.edit().putString("entityName",login.getUser_id()+"");
+            trackConf.edit().putString("post_id",login.getPost_id()+"");
+        }
+        mClient = new LBSTraceClient(mContext);
+        mTrace = new Trace(serviceId, trackConf.getString("entityName",entityName));
+
         mClient.setOnCustomAttributeListener(new OnCustomAttributeListener() {
             @Override
             public Map<String, String> onTrackAttributeCallback() {
+                //上传自定义参数
                 Map<String, String> map = new HashMap<>();
-                map.put("key1", "value1");
-                map.put("key2", "value2");
+                if(login!=null)
+                    map.put("post_id", trackConf.getString("post_id",login.getPost_id()+""));
                 return map;
             }
         });
-        getScreenSize();
-        clearTraceStatus();
     }
 
     /**

@@ -9,7 +9,8 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
-
+    <!--添加可以向外拨打电话的权限  -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -71,6 +72,7 @@
         <activity android:name=".permission.PermissionsActivity"/>
         <activity android:name=".activity.OkChangePhoneActivity"/>
         <activity android:name=".activity.OkChangePassActivity"/>
+        <activity android:name=".activity.AddressBookDetailActivity"/>
         <!--百度地图key配置正式-->
        <!-- <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
