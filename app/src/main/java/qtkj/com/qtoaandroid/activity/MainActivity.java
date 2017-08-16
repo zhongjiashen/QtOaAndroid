@@ -116,7 +116,7 @@ public class MainActivity extends BaseActivity<MainP> {
      * 开启鹰眼轨迹服务和采集
      */
     public void startTrac() {
-        showShortToast("main+startTrac()");
+
         trackApp.initTrace();
         initListener();
         if (!trackApp.isTraceStarted) {
@@ -341,7 +341,6 @@ public class MainActivity extends BaseActivity<MainP> {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            showShortToast("main定位成功广播");
             if (action.equals("com.qtoaandroid.myLocation")) {
                 BDLocation bdLocation = intent.getParcelableExtra("location");
                 Map<String, String> map = new HashMap<>();

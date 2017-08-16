@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,6 +128,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
 
     public void onCreate(Bundle var1) {
         super.onCreate(var1);
+        Log.e("onCreate","onCreate");
         trackApp = (MyApplication) getActivity().getApplicationContext();
         viewUtil = new ViewUtil();
         mapUtil = MapUtil.getInstance();
@@ -148,6 +150,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
         this.startTime = startTime / 1000;
         this.endTime = endTime / 1000;
         this.entityName = entityName;
+
         queryHistoryTrack();
 
     }
@@ -208,6 +211,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
     }
 
     private void initListener() {
+
         mTrackListener = new OnTrackListener() {
             @Override
             public void onHistoryTrackCallback(HistoryTrackResponse response) {
@@ -298,7 +302,10 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
      * 查询历史轨迹
      */
     private void queryHistoryTrack() {
-
+        if(trackApp==null){
+            Log.e("trackApp","NULL");
+            trackApp = (MyApplication) getActivity().getApplicationContext();
+        }
         trackApp.initRequest(historyTrackRequest);
         historyTrackRequest.setEntityName(entityName);
         historyTrackRequest.setStartTime(startTime);

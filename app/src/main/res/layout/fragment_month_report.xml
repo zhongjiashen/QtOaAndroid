@@ -3,16 +3,13 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_date"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
-        <RadioButton
-            android:text="2017年"
-            style="@style/attendance_management_rbt"/>
-        <RadioButton
-            android:text="08月"
-            style="@style/attendance_management_rbt"/>
-    </LinearLayout>
+        android:layout_height="45dp"
+        style="@style/text_15_blue"
+        android:text="2017年08月"
+        android:gravity="center"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

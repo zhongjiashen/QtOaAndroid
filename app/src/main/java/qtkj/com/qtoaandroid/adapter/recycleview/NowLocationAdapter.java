@@ -44,17 +44,18 @@ public class NowLocationAdapter extends BaseRecycleViewAdapter<NowLocationF> {
             viewHolder.tvShouldNumber.setText(list.get(position).getSignCount() + "");
             viewHolder.tvTotalNumber.setText("/" + list.get(position).getUserCount() + "");
             Log.e("ASD", list.get(position).getDept().toString());
-            if (list.get(position).getDept().size() > 0) {
+
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (list.get(position).getDept().size() > 0) {
                         activity.startActivity(new Intent(activity, NowLocationActivity.class).putExtra("list", list.get(position).getDept().toString()));
-
+                        }else {
+                            Toast.makeText(activity,"没有信息！",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
-            }else {
-                Toast.makeText(activity,"没有信息！",Toast.LENGTH_SHORT).show();
-            }
+
         }
     }
 

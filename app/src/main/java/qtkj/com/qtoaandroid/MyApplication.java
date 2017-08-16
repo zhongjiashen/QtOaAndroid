@@ -81,6 +81,7 @@ public class MyApplication extends Application {
         }
         SDKInitializer.initialize(mContext);
         trackConf = getSharedPreferences("track_conf", MODE_PRIVATE);
+        mClient = new LBSTraceClient(mContext);
         getScreenSize();
         clearTraceStatus();
     }
@@ -90,7 +91,7 @@ public class MyApplication extends Application {
             trackConf.edit().putString("entityName", login.getUser_id() + "");
             trackConf.edit().putString("post_id", login.getPost_id() + "");
         }
-        mClient = new LBSTraceClient(mContext);
+
         mTrace = new Trace(serviceId, trackConf.getString("entityName", entityName));
 
         mClient.setOnCustomAttributeListener(new OnCustomAttributeListener() {

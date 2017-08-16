@@ -37,6 +37,7 @@ public class AttendanceManagementActivity extends BaseActivity {
         adapter=new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
+
                 return basefragment[position];
             }
 
@@ -44,8 +45,10 @@ public class AttendanceManagementActivity extends BaseActivity {
             public int getCount() {
                 return 2;
             }
+
         };
         viewpage.setAdapter(adapter);
+
         viewpage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -58,9 +61,11 @@ public class AttendanceManagementActivity extends BaseActivity {
                 switch (position){
                     case 0:
                         radiogroup.check(R.id.rb_day);
+                        basefragment[0].lazyInit();
                         break;
                     case 1:
                         radiogroup.check(R.id.rb_month);
+                        basefragment[1].lazyInit();
                         break;
                 }
 
@@ -90,5 +95,12 @@ public class AttendanceManagementActivity extends BaseActivity {
 
     @OnClick(R.id.iv_back)
     public void onClick() {
+        finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 }

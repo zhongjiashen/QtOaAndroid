@@ -22,7 +22,8 @@ import qtkj.com.qtoaandroid.view.BaseView;
 public abstract class BaseFragmengt<T> extends Fragment implements BaseView {
     protected T presenter;
     Unbinder unbinder;
-    protected Map<String,String> map;
+    protected Map<String, String> map;
+
     /**
      * 显示显示吐司
      *
@@ -30,7 +31,7 @@ public abstract class BaseFragmengt<T> extends Fragment implements BaseView {
      */
     @Override
     public void showShortToast(String text) {
-        Toast.makeText(getActivity(),text,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -47,7 +48,7 @@ public abstract class BaseFragmengt<T> extends Fragment implements BaseView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate( Rlayout(), container, false);
+        View view = inflater.inflate(Rlayout(), container, false);
         unbinder = ButterKnife.bind(this, view);
         init();
         return view;
@@ -55,6 +56,7 @@ public abstract class BaseFragmengt<T> extends Fragment implements BaseView {
 
     /**
      * 加载布局
+     *
      * @return 返回布局
      */
     protected abstract int Rlayout();
@@ -64,7 +66,9 @@ public abstract class BaseFragmengt<T> extends Fragment implements BaseView {
      */
     protected abstract void init();
 
+    public void lazyInit() {
 
+    }
 
     @Override
     public void onDestroyView() {

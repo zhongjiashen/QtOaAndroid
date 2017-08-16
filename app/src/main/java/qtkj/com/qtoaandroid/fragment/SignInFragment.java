@@ -159,8 +159,8 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
                         .enableReserveRaw(true)
                         .create();
                 takePhoto.onEnableCompress(config, true);
-//                takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
-                takePhoto.onPickFromDocumentsWithCrop(imageUri,getCropOptions());
+                takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
+//                takePhoto.onPickFromDocumentsWithCrop(imageUri,getCropOptions());
                 break;
             case R.id.iv_sign_in:
                 if(mLogin.getIs_sign()==1) {
@@ -207,8 +207,8 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     }
 
     private CropOptions getCropOptions() {
-        int height = Integer.parseInt("50");
-        int width = Integer.parseInt("50");
+        int height = Integer.parseInt("400");
+        int width = Integer.parseInt("400");
         boolean withWonCrop = true;
 
         CropOptions.Builder builder = new CropOptions.Builder();

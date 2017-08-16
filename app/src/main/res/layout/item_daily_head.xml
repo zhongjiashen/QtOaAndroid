@@ -81,6 +81,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_late"
                         style="@style/text_20_blue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -102,6 +103,7 @@
                     android:background="@color/grayline"/>
 
                 <LinearLayout
+
                     android:layout_width="0dp"
                     android:layout_height="78dp"
                     android:layout_weight="1"
@@ -109,6 +111,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_early"
                         style="@style/text_20_blue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -120,7 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="迟到（人）"/>
+                        android:text="早退（人）"/>
 
                 </LinearLayout>
             </TabWidget>
@@ -139,6 +142,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_forget"
                         style="@style/text_20_blue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -150,7 +154,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="迟到（人）"/>
+                        android:text="忘记打卡（人）"/>
 
                 </LinearLayout>
 
@@ -167,6 +171,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_absenteeism"
                         style="@style/text_20_blue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -178,7 +183,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="迟到（人）"/>
+                        android:text="缺勤（人）"/>
 
                 </LinearLayout>
             </TabWidget>

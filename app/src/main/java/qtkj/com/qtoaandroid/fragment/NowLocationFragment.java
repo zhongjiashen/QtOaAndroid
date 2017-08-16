@@ -50,7 +50,6 @@ public class NowLocationFragment extends BaseFragmengt<NowLocationP> {
     public void returnData(int requestCode, Object data) {
         list= (List<NowLocationF>) data;
         if(list!=null){
-            showShortToast("asdf"+list.size());
             adapter.setList(list);
         }
 
@@ -66,6 +65,7 @@ public class NowLocationFragment extends BaseFragmengt<NowLocationP> {
                 swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
+                        presenter.getNowLocation(0,map);
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {

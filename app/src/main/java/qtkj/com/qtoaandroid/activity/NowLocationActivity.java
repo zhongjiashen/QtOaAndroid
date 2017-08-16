@@ -133,7 +133,7 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
                     mEntityListRequest.setPageIndex(++pageIndex);
                     queryEntityList();
                 } else {
-//                    mapUtil.updateStatus(entityPoints.get(0), true);
+                    mapUtil.updateStatus(entityPoints.get(0), true);
 //                    mapUtil.drawHistoryTrack(entityPoints, SortType.asc);
                 }
                 Log.e("实时位置",response.toString());

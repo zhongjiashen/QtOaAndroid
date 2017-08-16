@@ -1,5 +1,6 @@
 package qtkj.com.qtoaandroid.adapter.expandablelistview;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -10,9 +11,14 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.model.Daily;
+import qtkj.com.qtoaandroid.utils.DateUtil;
 
 /**
  * Created by wt-pc on 2017/6/21.
@@ -20,20 +26,27 @@ import qtkj.com.qtoaandroid.R;
 
 public class DailyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
-    private Context context;
 
-    public DailyExpandableListViewAdapter(Context context) {
+    private Activity context;
+    private List<Daily.BottomBean> list=new ArrayList<>();
+
+    public DailyExpandableListViewAdapter(Activity context) {
         this.context = context;
+    }
+
+    public void setList(List<Daily.BottomBean> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getGroupCount() {
-        return 3;
+        return list.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 4;
+        return list.get(groupPosition).getChild().size();
     }
 
     @Override
@@ -71,11 +84,12 @@ public class DailyExpandableListViewAdapter extends BaseExpandableListAdapter {
             convertView.setTag(groupViewHolder);
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
-            if(!isExpanded)
+            if (!isExpanded)
                 groupViewHolder.ivArrow.setBackground(context.getResources().getDrawable(R.mipmap.ic_group_close));
             else
                 groupViewHolder.ivArrow.setBackground(context.getResources().getDrawable(R.mipmap.ic_group_open));
         }
+        groupViewHolder.tvDepartmentName.setText(list.get(groupPosition).getGroup() + "(" + list.get(groupPosition).getCount() + ")");
         return convertView;
     }
 
@@ -89,6 +103,10 @@ public class DailyExpandableListViewAdapter extends BaseExpandableListAdapter {
         } else {
             subitemViewHolder = (SubitemViewHolder) convertView.getTag();
         }
+        subitemViewHolder.tvName.setText(list.get(groupPosition).getChild().get(childPosition).getUserName());
+        subitemViewHolder.tvKind.setText(list.get(groupPosition).getChild().get(childPosition).getPostName());
+        subitemViewHolder.tvKindNumber.setText(list.get(groupPosition).getChild().get(childPosition).getPostName()+list.get(groupPosition).getChild().get(childPosition).getUserId());
+        subitemViewHolder.tvTime.setText("打卡时间："+ DateUtil.longDateToString(list.get(groupPosition).getChild().get(childPosition).getSignTime(),"HH:mm"));
         return convertView;
     }
 
@@ -102,6 +120,7 @@ public class DailyExpandableListViewAdapter extends BaseExpandableListAdapter {
         TextView tvDepartmentName;
         @BindView(R.id.iv_arrow)
         ImageView ivArrow;
+
         public GroupViewHolder(View itemView) {
 
             ButterKnife.bind(this, itemView);
@@ -110,7 +129,16 @@ public class DailyExpandableListViewAdapter extends BaseExpandableListAdapter {
     }
 
     static class SubitemViewHolder {
-
+        @BindView(R.id.iv_photo)
+        ImageView ivPhoto;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.tv_kind)
+        TextView tvKind;
+        @BindView(R.id.tv_kind_number)
+        TextView tvKindNumber;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
         public SubitemViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
         }

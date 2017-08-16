@@ -44,7 +44,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
 
     Map<String, String> map;
     Map<String, SignRecordDeal> day_map = new HashMap<>();
-    private String userId;
+    private String userId="";
 
     private static final LatLng GEO_SHANGHAI = new LatLng(31.227, 121.481);
     @BindView(R.id.ll_all)
@@ -127,8 +127,10 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月");
         cbMonth.setText(sdf.format(d));
         Calendar calendar = Calendar.getInstance();
-
+        calendar.setTime(d);
         mCalendarView.setCalendar(calendar);
+        map.put("time", DateUtil.DateToString( d,"yyyy-MM"));
+        presenter.getDate(0, map);
     }
 
     @OnClick({R.id.iv_back, R.id.cb_month, R.id.map1, R.id.map2})
