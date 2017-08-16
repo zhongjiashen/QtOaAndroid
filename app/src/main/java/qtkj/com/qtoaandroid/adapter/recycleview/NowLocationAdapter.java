@@ -3,10 +3,12 @@ package qtkj.com.qtoaandroid.adapter.recycleview;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,18 +36,25 @@ public class NowLocationAdapter extends BaseRecycleViewAdapter<NowLocationF> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                activity.startActivity(new Intent(activity, NowLocationActivity.class));
-            }
-        });
-        if(list.size()>0) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+
+        if (list.size() > 0) {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.tvDepartmentName.setText(list.get(position).getPostName());
-            viewHolder.tvShouldNumber.setText(list.get(position).getSignCount()+"");
-            viewHolder.tvTotalNumber.setText("/"+list.get(position).getUserCount()+"");
+            viewHolder.tvShouldNumber.setText(list.get(position).getSignCount() + "");
+            viewHolder.tvTotalNumber.setText("/" + list.get(position).getUserCount() + "");
+            Log.e("ASD", list.get(position).getDept().toString());
+            if (list.get(position).getDept().size() > 0) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        activity.startActivity(new Intent(activity, NowLocationActivity.class).putExtra("list", list.get(position).getDept().toString()));
+
+                    }
+                });
+            }else {
+                Toast.makeText(activity,"没有信息！",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -56,6 +65,7 @@ public class NowLocationAdapter extends BaseRecycleViewAdapter<NowLocationF> {
         TextView tvShouldNumber;
         @BindView(R.id.tv_total_number)
         TextView tvTotalNumber;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

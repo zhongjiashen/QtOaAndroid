@@ -2,6 +2,7 @@ package qtkj.com.qtoaandroid.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,7 +46,7 @@ import qtkj.com.qtoaandroid.utils.ViewUtil;
  * Created by Administrator on 2017/8/9 0009.
  */
 
-public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickListener{
+public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickListener {
     private static final String a = SupportMapFragment.class.getSimpleName();
     private MapView b;
     private BaiduMapOptions c;
@@ -77,12 +78,13 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
     /**
      * 查询轨迹的开始时间
      */
-    private long startTime = CommonUtil.getCurrentTime();
+    private long startTime;
 
     /**
      * 查询轨迹的结束时间
      */
-    private long endTime = CommonUtil.getCurrentTime();
+    private long endTime;
+    private String entityName;
     /**
      * 轨迹排序规则
      */
@@ -92,7 +94,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
      */
     private long lastQueryTime = 0;
     private int pageIndex = 1;
-    private  int stype=0;
+    private int stype = 0;
 
     public void setStype(int stype) {
         this.stype = stype;
@@ -106,7 +108,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
         this.c = var1;
     }
 
-    public static   BaseMapFragment newInstance() {
+    public static BaseMapFragment newInstance() {
         return new BaseMapFragment();
     }
 
@@ -115,13 +117,12 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
     }
 
     public BaiduMap getBaiduMap() {
-        return this.b == null?null:this.b.getMap();
+        return this.b == null ? null : this.b.getMap();
     }
 
     public MapView getMapView() {
         return this.b;
     }
-
 
 
     public void onCreate(Bundle var1) {
@@ -135,20 +136,22 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
     public View onCreateView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
         this.b = new MapView(this.getActivity(), this.c);
         this.b.getMap().setOnMapClickListener(this);
-
         mapUtil.init(b);
         mapUtil.setCenter(trackApp);
         initListener();
         trackPoints.clear();
         pageIndex = 1;
-        startTime=1502090029;
-        endTime=1502104429;
-        queryHistoryTrack();
         return this.b;
     }
-public void start(){
 
-}
+    public void start(long startTime, long endTime, String entityName) {
+        this.startTime = startTime / 1000;
+        this.endTime = endTime / 1000;
+        this.entityName = entityName;
+        queryHistoryTrack();
+
+    }
+
     public void onViewCreated(View var1, Bundle var2) {
         super.onViewCreated(var1, var2);
     }
@@ -159,7 +162,7 @@ public void start(){
 
     public void onViewStateRestored(Bundle var1) {
         super.onViewStateRestored(var1);
-        if(var1 != null) {
+        if (var1 != null) {
             ;
         }
     }
@@ -203,6 +206,7 @@ public void start(){
     public void onConfigurationChanged(Configuration var1) {
         super.onConfigurationChanged(var1);
     }
+
     private void initListener() {
         mTrackListener = new OnTrackListener() {
             @Override
@@ -289,13 +293,14 @@ public void start(){
             }
         };
     }
+
     /**
      * 查询历史轨迹
      */
     private void queryHistoryTrack() {
 
         trackApp.initRequest(historyTrackRequest);
-        historyTrackRequest.setEntityName(trackApp.entityName);
+        historyTrackRequest.setEntityName(entityName);
         historyTrackRequest.setStartTime(startTime);
         historyTrackRequest.setEndTime(endTime);
         historyTrackRequest.setPageIndex(pageIndex);
@@ -305,11 +310,14 @@ public void start(){
 
     @Override
     public void onMapClick(LatLng lng) {
-        switch (stype){
+        switch (stype) {
             case 0:
                 break;
             case 1:
-                ViewUtil.startActivity(getActivity(),MovementActivity.class);
+                startActivity(new Intent(getActivity(), MovementActivity.class)
+                        .putExtra("startTime", startTime * 1000)
+                        .putExtra("endTime", endTime * 1000)
+                        .putExtra("entityName", entityName));
                 break;
         }
 

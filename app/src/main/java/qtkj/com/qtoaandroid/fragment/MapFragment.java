@@ -1,6 +1,7 @@
 package qtkj.com.qtoaandroid.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BaiduMapOptions;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.activity.MovementActivity;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.Constants;
@@ -40,7 +43,7 @@ import qtkj.com.qtoaandroid.utils.ViewUtil;
  * Created by Administrator on 2017/8/9 0009.
  */
 
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener {
     private static final String a = SupportMapFragment.class.getSimpleName();
     private MapView b;
     private BaiduMapOptions c;
@@ -72,12 +75,14 @@ public class MapFragment extends Fragment {
     /**
      * 查询轨迹的开始时间
      */
-    private long startTime = CommonUtil.getCurrentTime();
+    private long startTime;
 
     /**
      * 查询轨迹的结束时间
      */
-    private long endTime = CommonUtil.getCurrentTime();
+    private long endTime;
+    private String entityName;
+    private  int stype=0;
     /**
      * 轨迹排序规则
      */
@@ -89,7 +94,9 @@ public class MapFragment extends Fragment {
     private int pageIndex = 1;
     public MapFragment() {
     }
-
+    public void setStype(int stype) {
+        this.stype = stype;
+    }
     @SuppressLint("ValidFragment")
     private MapFragment(BaiduMapOptions var1) {
         this.c = var1;
@@ -123,19 +130,21 @@ public class MapFragment extends Fragment {
 
     public View onCreateView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
         this.b = new MapView(this.getActivity(), this.c);
+        this.b.getMap().setOnMapClickListener(this);
         mapUtil.init(b);
         mapUtil.setCenter(trackApp);
         initListener();
         trackPoints.clear();
         pageIndex = 1;
-        startTime=1502090029;
-        endTime=1502104429;
-        queryHistoryTrack();
         return this.b;
     }
-public void start(){
-   
-}
+    public void start(long startTime,long endTime ,String entityName){
+        this.startTime=startTime/1000;
+        this.endTime=endTime/1000;
+        this.entityName=entityName;
+        queryHistoryTrack();
+
+    }
     public void onViewCreated(View var1, Bundle var2) {
         super.onViewCreated(var1, var2);
     }
@@ -288,5 +297,25 @@ public void start(){
         historyTrackRequest.setPageIndex(pageIndex);
         historyTrackRequest.setPageSize(Constants.PAGE_SIZE);
         trackApp.mClient.queryHistoryTrack(historyTrackRequest, mTrackListener);
+    }
+
+    @Override
+    public void onMapClick(LatLng lng) {
+        switch (stype) {
+            case 0:
+                break;
+            case 1:
+                startActivity(new Intent(getActivity(), MovementActivity.class)
+                        .putExtra("startTime", startTime * 1000)
+                        .putExtra("endTime", endTime * 1000)
+                        .putExtra("entityName", entityName));
+                break;
+        }
+
+    }
+
+    @Override
+    public boolean onMapPoiClick(MapPoi poi) {
+        return false;
     }
 }

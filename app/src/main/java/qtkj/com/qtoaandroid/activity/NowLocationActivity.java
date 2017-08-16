@@ -21,12 +21,18 @@ import com.baidu.trace.api.track.TrackPoint;
 import com.baidu.trace.model.CoordType;
 import com.baidu.trace.model.SortType;
 import com.baidu.trace.model.StatusCodes;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.Constants;
@@ -54,6 +60,7 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
      * 实时位置点集合
      */
     private List<LatLng> entityPoints = new ArrayList<>();
+    List list;
     @Override
     protected int layout() {
         return R.layout.activity_now_location;
@@ -68,6 +75,11 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
         mapUtil.baiduMap.setOnMarkerClickListener(this);
         mapUtil.setCenter(trackApp);
         initListener();
+        String list_torsing=getIntent().getStringExtra("list");
+        Gson gson = new Gson();
+        Type jsonType =  new TypeToken<List<String>>() {
+        }.getType();
+       list= gson.fromJson(list_torsing,  jsonType);
         queryEntityList();
         BitmapUtil.init();
     }
@@ -87,7 +99,9 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
 // 过滤条件
         FilterCondition filterCondition = new FilterCondition();
 // 查找当前时间5分钟之内有定位信息上传的entity
-        filterCondition.setActiveTime(activeTime);
+//        filterCondition.setActiveTime(activeTime);
+
+        filterCondition.setEntityNames(list);
         mEntityListRequest.setFilterCondition(filterCondition);
         trackApp.mClient.queryEntityList(mEntityListRequest, entityListener);
     }

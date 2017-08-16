@@ -21,5 +21,6 @@ public class MovementActivity extends BaseActivity{
         BaseMapFragment map = BaseMapFragment.newInstance();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().add(R.id.map, map, "map_fragment").commit();
+        map.start(getIntent().getLongExtra("startTime",0),getIntent().getLongExtra("endTime",0),getIntent().getStringExtra("entityName"));
     }
 }

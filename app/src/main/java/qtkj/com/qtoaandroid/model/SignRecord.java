@@ -1,5 +1,7 @@
 package qtkj.com.qtoaandroid.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Administrator on 2017/8/12 0012.
  */
@@ -7,40 +9,84 @@ package qtkj.com.qtoaandroid.model;
 public class SignRecord {
 
     /**
-     * position : ç»¿å°æ°é½ä¼
-     * outState : 0.0
-     * outSignTime : 1.502453332E12
+     * pm_start_time : 14:00:00
+     * am_start_time : 08:30:00
+     * position : 中国河南省郑州市金水区相济路
+     * outState : 4.0
+     * am_end_time : 12:00:00
+     * outSignTime : 1.502775963E12
      * state : 1.0
      * type : 0.0
      * post_id : 1.0
-     * id : 12.0
-     * user_name : 王大
+     * id : 69.0
+     * pm_end_time : 18:00:00
+     * user_name : 斧王
      * job_type : 0.0
-     * user_phone : 18537312427
-     * user_id : 1.0
-     * day : 11
+     * user_phone : 13325896541
+     * user_id : 4.0
+     * day : 15
      * ym : 2017年08月
-     * outPosition : ç»¿å°æ°é½ä¼
+     * outPosition : 中国河南省郑州市金水区相济路
      * post_name : 固定岗
-     * sign_time : 1.502453261E12
+     * sign_time : 1.502767381E12
      */
 
+    @SerializedName("pm_start_time")
+    private String pmStartTime;
+    @SerializedName("am_start_time")
+    private String amStartTime;
+    @SerializedName("position")
     private String position;
-    private double outState;
-    private double outSignTime;
-    private double state;
-    private double type;
-    private double post_id;
-    private double id;
-    private String user_name;
-    private double job_type;
-    private String user_phone;
-    private double user_id;
-    private String day;
+    @SerializedName("outState")
+    private int outState;
+    @SerializedName("am_end_time")
+    private String amEndTime;
+    @SerializedName("outSignTime")
+    private long outSignTime;
+    @SerializedName("state")
+    private int state;//签到状态
+    @SerializedName("type")
+    private int type;
+    @SerializedName("post_id")
+    private int postId;
+    @SerializedName("id")
+    private int id;
+    @SerializedName("pm_end_time")
+    private String pmEndTime;
+    @SerializedName("user_name")
+    private String userName;
+    @SerializedName("job_type")
+    private int jobType;
+    @SerializedName("user_phone")
+    private String userPhone;
+    @SerializedName("user_id")
+    private double userId;
+    @SerializedName("day")
+    private int day;
+    @SerializedName("ym")
     private String ym;
+    @SerializedName("outPosition")
     private String outPosition;
-    private String post_name;
-    private double sign_time;
+    @SerializedName("post_name")
+    private String postName;
+    @SerializedName("sign_time")
+    private long signTime;
+
+    public String getPmStartTime() {
+        return pmStartTime;
+    }
+
+    public void setPmStartTime(String pmStartTime) {
+        this.pmStartTime = pmStartTime;
+    }
+
+    public String getAmStartTime() {
+        return amStartTime;
+    }
+
+    public void setAmStartTime(String amStartTime) {
+        this.amStartTime = amStartTime;
+    }
 
     public String getPosition() {
         return position;
@@ -50,91 +96,107 @@ public class SignRecord {
         this.position = position;
     }
 
-    public double getOutState() {
+    public int getOutState() {
         return outState;
     }
 
-    public void setOutState(double outState) {
+    public void setOutState(int outState) {
         this.outState = outState;
     }
 
-    public double getOutSignTime() {
+    public String getAmEndTime() {
+        return amEndTime;
+    }
+
+    public void setAmEndTime(String amEndTime) {
+        this.amEndTime = amEndTime;
+    }
+
+    public long getOutSignTime() {
         return outSignTime;
     }
 
-    public void setOutSignTime(double outSignTime) {
+    public void setOutSignTime(long outSignTime) {
         this.outSignTime = outSignTime;
     }
 
-    public double getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(double state) {
+    public void setState(int state) {
         this.state = state;
     }
 
-    public double getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(double type) {
+    public void setType(int type) {
         this.type = type;
     }
 
-    public double getPost_id() {
-        return post_id;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setPost_id(double post_id) {
-        this.post_id = post_id;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(double id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getPmEndTime() {
+        return pmEndTime;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setPmEndTime(String pmEndTime) {
+        this.pmEndTime = pmEndTime;
     }
 
-    public double getJob_type() {
-        return job_type;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setJob_type(double job_type) {
-        this.job_type = job_type;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUser_phone() {
-        return user_phone;
+    public int getJobType() {
+        return jobType;
     }
 
-    public void setUser_phone(String user_phone) {
-        this.user_phone = user_phone;
+    public void setJobType(int jobType) {
+        this.jobType = jobType;
     }
 
-    public double getUser_id() {
-        return user_id;
+    public String getUserPhone() {
+        return userPhone;
     }
 
-    public void setUser_id(double user_id) {
-        this.user_id = user_id;
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 
-    public String getDay() {
+    public double getUserId() {
+        return userId;
+    }
+
+    public void setUserId(double userId) {
+        this.userId = userId;
+    }
+
+    public int getDay() {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(int day) {
         this.day = day;
     }
 
@@ -154,19 +216,19 @@ public class SignRecord {
         this.outPosition = outPosition;
     }
 
-    public String getPost_name() {
-        return post_name;
+    public String getPostName() {
+        return postName;
     }
 
-    public void setPost_name(String post_name) {
-        this.post_name = post_name;
+    public void setPostName(String postName) {
+        this.postName = postName;
     }
 
-    public double getSign_time() {
-        return sign_time;
+    public long getSignTime() {
+        return signTime;
     }
 
-    public void setSign_time(double sign_time) {
-        this.sign_time = sign_time;
+    public void setSignTime(long signTime) {
+        this.signTime = signTime;
     }
 }

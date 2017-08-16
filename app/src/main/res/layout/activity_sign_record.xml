@@ -97,6 +97,7 @@
                 android:background="@color/grayline"/>
 
             <LinearLayout
+                android:id="@+id/ll_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -115,10 +116,19 @@
                     <TextView
                         android:id="@+id/tv_date"
                         style="@style/text_14_blue"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:text="2017-07-08"/>
+                    <TextView
+                        android:id="@+id/tv_day_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="迟到、早退"
+                        android:layout_marginRight="18dp"
+                        style="@style/text_14_whigtgray"
+                        />
                 </LinearLayout>
 
                 <View
@@ -211,6 +221,7 @@
                     android:layout_height="1dp"
                     android:background="@color/grayline"/>
                 <TextView
+                    android:id="@+id/tv_am_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/ic_clocks"
@@ -229,6 +240,7 @@
                     android:clickable="true"
                    />
                 <TextView
+                    android:id="@+id/tv_pm_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/ic_clocks"

@@ -99,11 +99,11 @@ public class FragmentTabAdapter implements RadioGroup.OnCheckedChangeListener{
     private FragmentTransaction obtainFragmentTransaction(int index){
         FragmentTransaction ft = fragmentActivity.getSupportFragmentManager().beginTransaction();
         // 设置切换动画
-        if(index > currentTab){
-            ft.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out);
-        }else{
-            ft.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_right_out);
-        }
+//        if(index > currentTab){
+//            ft.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out);
+//        }else{
+//            ft.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_right_out);
+//        }
         return ft;
     }
 

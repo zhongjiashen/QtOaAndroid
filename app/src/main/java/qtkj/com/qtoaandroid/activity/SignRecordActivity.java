@@ -1,13 +1,12 @@
 package qtkj.com.qtoaandroid.activity;
 
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
@@ -16,18 +15,19 @@ import com.jzxiang.pickerview.listener.OnDateSetListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.fragment.BaseMapFragment;
 import qtkj.com.qtoaandroid.fragment.MapFragment;
+import qtkj.com.qtoaandroid.model.SignRecordDeal;
+import qtkj.com.qtoaandroid.utils.DateUtil;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 import qtkj.com.qtoaandroid.view.SignRecordP;
 import qtkj.com.qtoaandroid.viewbar.calenderview.CalendarView;
-import qtkj.com.qtoaandroid.viewbar.calenderview.DayManager;
 
 /**
  * Created by Administrator on 2017/8/5 0005.
@@ -41,21 +41,53 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
     TextView cbMonth;
     @BindView(R.id.calendar)
     CalendarView mCalendarView;
-    Set<Integer> normalDays = new HashSet<>();
-    Set<Integer> latearrivalDays = new HashSet<>();
-    Set<Integer> forgetclockDays = new HashSet<>();
-    Set<Integer> absenteeismDays = new HashSet<>();
+
+    Map<String, String> map;
+    Map<String, SignRecordDeal> day_map = new HashMap<>();
+    private String userId;
 
     private static final LatLng GEO_SHANGHAI = new LatLng(31.227, 121.481);
+    @BindView(R.id.ll_all)
+    LinearLayout llAll;
+    @BindView(R.id.tv_day_state)
+    TextView tvDayState;
+    @BindView(R.id.tv_date)
+    TextView tvDate;
+    @BindView(R.id.tv_sign_in_time)
+    TextView tvSignInTime;
+    @BindView(R.id.tv_sign_in_address)
+    TextView tvSignInAddress;
+    @BindView(R.id.tv_sign_out_address)
+    TextView tvSignOutAddress;
+    @BindView(R.id.tv_sign_out_time)
+    TextView tvSignOutTime;
+    @BindView(R.id.tv_am_time)
+    TextView tvAmTime;
+    @BindView(R.id.tv_pm_time)
+    TextView tvPmTime;
+    BaseMapFragment mapF1;
+    MapFragment mapF2;
+    @BindView(R.id.map1)
+    FrameLayout map1;
+    @BindView(R.id.map2)
+    FrameLayout map2;
+
     @Override
     protected int layout() {
         return R.layout.activity_sign_record;
     }
 
     @Override
+    public void returnData(int requestCode, Object data) {
+        super.returnData(requestCode, data);
+        day_map = (Map<String, SignRecordDeal>) data;
+        mCalendarView.invalidate();
+        init(new Date());
+    }
+
+    @Override
     protected void Initialize() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月");
-        cbMonth.setText(sdf.format(new Date()));
+        cbMonth.setText(DateUtil.DateToString(new Date(),"yyyy年MM月"));
         mDialogYearMonth = new TimePickerDialog.Builder()
                 .setType(Type.YEAR_MONTH)
                 .setThemeColor(getResources().getColor(R.color.colorPrimary))
@@ -69,18 +101,23 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
         mCalendarView.setOnSelectChangeListener(new CalendarView.OnSelectChangeListener() {
             @Override
             public void selectChange(CalendarView calendarView, Date date) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
-                Toast.makeText(SignRecordActivity.this, sdf.format(date), Toast.LENGTH_SHORT).show();
+               init(date);
             }
         });
-        BaseMapFragment map1 = BaseMapFragment.newInstance();
-       map1.setStype(1);
-        MapFragment map2 = MapFragment.newInstance();
+        mapF1 = BaseMapFragment.newInstance();
+        mapF1.setStype(1);
+        mapF2 = MapFragment.newInstance();
+        mapF2.setStype(1);
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.map1, map1, "map_fragment").commit();
-        manager.beginTransaction().replace(R.id.map2, map2, "map_fragment").commit();
-        presenter=new SignRecordP(this,this);
-        presenter.getDate(0,null);
+        manager.beginTransaction().replace(R.id.map1, mapF1, "map_fragment").commit();
+        manager.beginTransaction().replace(R.id.map2, mapF2, "map_fragment").commit();
+        presenter = new SignRecordP(this, this);
+        map = new HashMap<>();
+        userId=getIntent().getStringExtra("userId");
+        map.put("userId",userId );
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM");
+        map.put("time", sd.format(new Date()));
+        presenter.getDate(0, map);
 
     }
 
@@ -90,18 +127,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月");
         cbMonth.setText(sdf.format(d));
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(d);
-        normalDays.add(1);
-        normalDays.add(2);
-        normalDays.add(4);
-        normalDays.add(9);
-        latearrivalDays.add(3);
-        forgetclockDays.add(7);
-        absenteeismDays.add(8);
-        DayManager.setNormalDays(normalDays);
-        DayManager.setLatearrivalDays(latearrivalDays);
-        DayManager.setForgetclockDays(forgetclockDays);
-        DayManager.setAbsenteeismDays(absenteeismDays);
+
         mCalendarView.setCalendar(calendar);
     }
 
@@ -109,16 +135,63 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
+                finish();
                 break;
             case R.id.cb_month:
                 mDialogYearMonth.show(getSupportFragmentManager(), "year_month");
                 break;
-            case R.id.map1:
-                ViewUtil.startActivity(this,MovementActivity.class);
-                break;
-            case R.id.map2:
-                ViewUtil.startActivity(this,MovementActivity.class);
-                break;
+        }
+    }
+    private void init(Date date){
+        String day=DateUtil.DateToString(date,"yyyy-MM-dd");
+        SignRecordDeal signRecordDeal = day_map.get(DateUtil.DateToString(date,"dd"));
+        if (signRecordDeal == null) {
+            llAll.setVisibility(View.GONE);
+        } else {
+            llAll.setVisibility(View.VISIBLE);
+            tvDayState.setText(signRecordDeal.getDay_state());
+            tvDate.setText(signRecordDeal.getDate());
+            tvSignInAddress.setText(signRecordDeal.getSign_in_address());
+            tvSignInTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm"));
+            tvSignOutAddress.setText(signRecordDeal.getSign_out_address());
+            tvSignOutTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
+
+            tvPmTime.setText(signRecordDeal.getPmStartTime() + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
+            switch (signRecordDeal.getJop_type()) {
+                case 0:
+                    long amEnd=DateUtil.StringTolongDate(day+signRecordDeal.getAmEndTime(),"yyyy-MM-ddHH");
+                    Log.e("时间",amEnd+"");
+                    if(amEnd>signRecordDeal.getSign_in_time()){
+                        Log.e("S",amEnd+"");
+                        tvAmTime.setVisibility(View.VISIBLE);
+                        map1.setVisibility(View.VISIBLE);
+                        tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm") + " - " + signRecordDeal.getAmEndTime());
+                        mapF1.start(signRecordDeal.getSign_in_time(),amEnd,userId);
+                    }else {
+                        tvAmTime.setVisibility(View.GONE);;
+                        map1.setVisibility(View.GONE);
+                    }
+                    long pmStart=DateUtil.StringTolongDate(day+signRecordDeal.getPmStartTime(),"yyyy-MM-ddHH");
+                    if(pmStart<signRecordDeal.getSign_out_time()){
+                        tvPmTime.setVisibility(View.VISIBLE);
+                        map2.setVisibility(View.VISIBLE);
+                        tvPmTime.setText(signRecordDeal.getPmStartTime() + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
+                        mapF2.start(pmStart,signRecordDeal.getSign_out_time(),userId);
+                    }else {
+                        tvPmTime.setVisibility(View.GONE);
+                        map2.setVisibility(View.GONE);
+                    }
+                    break;
+                case 1:
+                    tvAmTime.setVisibility(View.VISIBLE);
+                    map1.setVisibility(View.VISIBLE);
+                    tvPmTime.setVisibility(View.GONE);
+                    map2.setVisibility(View.GONE);
+                    tvAmTime.setText(signRecordDeal.getSign_in_time() + " - " + signRecordDeal.getSign_out_time());
+                    mapF1.start(signRecordDeal.getSign_in_time(),signRecordDeal.getSign_out_time(),userId);
+                    break;
+            }
+
         }
     }
 }

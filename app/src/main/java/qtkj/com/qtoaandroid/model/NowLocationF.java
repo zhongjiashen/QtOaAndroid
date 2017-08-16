@@ -10,12 +10,13 @@ import java.util.List;
 
 public class NowLocationF {
 
+
     /**
-     * userCount : 7
+     * userCount : 8.0
      * postName : 固定岗
-     * dept : []
-     * signCount : 0
-     * postId : 1
+     * dept : [{"user_id":1},{"user_id":4}]
+     * signCount : 2.0
+     * postId : 1.0
      */
 
     @SerializedName("userCount")
@@ -26,7 +27,8 @@ public class NowLocationF {
     private int signCount;
     @SerializedName("postId")
     private int postId;
-
+    @SerializedName("dept")
+    private List<DeptBean> dept;
 
     public int getUserCount() {
         return userCount;
@@ -60,5 +62,33 @@ public class NowLocationF {
         this.postId = postId;
     }
 
+    public List<DeptBean> getDept() {
+        return dept;
+    }
 
+    public void setDept(List<DeptBean> dept) {
+        this.dept = dept;
+    }
+
+    public static class DeptBean {
+        /**
+         * user_id : 1.0
+         */
+
+        @SerializedName("user_id")
+        private int userId;
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        @Override
+        public String toString() {
+            return  userId+"";
+        }
+    }
 }

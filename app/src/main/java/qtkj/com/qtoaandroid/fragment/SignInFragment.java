@@ -34,6 +34,7 @@ import qtkj.com.qtoaandroid.activity.PhotoRecordActivity;
 import qtkj.com.qtoaandroid.activity.SignOutActivity;
 import qtkj.com.qtoaandroid.activity.SignRecordActivity;
 import qtkj.com.qtoaandroid.model.Login;
+import qtkj.com.qtoaandroid.utils.Base64;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 
 /**
@@ -118,9 +119,20 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
         super.onResume();
        mLogin=MyApplication.login;
         if(mLogin.getIs_sign()==1){
-            ivSignIn.setBackgroundResource(R.mipmap.ic_sign_out);
+            setSignType(1);
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.startTrac();
+        }
+
+    }
+    public void setSignType(int i){
+        switch (i){
+            case 0:
+                ivSignIn.setBackgroundResource(R.mipmap.ic_sign_in);
+                break;
+            case 1:
+                ivSignIn.setBackgroundResource(R.mipmap.ic_sign_out);
+                break;
         }
 
     }
@@ -129,10 +141,10 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_sign_in_record:
-                startActivity(new Intent(getActivity(), SignRecordActivity.class));
+                    startActivity(new Intent(getActivity(), SignRecordActivity.class).putExtra("userId",MyApplication.login.getUser_id()+""));
                 break;
             case R.id.tv_photo_record:
-                startActivity(new Intent(getActivity(), PhotoRecordActivity.class));
+                startActivity(new Intent(getActivity(), PhotoRecordActivity.class).putExtra("userId",MyApplication.login.getUser_id()+""));
                 break;
             case R.id.tv_attendance_management:
                 startActivity(new Intent(getActivity(), AttendanceManagementActivity.class));
@@ -147,15 +159,15 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
                         .enableReserveRaw(true)
                         .create();
                 takePhoto.onEnableCompress(config, true);
-                takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
+//                takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
+                takePhoto.onPickFromDocumentsWithCrop(imageUri,getCropOptions());
                 break;
             case R.id.iv_sign_in:
                 if(mLogin.getIs_sign()==1) {
-
-                    ViewUtil.startActivity(getActivity(), SignOutActivity.class);
+                    ViewUtil.startActivityForResult(getActivity(), SignOutActivity.class,1);
                 }else {
                     MainActivity mainActivity = (MainActivity) getActivity();
-                    mainActivity.startTrac();
+                    mainActivity.startBDLocation(0);
                 }
                 break;
         }
@@ -164,17 +176,25 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     @Override
     public void takeSuccess(TResult result) {
         Toast.makeText(getActivity(), "成功", Toast.LENGTH_SHORT).show();
+        MainActivity mainActivity = (MainActivity) getActivity();
+        try {
+            String imagefile= Base64.encodeBase64File(result.getImage().getCompressPath());
+            mainActivity.setImgStr(imagefile);
+            mainActivity.startBDLocation(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void takeFail(TResult result, String msg) {
-
+        Toast.makeText(getActivity(), "失败", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void takeCancel() {
-
+        Toast.makeText(getActivity(), "取消当前操作！", Toast.LENGTH_SHORT).show();
     }
 
     @Override

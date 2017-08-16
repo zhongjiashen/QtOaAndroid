@@ -4,26 +4,30 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.model.LatLng;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
-import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.MapUtil;
 import qtkj.com.qtoaandroid.utils.MyBDLocation;
+import qtkj.com.qtoaandroid.view.SignOutP;
 
 /**
  * Created by Administrator on 2017/8/8 0008.
  */
 
-public class SignOutActivity extends BaseActivity {
+public class SignOutActivity extends BaseActivity<SignOutP> {
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.tv_address)
@@ -34,12 +38,23 @@ public class SignOutActivity extends BaseActivity {
      * 地图工具
      */
     private MapUtil mapUtil = null;
-
+    Map<String,String> map;
     @Override
     protected int layout() {
         return R.layout.activity_sign_out;
     }
-
+    @Override
+    public void returnData(int requestCode, Object data) {
+        super.returnData(requestCode, data);
+        switch (requestCode){
+            case 0:
+                showShortToast("签退成功！");
+                MyApplication.login.setIs_sign(0);
+                setResult(RESULT_OK, null);
+                finish();
+                break;
+        }
+    }
     @Override
     protected void Initialize() {
         mapUtil = MapUtil.getInstance();
@@ -50,12 +65,19 @@ public class SignOutActivity extends BaseActivity {
         intentFilter.addAction("com.qtoaandroid.myLocation");
         this.registerReceiver(myBroadcastReciver = new MyBroadcastReciver(), intentFilter);
         myBDLocation.start();
+        presenter=new SignOutP(this,this);
 
     }
-
-    @OnClick(R.id.iv_back)
-    public void onClick() {
-        super.onBackPressed();
+    @OnClick({R.id.iv_back, R.id.bt_ok})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+            case R.id.bt_ok:
+                presenter.signIn(0,map);
+                break;
+        }
     }
 
     private class MyBroadcastReciver extends BroadcastReceiver {
@@ -67,6 +89,13 @@ public class SignOutActivity extends BaseActivity {
                 LatLng latLng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
                 mapUtil.updateStatus(latLng, true);
                 tvAddress.setText(bdLocation.getAddrStr());
+                map=new HashMap<>();
+                map.put("type","1");
+                map.put("userId", MyApplication.login.getUser_id()+"");
+                map.put("position",bdLocation.getAddrStr());
+                map.put("workStartTime",MyApplication.login.getWorkStartTime());
+                map.put("workEndTime",MyApplication.login.getWorkEndTime());
+
 
             }
         }

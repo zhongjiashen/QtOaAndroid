@@ -11,32 +11,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import qtkj.com.qtoaandroid.model.Login;
+import qtkj.com.qtoaandroid.model.PhotoRecord;
 import qtkj.com.qtoaandroid.model.SignRecord;
 
 /**
  * Created by Administrator on 2017/8/11 0011.
  */
 
-public class PhotoRecordP extends BasePressent{
+public class PhotoRecordP extends BasePressent {
     public PhotoRecordP(BaseView view, Activity activity) {
         super(view, activity);
     }
 
     @Override
     protected void returnData(int requestCode, String response) {
-        Log.e("SignRecordP",response);
         Gson gson = new Gson();
-        Type jsonType =  new TypeToken<List<SignRecord>>() {
+        Type jsonType = new TypeToken<List<PhotoRecord>>() {
         }.getType();
-        List<SignRecord> list= gson.fromJson(response,  jsonType);
-//
-       view.returnData(0,null);
+        List<PhotoRecord> list = gson.fromJson(response, jsonType);
+        view.returnData(0, list);
     }
 
-    public void getDate(int requestCode,Map map){
-        map=new HashMap();
-        map.put("userId","1");
-        map.put("time","2017-08");
-        post("signHistory.json",requestCode,map);
+    public void getphotoHistory(int requestCode, Map map) {
+        post("photoHistory.json", requestCode, map);
     }
 }

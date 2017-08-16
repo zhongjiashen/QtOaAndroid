@@ -84,21 +84,21 @@ public class MyApplication extends Application {
         getScreenSize();
         clearTraceStatus();
     }
-    public  void initTrace(){
-        if(login!=null){
-            trackConf.edit().putString("entityName",login.getUser_id()+"");
-            trackConf.edit().putString("post_id",login.getPost_id()+"");
+
+    public void initTrace() {
+        if (login != null) {
+            trackConf.edit().putString("entityName", login.getUser_id() + "");
+            trackConf.edit().putString("post_id", login.getPost_id() + "");
         }
         mClient = new LBSTraceClient(mContext);
-        mTrace = new Trace(serviceId, trackConf.getString("entityName",entityName));
+        mTrace = new Trace(serviceId, trackConf.getString("entityName", entityName));
 
         mClient.setOnCustomAttributeListener(new OnCustomAttributeListener() {
             @Override
             public Map<String, String> onTrackAttributeCallback() {
                 //上传自定义参数
                 Map<String, String> map = new HashMap<>();
-                if(login!=null)
-                    map.put("post_id", trackConf.getString("post_id",login.getPost_id()+""));
+                map.put("post_id", trackConf.getString("post_id", login.getPost_id() + ""));
                 return map;
             }
         });
@@ -113,6 +113,7 @@ public class MyApplication extends Application {
         request.setTag(getTag());
         request.setServiceId(serviceId);
     }
+
     /**
      * 获取当前位置
      */
@@ -133,6 +134,7 @@ public class MyApplication extends Application {
             mClient.queryRealTimeLoc(locRequest, entityListener);
         }
     }
+
     /**
      * 获取屏幕尺寸
      */
@@ -155,6 +157,7 @@ public class MyApplication extends Application {
             editor.apply();
         }
     }
+
     /**
      * 获取请求标识
      *
