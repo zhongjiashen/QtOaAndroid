@@ -49,7 +49,11 @@ public class NowLocationAdapter extends BaseRecycleViewAdapter<NowLocationF> {
                     @Override
                     public void onClick(View view) {
                         if (list.get(position).getDept().size() > 0) {
-                        activity.startActivity(new Intent(activity, NowLocationActivity.class).putExtra("list", list.get(position).getDept().toString()));
+                        activity.startActivity(new Intent(activity, NowLocationActivity.class)
+                                .putExtra("list", list.get(position).getDept().toString())
+                                .putExtra("number",list.get(position).getSignCount()+"/"+list.get(position).getUserCount())
+                        .putExtra("name",list.get(position).getPostName()));
+
                         }else {
                             Toast.makeText(activity,"没有信息！",Toast.LENGTH_SHORT).show();
                         }

@@ -91,7 +91,7 @@ public class SignRecordP extends BasePressent{
                     signRecordDeal.setDay_state("缺勤");
                     break;
             }
-            signRecordDeal.setDate(moth+="-"+key);
+            signRecordDeal.setDate(moth+"-"+key);
             signRecordDeal.setSign_in_address(signRecord.getPosition());
             signRecordDeal.setSign_out_address(signRecord.getOutPosition());
             signRecordDeal.setSign_in_time(signRecord.getSignTime());

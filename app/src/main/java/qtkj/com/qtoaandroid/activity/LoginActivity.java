@@ -33,6 +33,7 @@ public class LoginActivity extends BaseActivity<LoginPassP> {
 
     @Override
     protected void Initialize() {
+
         StatusBarUtil.transparencyBar(this);
         StatusBarUtil.StatusBarLightMode(this);
         presenter = new LoginPassP(this, this);
@@ -81,6 +82,7 @@ public class LoginActivity extends BaseActivity<LoginPassP> {
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     @Override

@@ -84,10 +84,7 @@ public class MyBDLocation implements BDLocationListener {
         }
     }
 
-    @Override
-    public void onConnectHotSpotMessage(String s, int i) {
 
-    }
 
     public void start(){
         if(mLocationClient.isStarted()){

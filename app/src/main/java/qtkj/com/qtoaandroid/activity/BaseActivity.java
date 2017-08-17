@@ -1,8 +1,11 @@
 package qtkj.com.qtoaandroid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +45,7 @@ public abstract class BaseActivity<T extends BasePressent> extends AppCompatActi
         setContentView(layout());
         ButterKnife.bind(this);
         Initialize();
+
     }
     protected void savedInstanceState(Bundle savedInstanceState){
 
@@ -65,5 +69,18 @@ public abstract class BaseActivity<T extends BasePressent> extends AppCompatActi
     }
     protected void startPermissionsActivity() {
         PermissionsActivity.startActivityForResult(this, REQUEST_CODE, PERMISSIONS);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if(getClass().getSimpleName().equals("MainActivity")){
+                moveTaskToBack(true);
+            }else {
+                Log.e("S","退出");
+                finish();
+            }
+            return super.onKeyDown(keyCode, event);
+        }
+        return true;
     }
 }

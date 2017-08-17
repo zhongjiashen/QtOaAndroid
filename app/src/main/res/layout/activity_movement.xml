@@ -39,8 +39,10 @@
         android:id="@+id/rl_view"
         android:layout_width="match_parent"
         android:layout_height="144dp"
+        android:background="@mipmap/ic_movement_pg"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/ic_movement_pg">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <qtkj.com.qtoaandroid.viewbar.CircleImageView
             android:id="@+id/iv_photo"

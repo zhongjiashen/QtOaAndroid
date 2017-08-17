@@ -25,7 +25,6 @@ import qtkj.com.qtoaandroid.fragment.BaseMapFragment;
 import qtkj.com.qtoaandroid.fragment.MapFragment;
 import qtkj.com.qtoaandroid.model.SignRecordDeal;
 import qtkj.com.qtoaandroid.utils.DateUtil;
-import qtkj.com.qtoaandroid.utils.ViewUtil;
 import qtkj.com.qtoaandroid.view.SignRecordP;
 import qtkj.com.qtoaandroid.viewbar.calenderview.CalendarView;
 
@@ -44,7 +43,9 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
 
     Map<String, String> map;
     Map<String, SignRecordDeal> day_map = new HashMap<>();
-    private String userId="";
+    @BindView(R.id.ll_sign_out)
+    LinearLayout llSignOut;
+    private String userId = "";
 
     private static final LatLng GEO_SHANGHAI = new LatLng(31.227, 121.481);
     @BindView(R.id.ll_all)
@@ -87,7 +88,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
 
     @Override
     protected void Initialize() {
-        cbMonth.setText(DateUtil.DateToString(new Date(),"yyyy年MM月"));
+        cbMonth.setText(DateUtil.DateToString(new Date(), "yyyy年MM月"));
         mDialogYearMonth = new TimePickerDialog.Builder()
                 .setType(Type.YEAR_MONTH)
                 .setThemeColor(getResources().getColor(R.color.colorPrimary))
@@ -101,7 +102,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
         mCalendarView.setOnSelectChangeListener(new CalendarView.OnSelectChangeListener() {
             @Override
             public void selectChange(CalendarView calendarView, Date date) {
-               init(date);
+                init(date);
             }
         });
         mapF1 = BaseMapFragment.newInstance();
@@ -113,8 +114,8 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
         manager.beginTransaction().replace(R.id.map2, mapF2, "map_fragment").commit();
         presenter = new SignRecordP(this, this);
         map = new HashMap<>();
-        userId=getIntent().getStringExtra("userId");
-        map.put("userId",userId );
+        userId = getIntent().getStringExtra("userId");
+        map.put("userId", userId);
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM");
         map.put("time", sd.format(new Date()));
         presenter.getDate(0, map);
@@ -129,7 +130,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(d);
         mCalendarView.setCalendar(calendar);
-        map.put("time", DateUtil.DateToString( d,"yyyy-MM"));
+        map.put("time", DateUtil.DateToString(d, "yyyy-MM"));
         presenter.getDate(0, map);
     }
 
@@ -144,9 +145,10 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
                 break;
         }
     }
-    private void init(Date date){
-        String day=DateUtil.DateToString(date,"yyyy-MM-dd");
-        SignRecordDeal signRecordDeal = day_map.get(DateUtil.DateToString(date,"dd"));
+
+    private void init(Date date) {
+        String day = DateUtil.DateToString(date, "yyyy-MM-dd");
+        SignRecordDeal signRecordDeal = day_map.get(DateUtil.DateToString(date, "dd"));
         if (signRecordDeal == null) {
             llAll.setVisibility(View.GONE);
         } else {
@@ -155,31 +157,36 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
             tvDate.setText(signRecordDeal.getDate());
             tvSignInAddress.setText(signRecordDeal.getSign_in_address());
             tvSignInTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm"));
-            tvSignOutAddress.setText(signRecordDeal.getSign_out_address());
-            tvSignOutTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
+            if(signRecordDeal.getSign_out_address().equals("无位置信息")){
+                llSignOut.setVisibility(View.GONE);
+            }else {
+                tvSignOutAddress.setText(signRecordDeal.getSign_out_address());
+                tvSignOutTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
+            }
 
-            tvPmTime.setText(signRecordDeal.getPmStartTime() + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
+
             switch (signRecordDeal.getJop_type()) {
                 case 0:
-                    long amEnd=DateUtil.StringTolongDate(day+signRecordDeal.getAmEndTime(),"yyyy-MM-ddHH");
-                    Log.e("时间",amEnd+"");
-                    if(amEnd>signRecordDeal.getSign_in_time()){
-                        Log.e("S",amEnd+"");
+                    long amEnd = DateUtil.StringTolongDate(day + signRecordDeal.getAmEndTime(), "yyyy-MM-ddHH");
+                    Log.e("时间", amEnd + "");
+                    if (amEnd > signRecordDeal.getSign_in_time()) {
+                        Log.e("S", amEnd + "");
                         tvAmTime.setVisibility(View.VISIBLE);
                         map1.setVisibility(View.VISIBLE);
                         tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm") + " - " + signRecordDeal.getAmEndTime());
-                        mapF1.start(signRecordDeal.getSign_in_time(),amEnd,userId);
-                    }else {
-                        tvAmTime.setVisibility(View.GONE);;
+                        mapF1.start(signRecordDeal.getSign_in_time(), amEnd, userId);
+                    } else {
+                        tvAmTime.setVisibility(View.GONE);
+
                         map1.setVisibility(View.GONE);
                     }
-                    long pmStart=DateUtil.StringTolongDate(day+signRecordDeal.getPmStartTime(),"yyyy-MM-ddHH");
-                    if(pmStart<signRecordDeal.getSign_out_time()){
+                    long pmStart = DateUtil.StringTolongDate(day + signRecordDeal.getPmStartTime(), "yyyy-MM-ddHH");
+                    if (pmStart < signRecordDeal.getSign_out_time()) {
                         tvPmTime.setVisibility(View.VISIBLE);
                         map2.setVisibility(View.VISIBLE);
                         tvPmTime.setText(signRecordDeal.getPmStartTime() + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
-                        mapF2.start(pmStart,signRecordDeal.getSign_out_time(),userId);
-                    }else {
+                        mapF2.start(pmStart, signRecordDeal.getSign_out_time(), userId);
+                    } else {
                         tvPmTime.setVisibility(View.GONE);
                         map2.setVisibility(View.GONE);
                     }
@@ -190,7 +197,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
                     tvPmTime.setVisibility(View.GONE);
                     map2.setVisibility(View.GONE);
                     tvAmTime.setText(signRecordDeal.getSign_in_time() + " - " + signRecordDeal.getSign_out_time());
-                    mapF1.start(signRecordDeal.getSign_in_time(),signRecordDeal.getSign_out_time(),userId);
+                    mapF1.start(signRecordDeal.getSign_in_time(), signRecordDeal.getSign_out_time(), userId);
                     break;
             }
 

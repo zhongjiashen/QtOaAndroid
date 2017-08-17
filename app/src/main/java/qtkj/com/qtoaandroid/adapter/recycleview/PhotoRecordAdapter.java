@@ -2,6 +2,7 @@ package qtkj.com.qtoaandroid.adapter.recycleview;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.activity.DragImageActivity;
 import qtkj.com.qtoaandroid.model.PhotoRecord;
 
 /**
@@ -42,14 +44,19 @@ public class PhotoRecordAdapter extends BaseRecycleViewAdapter<PhotoRecord> {
 
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder,final int position) {
         if(list.size()>0) {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.tvAddress.setText(list.get(position).getPosition());
             Glide.with(activity).load(Contest.baseurl+list.get(position).getPhotoUrl()).into(viewHolder.ivPhoto);
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
             viewHolder.tvDate.setText(sdf.format(new Date(list.get(position).getCreateTime())));
-
+            viewHolder.ivPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.startActivity(new Intent(activity, DragImageActivity.class).putExtra("url",list.get(position).getPhotoUrl()));
+                }
+            });
         }
     }
 

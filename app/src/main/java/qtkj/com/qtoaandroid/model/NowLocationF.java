@@ -10,13 +10,12 @@ import java.util.List;
 
 public class NowLocationF {
 
-
     /**
-     * userCount : 8.0
-     * postName : 固定岗
-     * dept : [{"user_id":1},{"user_id":4}]
-     * signCount : 2.0
-     * postId : 1.0
+     * userCount : 2
+     * postName : 保安岗
+     * dept : [{"user_name":"李四","img":"upload/201708/16/1502883653582.jpg","user_id":1}]
+     * signCount : 1
+     * postId : 2
      */
 
     @SerializedName("userCount")
@@ -72,11 +71,33 @@ public class NowLocationF {
 
     public static class DeptBean {
         /**
-         * user_id : 1.0
+         * user_name : 李四
+         * img : upload/201708/16/1502883653582.jpg
+         * user_id : 1
          */
 
+        @SerializedName("user_name")
+        private String userName;
+        @SerializedName("img")
+        private String img;
         @SerializedName("user_id")
         private int userId;
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
 
         public int getUserId() {
             return userId;
@@ -88,7 +109,10 @@ public class NowLocationF {
 
         @Override
         public String toString() {
-            return  userId+"";
+            return  "{"+"\"user_name\":\"" + userName  +
+                    "\", \"img\":\"" + img  +
+                    "\", \"user_id\":" + userId +
+                   "}";
         }
     }
 }

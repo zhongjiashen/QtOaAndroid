@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.Map;
 
+import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.dialog.LoadingDialog;
 import qtkj.com.qtoaandroid.httputils.NetWorkRequest;
 import qtkj.com.qtoaandroid.httputils.api.ApiService;
@@ -49,7 +50,7 @@ public abstract class BasePressent {
         });
         apiService = NetWorkRequest.getInstance().apiService;
         if (apiService == null) {
-            NetWorkRequest.getInstance().init(mActivity.getApplicationContext(), "http://192.168.1.158:8080/api/user/");
+            NetWorkRequest.getInstance().init(mActivity.getApplicationContext(), Contest.baseurl+"api/user/");
             apiService = NetWorkRequest.getInstance().apiService;
         }
         Observable<Object> fromNetwrok = apiService.executePost(url, map)

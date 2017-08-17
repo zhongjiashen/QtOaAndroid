@@ -167,6 +167,7 @@
                     android:layout_height="1dp"
                     android:background="@color/grayline"/>
                 <LinearLayout
+                    android:id="@+id/ll_sign_out"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:gravity="center_vertical">

@@ -5,13 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import qtkj.com.qtoaandroid.R;
-import qtkj.com.qtoaandroid.model.NowLocationF;
 
 /**
  * Created by Administrator on 2017/8/4 0004.
@@ -22,6 +23,7 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
     protected Activity activity;
     private final int NULLDATA = 0;
     private final int WORD = 1;
+
 
     public BaseRecycleViewAdapter(Activity activity) {
         this.activity = activity;
@@ -52,7 +54,7 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
         View v;
         RecyclerView.ViewHolder holder;
         if (viewType == NULLDATA) {
-            v = LayoutInflater.from(activity).inflate(R.layout.view_null_data, parent, false);
+            v = LayoutInflater.from(activity).inflate(R.layout.item_view_null_data, parent, false);
             holder = new NullDataViewHolder(v);
         } else {
             holder = getViewHolder(parent, viewType);
@@ -85,6 +87,8 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
     }
 
     static class NullDataViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.textView)
+        TextView textView;
         public NullDataViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

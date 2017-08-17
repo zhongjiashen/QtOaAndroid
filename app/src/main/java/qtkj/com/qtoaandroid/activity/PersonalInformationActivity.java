@@ -179,13 +179,13 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
                 finish();
                 break;
             case R.id.iv_head_portrait:
-                startActivity(new Intent(this, DragImageActivity.class));
+                startActivity(new Intent(this, DragImageActivity.class).putExtra("url",login.getImg()));
                 break;
             case R.id.ll_head_portrait:
                 showDialog();
                 break;
             case R.id.ll_name:
-                startActivity(new Intent(this, UpdateNameActivity.class));
+//                startActivity(new Intent(this, UpdateNameActivity.class));
                 break;
         }
     }
@@ -256,8 +256,8 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
         }
     }
     private CropOptions getCropOptions(){
-        int height= Integer.parseInt("50");
-        int width= Integer.parseInt("50");
+        int height= Integer.parseInt("200");
+        int width= Integer.parseInt("200");
         boolean withWonCrop=true;
 
         CropOptions.Builder builder=new CropOptions.Builder();

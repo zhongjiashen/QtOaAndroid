@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="30dp"
+              android:layout_height="40dp"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:background="@mipmap/ic_overlay_bg"
+              android:orientation="vertical">
+
+    <qtkj.com.qtoaandroid.viewbar.CircleImageView
+        android:id="@+id/civ_view"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/ic_launcher_round"
+        android:layout_marginTop="4dp"/>
+
+</LinearLayout>

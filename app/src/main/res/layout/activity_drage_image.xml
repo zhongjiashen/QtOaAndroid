@@ -27,7 +27,7 @@
 
     </RelativeLayout>
     <qtkj.com.qtoaandroid.viewbar.dragzoomimageview.DragImageView
+        android:id="@+id/div_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@mipmap/icon_gcoding"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

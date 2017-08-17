@@ -89,6 +89,7 @@ public class PhoneLoginActivity extends BaseActivity<PhoneLoginPassP> {
         switch (requestCode){
             case 0:
                 startActivity(new Intent(this, MainActivity.class));
+                finish();
                 break;
             case 1:
                 Tool.ButtonCutDown(120,tvSendCode);
