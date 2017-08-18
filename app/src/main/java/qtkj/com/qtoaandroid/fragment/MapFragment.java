@@ -24,8 +24,10 @@ import com.baidu.trace.api.track.HistoryTrackResponse;
 import com.baidu.trace.api.track.LatestPointResponse;
 import com.baidu.trace.api.track.OnTrackListener;
 import com.baidu.trace.api.track.TrackPoint;
+import com.baidu.trace.model.ProcessOption;
 import com.baidu.trace.model.SortType;
 import com.baidu.trace.model.StatusCodes;
+import com.baidu.trace.model.TransportMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,9 +207,9 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
             public void onHistoryTrackCallback(HistoryTrackResponse response) {
                 int total = response.getTotal();
                 if (StatusCodes.SUCCESS != response.getStatus()) {
-                    viewUtil.showToast(getActivity(), response.getMessage());
+//                    viewUtil.showToast(getActivity(),getString(R.string.no_track_data));
                 } else if (0 == total) {
-                    viewUtil.showToast(getActivity(), getString(R.string.no_track_data));
+//                    viewUtil.showToast(getActivity(), getString(R.string.no_track_data));
                 } else {
                     List<TrackPoint> points = response.getTrackPoints();
                     if (null != points) {
@@ -224,6 +226,7 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
                     historyTrackRequest.setPageIndex(++pageIndex);
                     queryHistoryTrack();
                 } else {
+                    BitmapUtil.init();
                     mapUtil.drawHistoryTrack(trackPoints, sortType);
                 }
             }
@@ -267,21 +270,7 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
                     return;
                 }
 
-//                clearAnalysisList();
-//                clearAnalysisOverlay();
-//
-//                List<SpeedingInfo> speedingInfos = response.getSpeedings();
-//                for (SpeedingInfo info : speedingInfos) {
-//                    speedingPoints.addAll(info.getPoints());
-//                }
-//                harshAccelPoints.addAll(response.getHarshAccelerationPoints());
-//                harshBreakingPoints.addAll(response.getHarshBreakingPoints());
-//                harshSteeringPoints.addAll(response.getHarshSteeringPoints());
-//
-//                handleOverlays(speedingMarkers, speedingPoints, isSpeeding);
-//                handleOverlays(harshAccelMarkers, harshAccelPoints, isHarshAccel);
-//                handleOverlays(harshBreakingMarkers, harshBreakingPoints, isHarshBreaking);
-//                handleOverlays(harshSteeringMarkers, harshSteeringPoints, isHarshSteering);
+
             }
         };
     }
@@ -294,6 +283,22 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
         historyTrackRequest.setEntityName(trackApp.entityName);
         historyTrackRequest.setStartTime(startTime);
         historyTrackRequest.setEndTime(endTime);
+        // 设置需要纠偏
+        historyTrackRequest.setProcessed(true);
+// 创建纠偏选项实例
+        ProcessOption processOption = new ProcessOption();
+// 设置需要去噪
+        processOption.setNeedDenoise(true);
+// 设置需要抽稀
+        processOption.setNeedVacuate(true);
+// 设置需要绑路
+        processOption.setNeedMapMatch(true);
+// 设置精度过滤值(定位精度大于100米的过滤掉)
+        processOption.setRadiusThreshold(100);
+// 设置交通方式为驾车
+        processOption.setTransportMode(TransportMode.riding);
+// 设置纠偏选项
+        historyTrackRequest.setProcessOption(processOption);
         historyTrackRequest.setPageIndex(pageIndex);
         historyTrackRequest.setPageSize(Constants.PAGE_SIZE);
         trackApp.mClient.queryHistoryTrack(historyTrackRequest, mTrackListener);

@@ -13,6 +13,7 @@ public class SignRecordDeal {
     private long sign_out_time;
     private String amEndTime;
     private String pmStartTime;
+    private String pmEndTime;
     private int jop_type;
 
     public String getDay_state() {
@@ -77,6 +78,14 @@ public class SignRecordDeal {
 
     public void setPmStartTime(String pmStartTime) {
         this.pmStartTime = pmStartTime;
+    }
+
+    public String getPmEndTime() {
+        return pmEndTime;
+    }
+
+    public void setPmEndTime(String pmEndTime) {
+        this.pmEndTime = pmEndTime;
     }
 
     public int getJop_type() {

@@ -48,7 +48,7 @@ public class PhotoRecordAdapter extends BaseRecycleViewAdapter<PhotoRecord> {
         if(list.size()>0) {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.tvAddress.setText(list.get(position).getPosition());
-            Glide.with(activity).load(Contest.baseurl+list.get(position).getPhotoUrl()).into(viewHolder.ivPhoto);
+            Glide.with(activity).load(Contest.baseurl+list.get(position).getPhotoUrl()).error(R.mipmap.ic_photo).into(viewHolder.ivPhoto);
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
             viewHolder.tvDate.setText(sdf.format(new Date(list.get(position).getCreateTime())));
             viewHolder.ivPhoto.setOnClickListener(new View.OnClickListener() {

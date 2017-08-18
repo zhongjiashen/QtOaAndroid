@@ -49,7 +49,7 @@ public class AddressBookDetailActivity extends BaseActivity<AddressBookDetailP> 
     @Override
     public void returnData(int requestCode, Object data) {
         login = (Login) data;
-        Glide.with(this).load(Contest.baseurl + login.getImg()).into(ivPhoto);
+        Glide.with(this).load(Contest.baseurl + login.getImg()).error(R.mipmap.ic_photo).into(ivPhoto);
         tvNick.setText(login.getUser_name());
         tvKind.setText(login.getPost_name());
         tvKindNumber.setText(login.getPost_name() + login.getUser_id());

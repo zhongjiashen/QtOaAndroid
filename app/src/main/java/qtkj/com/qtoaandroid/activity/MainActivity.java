@@ -1,6 +1,7 @@
 package qtkj.com.qtoaandroid.activity;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -54,10 +55,15 @@ public class MainActivity extends BaseActivity<MainP> {
     private MyBDLocation myBDLocation;
     private MyBroadcastReciver myBroadcastReciver;
     private int type = -1;
+
+
     private String imgStr;
     public void setImgStr(String imgStr) {
         this.imgStr = imgStr;
     }
+
+
+
 
     /**
      * 轨迹服务监听器
@@ -154,7 +160,6 @@ public class MainActivity extends BaseActivity<MainP> {
         if (null == trackReceiver) {
             trackReceiver = new TrackReceiver(wakeLock);
         }
-
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_SCREEN_ON);
@@ -210,8 +215,8 @@ public class MainActivity extends BaseActivity<MainP> {
                  */
                 @Override
                 public void onBindServiceCallback(int errorNo, String message) {
-                    viewUtil.showToast(MainActivity.this,
-                            String.format("onBindServiceCallback, errorNo:%d, message:%s ", errorNo, message));
+//                    viewUtil.showToast(MainActivity.this,
+//                            String.format("onBindServiceCallback, errorNo:%d, message:%s ", errorNo, message));
                 }
 
                 /**
@@ -289,6 +294,7 @@ public class MainActivity extends BaseActivity<MainP> {
                         SharedPreferences.Editor editor = trackApp.trackConf.edit();
                         editor.putBoolean("is_gather_started", true);
                         editor.apply();
+
 
                     }else {
                         viewUtil.showToast(MainActivity.this,

@@ -72,7 +72,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
     FrameLayout map1;
     @BindView(R.id.map2)
     FrameLayout map2;
-
+    FragmentManager manager;
     @Override
     protected int layout() {
         return R.layout.activity_sign_record;
@@ -109,7 +109,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
         mapF1.setStype(1);
         mapF2 = MapFragment.newInstance();
         mapF2.setStype(1);
-        FragmentManager manager = getSupportFragmentManager();
+         manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.map1, mapF1, "map_fragment").commit();
         manager.beginTransaction().replace(R.id.map2, mapF2, "map_fragment").commit();
         presenter = new SignRecordP(this, this);
@@ -157,47 +157,57 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
             tvDate.setText(signRecordDeal.getDate());
             tvSignInAddress.setText(signRecordDeal.getSign_in_address());
             tvSignInTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm"));
-            if(signRecordDeal.getSign_out_address().equals("无位置信息")){
+            if (signRecordDeal.getSign_out_address().equals("无位置信息")) {
                 llSignOut.setVisibility(View.GONE);
-            }else {
+                signRecordDeal.setSign_out_time(DateUtil.StringTolongDate(day + signRecordDeal.getPmEndTime(), "yyyy-MM-ddHH"));
+            } else {
                 tvSignOutAddress.setText(signRecordDeal.getSign_out_address());
                 tvSignOutTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
             }
 
-
+            long pmStart = DateUtil.StringTolongDate(day + signRecordDeal.getPmStartTime(), "yyyy-MM-ddHH");
             switch (signRecordDeal.getJop_type()) {
                 case 0:
                     long amEnd = DateUtil.StringTolongDate(day + signRecordDeal.getAmEndTime(), "yyyy-MM-ddHH");
                     Log.e("时间", amEnd + "");
+                    //未签退，轨迹一直记录，直接查询到下午下班时间段的轨迹信息
+
+                    //签到时间大于中午下班时间，上午有轨迹显示地图
                     if (amEnd > signRecordDeal.getSign_in_time()) {
                         Log.e("S", amEnd + "");
                         tvAmTime.setVisibility(View.VISIBLE);
                         map1.setVisibility(View.VISIBLE);
                         tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm") + " - " + signRecordDeal.getAmEndTime());
                         mapF1.start(signRecordDeal.getSign_in_time(), amEnd, userId);
+
+
                     } else {
                         tvAmTime.setVisibility(View.GONE);
-
                         map1.setVisibility(View.GONE);
                     }
-                    long pmStart = DateUtil.StringTolongDate(day + signRecordDeal.getPmStartTime(), "yyyy-MM-ddHH");
+
                     if (pmStart < signRecordDeal.getSign_out_time()) {
                         tvPmTime.setVisibility(View.VISIBLE);
                         map2.setVisibility(View.VISIBLE);
+
                         tvPmTime.setText(signRecordDeal.getPmStartTime() + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
                         mapF2.start(pmStart, signRecordDeal.getSign_out_time(), userId);
+
                     } else {
                         tvPmTime.setVisibility(View.GONE);
                         map2.setVisibility(View.GONE);
                     }
+
                     break;
                 case 1:
                     tvAmTime.setVisibility(View.VISIBLE);
                     map1.setVisibility(View.VISIBLE);
+
                     tvPmTime.setVisibility(View.GONE);
                     map2.setVisibility(View.GONE);
                     tvAmTime.setText(signRecordDeal.getSign_in_time() + " - " + signRecordDeal.getSign_out_time());
                     mapF1.start(signRecordDeal.getSign_in_time(), signRecordDeal.getSign_out_time(), userId);
+
                     break;
             }
 

@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:text="@string/head_portrait"/>
 
-        <ImageView
+        <qtkj.com.qtoaandroid.viewbar.CircleImageView
             android:id="@+id/iv_head_portrait"
             android:layout_width="40dp"
             android:layout_height="40dp"

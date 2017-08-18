@@ -98,6 +98,7 @@ public class SignRecordP extends BasePressent{
             signRecordDeal.setSign_out_time(signRecord.getOutSignTime());
             signRecordDeal.setAmEndTime(signRecord.getAmEndTime());
             signRecordDeal.setPmStartTime(signRecord.getPmStartTime());
+            signRecordDeal.setPmEndTime(signRecord.getPmEndTime());
             signRecordDeal.setJop_type(signRecord.getJobType());
             map.put(key,signRecordDeal);
         }

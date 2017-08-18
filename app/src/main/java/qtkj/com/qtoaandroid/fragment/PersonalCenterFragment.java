@@ -58,7 +58,7 @@ public class PersonalCenterFragment extends BaseFragmengt {
             tvNick.setText(login.getUser_name());
             tvKind.setText(login.getPost_name());
             tvKindNumber.setText(login.getPost_name()+login.getUser_id());
-            Glide.with(this).load(Contest.baseurl+login.getImg()).error(R.mipmap.ic_launcher_round).bitmapTransform(new CropCircleTransformation(getActivity())).into(ivPhoto);
+            Glide.with(this).load(Contest.baseurl+login.getImg()).error(R.mipmap.ic_photo).bitmapTransform(new CropCircleTransformation(getActivity())).into(ivPhoto);
         }
     }
 

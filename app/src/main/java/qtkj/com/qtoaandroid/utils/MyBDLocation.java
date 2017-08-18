@@ -89,9 +89,9 @@ public class MyBDLocation implements BDLocationListener {
     public void start(){
         if(mLocationClient.isStarted()){
             mLocationClient.requestLocation();
-            Toast.makeText(context,"重新定位", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context,"重新定位", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context,"开始定位", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context,"开始定位", Toast.LENGTH_SHORT).show();
             mLocationClient.start();
         }
     }

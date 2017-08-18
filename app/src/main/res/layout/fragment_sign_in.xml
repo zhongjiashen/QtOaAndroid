@@ -1,154 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/pgbg">
-    <android.support.constraint.ConstraintLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/text_18_white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv_title"
-            style="@style/text_18_white"
-            android:layout_width="0dp"
-            android:layout_height="49dp"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="@string/sign_in_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ic_sign_in_bg"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            />
-
-        <TextView
-            style="@style/text_18_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="29dp"
-            android:text="@string/sign_in_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView"/>
-
-        <TextView
-            android:id="@+id/tv_date"
-            style="@style/text_13_whigtgray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="63dp"
-            android:text="12月6日 周二 22:06"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView"/>
-
-        <TextView
-            android:id="@+id/tv_sign_in_record"
-            style="@style/text_15_whigtgray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="42dp"
-            android:layout_marginStart="42dp"
-            android:layout_marginTop="24dp"
-            android:drawablePadding="10dp"
-            android:drawableTop="@mipmap/ic_sign_in_record"
-            android:text="@string/sign_in_record"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tv_photo_record"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"/>
-
-        <TextView
-            android:id="@+id/tv_photo_record"
-            style="@style/text_15_whigtgray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:drawablePadding="10dp"
-            android:drawableTop="@mipmap/ic_photo_record"
-            android:text="@string/photo_record"
-            app:layout_constraintLeft_toRightOf="@+id/tv_sign_in_record"
-            app:layout_constraintRight_toLeftOf="@+id/tv_attendance_management"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"/>
-
-        <TextView
-            android:id="@+id/tv_attendance_management"
-            style="@style/text_15_whigtgray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="42dp"
-            android:layout_marginRight="42dp"
-            android:layout_marginTop="24dp"
-            android:drawablePadding="10dp"
-            android:drawableTop="@mipmap/ic_attendance_management"
-            android:text="@string/attendance_management"
-            app:layout_constraintLeft_toRightOf="@+id/tv_photo_record"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"/>
-
-        <View
-            android:id="@+id/line"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="25dp"
-            android:background="@color/line"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_photo_record"/>
-
-        <TextView
-            android:id="@+id/tv_time"
-            style="@style/text_16_whigtgray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="2017-7-26 08:29"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line"/>
-
-        <ImageView
-            android:id="@+id/iv_take_photto"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="63dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_time"
-            app:srcCompat="@mipmap/ic_take_photo"/>
-
-        <ImageView
-            android:id="@+id/iv_sign_in"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginRight="63dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_time"
-            android:background="@mipmap/ic_sign_in"/>
-
-        <TextView
-            android:id="@+id/tv_woke_time"
-            style="@style/text_12_gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="工作时间：08:30 - 18:00"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_take_photto"
-            android:paddingBottom="20dp"/>
+        android:layout_height="49dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="@string/sign_in_title"/>
 
 
-    </android.support.constraint.ConstraintLayout>
-</ScrollView>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/pgbg">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_sign_in_bg"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+
+            <TextView
+                style="@style/text_18_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="29dp"
+                android:text="@string/sign_in_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/text_13_whigtgray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="63dp"
+                android:text="12月6日 周二 22:06"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView"/>
+
+            <TextView
+                android:id="@+id/tv_sign_in_record"
+                style="@style/text_15_whigtgray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="42dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="24dp"
+                android:drawablePadding="10dp"
+                android:drawableTop="@mipmap/ic_sign_in_record"
+                android:text="@string/sign_in_record"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/tv_photo_record"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+
+            <TextView
+                android:id="@+id/tv_photo_record"
+                style="@style/text_15_whigtgray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:drawablePadding="10dp"
+                android:drawableTop="@mipmap/ic_photo_record"
+                android:text="@string/photo_record"
+                app:layout_constraintLeft_toRightOf="@+id/tv_sign_in_record"
+                app:layout_constraintRight_toLeftOf="@+id/tv_attendance_management"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+
+            <TextView
+                android:id="@+id/tv_attendance_management"
+                style="@style/text_15_whigtgray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="42dp"
+                android:layout_marginRight="42dp"
+                android:layout_marginTop="24dp"
+                android:drawablePadding="10dp"
+                android:drawableTop="@mipmap/ic_attendance_management"
+                android:text="@string/attendance_management"
+                app:layout_constraintLeft_toRightOf="@+id/tv_photo_record"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="25dp"
+                android:background="@color/line"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_photo_record"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/text_16_whigtgray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="2017-7-26 08:29"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line"/>
+
+            <ImageView
+                android:id="@+id/iv_take_photto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="63dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_time"
+                app:srcCompat="@mipmap/ic_take_photo"/>
+
+            <ImageView
+                android:id="@+id/iv_sign_in"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="63dp"
+                android:layout_marginTop="20dp"
+                android:background="@mipmap/ic_sign_in"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_time"/>
+
+            <TextView
+                android:id="@+id/tv_woke_time"
+                style="@style/text_12_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="20dp"
+                android:text="工作时间：08:30 - 18:00"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_take_photto"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

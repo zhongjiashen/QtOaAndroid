@@ -10,10 +10,11 @@ import java.util.List;
 
 public class AddressBook {
 
+
     /**
      * postName : 固定岗
-     * number : 5
-     * dept : [{"is_sign":0,"user_name":"李四","user_phone":"18336302752","user_id":1},{"is_sign":0,"user_name":"王二","user_phone":"13303737962","user_id":2},{"is_sign":0,"user_name":"斧王","user_phone":"13325896541","user_id":4},{"is_sign":0,"user_name":"ofjkm","user_phone":"15326987456","user_id":14},{"is_sign":0,"user_name":"环保","user_phone":"18759687865","user_id":16}]
+     * number : 8
+     * dept : [{"is_sign":0,"user_name":"fgg","user_phone":"15698563244","user_id":17},{"is_sign":0,"user_name":"ofjkm","user_phone":"15326987456","user_id":14},{"is_sign":0,"user_name":"oppo","user_phone":"15611112222","user_id":10},{"is_sign":0,"user_name":"ttop","user_phone":"18536925666","user_id":11},{"is_sign":0,"user_name":"斧王","user_phone":"13325896541","img":"upload/201708/14/1502701059864.jpg","user_id":4},{"is_sign":0,"user_name":"环保","user_phone":"18759687865","user_id":16},{"is_sign":0,"user_name":"申中甲","user_phone":"18336302752","img":"upload/201708/16/1502896272365.jpg","user_id":1},{"is_sign":0,"user_name":"王二","user_phone":"13303737962","user_id":2}]
      */
 
     @SerializedName("postName")
@@ -50,9 +51,10 @@ public class AddressBook {
     public static class DeptBean {
         /**
          * is_sign : 0
-         * user_name : 李四
-         * user_phone : 18336302752
-         * user_id : 1
+         * user_name : fgg
+         * user_phone : 15698563244
+         * user_id : 17
+         * img : upload/201708/14/1502701059864.jpg
          */
 
         @SerializedName("is_sign")
@@ -63,6 +65,8 @@ public class AddressBook {
         private String userPhone;
         @SerializedName("user_id")
         private int userId;
+        @SerializedName("img")
+        private String img;
 
         public int getIsSign() {
             return isSign;
@@ -94,6 +98,14 @@ public class AddressBook {
 
         public void setUserId(int userId) {
             this.userId = userId;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
         }
     }
 }

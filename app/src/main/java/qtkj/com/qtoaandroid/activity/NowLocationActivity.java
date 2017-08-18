@@ -172,7 +172,7 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
                                 LatLng pt = MapUtil.convertTrace2Map(entityInfo.getLatestLocation().getLocation());
                                 View contentView = LayoutInflater.from(NowLocationActivity.this).inflate(R.layout.overlay_view, null);
                                 ViewHolder holder = new ViewHolder(contentView);
-                                Glide.with(NowLocationActivity.this).load(Contest.baseurl + bean.getImg()).error(R.mipmap.ic_clocks).into(holder.civView);
+                                Glide.with(NowLocationActivity.this).load(Contest.baseurl + bean.getImg()).error(R.mipmap.ic_photo).into(holder.civView);
                                 BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(getBitmapFromView(contentView));
                                 MarkerOptions oo = new MarkerOptions().icon(bd).
                                         position(pt).zIndex(100);

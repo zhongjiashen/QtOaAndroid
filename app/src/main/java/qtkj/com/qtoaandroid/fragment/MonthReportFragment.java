@@ -135,7 +135,7 @@ public class MonthReportFragment extends BaseFragmengt<MonthReportP> implements 
                     holder.tvEarly.setText(bean.getUserEarly() + "");
                     holder.tvForget.setText(bean.getUserForget() + "");
                     holder.tvAbsenteeism.setText(bean.getUserAbsent() + "");
-                    Glide.with(getActivity()).load(Contest.baseurl + bean.getImg()).into(holder.ivPhoto);
+                    Glide.with(getActivity()).load(Contest.baseurl + bean.getImg()).error(R.mipmap.ic_photo).into(holder.ivPhoto);
                 }
 
                 return view;

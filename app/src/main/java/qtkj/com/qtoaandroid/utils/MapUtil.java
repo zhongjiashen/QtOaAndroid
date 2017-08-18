@@ -27,6 +27,7 @@ import com.baidu.trace.model.TraceLocation;
 import java.util.List;
 
 import qtkj.com.qtoaandroid.MyApplication;
+import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.model.baidu.CurrentLocation;
 
 import static qtkj.com.qtoaandroid.utils.BitmapUtil.bmArrowPoint;
@@ -274,7 +275,7 @@ public class MapUtil {
             OverlayOptions startOptions = new MarkerOptions().position(points.get(0)).icon(bmStart)
                     .zIndex(9).draggable(true);
             baiduMap.addOverlay(startOptions);
-            animateMapStatus(points.get(0), 18.0f);
+            setMapStatus(points.get(0), 15.0F);
             return;
         }
 
@@ -298,19 +299,11 @@ public class MapUtil {
 
         // 添加路线（轨迹）
         OverlayOptions polylineOptions = new PolylineOptions().width(10)
-                .color(Color.YELLOW).points(points);
-
+                .color(0xFF5676FC).points(points);
         baiduMap.addOverlay(startOptions);
         baiduMap.addOverlay(endOptions);
         polylineOverlay = baiduMap.addOverlay(polylineOptions);
-
-//        OverlayOptions markerOptions =
-//                new MarkerOptions().flat(true).anchor(0.5f, 0.5f).icon(bmArrowPoint)
-//                        .position(points.get(points.size() - 1))
-//                        .rotate((float) CommonUtil.getAngle(points.get(0), points.get(1)));
-//        mMoveMarker = (Marker) baiduMap.addOverlay(markerOptions);
-
-        animateMapStatus(points);
+        setMapStatus(startPoint, 15.0F);
     }
 
     public void animateMapStatus(List<LatLng> points) {

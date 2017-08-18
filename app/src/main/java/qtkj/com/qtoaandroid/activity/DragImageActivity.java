@@ -28,7 +28,7 @@ public class DragImageActivity extends BaseActivity {
     protected void Initialize() {
         String url = Contest.baseurl + getIntent().getStringExtra("url");
         Log.e("URL",url);
-        Glide.with(this).load(url).error(R.mipmap.ic_launcher_round).into(divView);
+        Glide.with(this).load(url).error(R.mipmap.ic_launcher_round).error(R.mipmap.ic_photo).into(divView);
 
     }
 

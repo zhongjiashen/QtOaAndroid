@@ -147,6 +147,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
                 startActivity(new Intent(getActivity(), PhotoRecordActivity.class).putExtra("userId",MyApplication.login.getUser_id()+""));
                 break;
             case R.id.tv_attendance_management:
+
                 startActivity(new Intent(getActivity(), AttendanceManagementActivity.class));
                 break;
             case R.id.iv_take_photto:

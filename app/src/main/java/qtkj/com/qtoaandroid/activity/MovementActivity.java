@@ -42,7 +42,7 @@ public class MovementActivity extends BaseActivity<AddressBookDetailP> {
     @Override
     public void returnData(int requestCode, Object data) {
         Login login = (Login) data;
-        Glide.with(this).load(Contest.baseurl + login.getImg()).into(ivPhoto);
+        Glide.with(this).load(Contest.baseurl + login.getImg()).error(R.mipmap.ic_photo).into(ivPhoto);
         tvNick.setText(login.getUser_name());
     }
 

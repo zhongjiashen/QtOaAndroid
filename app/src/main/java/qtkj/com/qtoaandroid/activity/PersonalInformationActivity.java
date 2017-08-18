@@ -72,7 +72,7 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
         Log.e("Personal",Contest.baseurl+data.toString());
         switch (requestCode){
             case 0:
-                Glide.with(this).load(Contest.baseurl+data.toString()).bitmapTransform(new CropCircleTransformation(this)).into(ivHeadPortrait);
+                Glide.with(this).load(Contest.baseurl+data.toString()).error(R.mipmap.ic_photo).into(ivHeadPortrait);
                 login.setImg(data.toString());
                 MyApplication.login=login;
                 break;
@@ -97,7 +97,7 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
             tvJobs.setText(login.getPost_name());
             tvJobsNumbers.setText(login.getPost_name()+login.getPost_id());
             tvWorkingTime.setText(login.getWorkStartTime()+" — "+login.getWorkEndTime());
-            Glide.with(this).load(Contest.baseurl+login.getImg()).bitmapTransform(new CropCircleTransformation(this)).into(ivHeadPortrait);
+            Glide.with(this).load(Contest.baseurl+login.getImg()).error(R.mipmap.ic_photo).bitmapTransform(new CropCircleTransformation(this)).into(ivHeadPortrait);
         }
     }
 

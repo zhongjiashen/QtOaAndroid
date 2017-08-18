@@ -1,8 +1,14 @@
 package qtkj.com.qtoaandroid;
 
+import android.annotation.TargetApi;
 import android.app.Application;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -20,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import qtkj.com.qtoaandroid.activity.MainActivity;
 import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.MyBDLocation;
@@ -54,6 +61,7 @@ public class MyApplication extends Application {
      * 轨迹服务
      */
     public Trace mTrace = null;
+    private Notification notification = null;
     /**
      * 轨迹服务ID
      */
@@ -91,9 +99,9 @@ public class MyApplication extends Application {
             trackConf.edit().putString("entityName", login.getUser_id() + "");
             trackConf.edit().putString("post_id", login.getPost_id() + "");
         }
-
+        initNotification();
         mTrace = new Trace(serviceId, trackConf.getString("entityName", entityName));
-
+        mTrace.setNotification(notification);
         mClient.setOnCustomAttributeListener(new OnCustomAttributeListener() {
             @Override
             public Map<String, String> onTrackAttributeCallback() {
@@ -167,5 +175,23 @@ public class MyApplication extends Application {
     public int getTag() {
         return mSequenceGenerator.incrementAndGet();
     }
+    @TargetApi(16)
+    private void initNotification() {
+        Notification.Builder builder = new Notification.Builder(this);
+        Intent notificationIntent = new Intent(this, MainActivity.class);
 
+        Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
+                R.mipmap.ic_app);
+
+        // 设置PendingIntent
+        builder.setContentIntent(PendingIntent.getActivity(this, 0, notificationIntent, 0))
+                .setLargeIcon(icon)  // 设置下拉列表中的图标(大图标)
+                .setContentTitle("龙子湖街道办事处") // 设置下拉列表里的标题
+                .setSmallIcon(R.mipmap.ic_app) // 设置状态栏内的小图标
+                .setContentText("服务正在运行...") // 设置上下文内容
+                .setWhen(System.currentTimeMillis()); // 设置该通知发生的时间
+
+        notification = builder.build(); // 获取构建好的Notification
+        notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音
+    }
 }

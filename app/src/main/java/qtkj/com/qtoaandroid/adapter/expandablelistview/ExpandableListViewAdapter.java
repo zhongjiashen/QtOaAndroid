@@ -12,11 +12,14 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.activity.AddressBookDetailActivity;
@@ -125,6 +128,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 context.startActivity(intent);
             }
         });
+        Glide.with(context).load(Contest.baseurl+list.get(groupPosition).getDept().get(childPosition).getImg()).error(R.mipmap.ic_photo).into(subitemViewHolder.ivHeadPortrait);
         subitemViewHolder.tvKind.setText(list.get(groupPosition).getPostName()+list.get(groupPosition).getDept().get(childPosition).getUserId());
         return convertView;
     }

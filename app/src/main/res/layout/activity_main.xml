@@ -26,7 +26,7 @@
             android:id="@+id/rb_sign_in"
             style="@style/HomeRadioButtonTheme"
             android:checked="true"
-            android:drawableTop="@drawable/selector_main_tap_sign_in"
+            android:drawableTop="@drawable/selector_main_tap_address_book"
             android:text="@string/sign_in" />
 
         <RadioButton
@@ -38,7 +38,7 @@
         <RadioButton
             android:id="@+id/rb_address_book"
             style="@style/HomeRadioButtonTheme"
-            android:drawableTop="@drawable/selector_main_tap_address_book"
+            android:drawableTop="@drawable/selector_main_tap_sign_in"
             android:text="@string/address_book" />
 
         <RadioButton

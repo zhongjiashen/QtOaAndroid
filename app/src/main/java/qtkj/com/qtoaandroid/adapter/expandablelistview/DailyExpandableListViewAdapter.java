@@ -11,11 +11,14 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.model.Daily;
 import qtkj.com.qtoaandroid.utils.DateUtil;
@@ -107,6 +110,7 @@ public class DailyExpandableListViewAdapter extends BaseExpandableListAdapter {
         subitemViewHolder.tvKind.setText(list.get(groupPosition).getChild().get(childPosition).getPostName());
         subitemViewHolder.tvKindNumber.setText(list.get(groupPosition).getChild().get(childPosition).getPostName()+list.get(groupPosition).getChild().get(childPosition).getUserId());
         subitemViewHolder.tvTime.setText("打卡时间："+ DateUtil.longDateToString(list.get(groupPosition).getChild().get(childPosition).getSignTime(),"HH:mm"));
+        Glide.with(context).load(Contest.baseurl+list.get(groupPosition).getChild().get(childPosition).getImg()).error(R.mipmap.ic_photo).into(subitemViewHolder.ivPhoto);
         return convertView;
     }
 
