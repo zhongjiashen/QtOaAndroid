@@ -134,6 +134,9 @@
 -keep class com.baidu.** {*;}
 -keep class vi.com.** {*;}
 -dontwarn com.baidu.**
+#腾讯的Bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
 ##iflytek
 #-keep class com.iflytek.** { *; }
 #-keep class com.chinaMobile.** { *; }

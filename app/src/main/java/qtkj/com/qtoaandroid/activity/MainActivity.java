@@ -84,13 +84,14 @@ public class MainActivity extends BaseActivity<MainP> {
         super.returnData(requestCode, data);
         switch (requestCode) {
             case 0:
-                showShortToast("签到成功！");
-                MyApplication.login.setIs_sign(1);
-                startTrac();
-                type = -1;
-                SignInFragment signInFragment= (SignInFragment) fragments.get(0);
-                signInFragment.setSignType(1);
+//                showShortToast("签到成功！");
+//                MyApplication.login.setIs_sign(1);
+//                startTrac();
+//                type = -1;
+//                SignInFragment signInFragment= (SignInFragment) fragments.get(0);
+//                signInFragment.setSignType(1);
             case 1:
+                type = -1;
                 break;
 
         }
@@ -384,6 +385,13 @@ public class MainActivity extends BaseActivity<MainP> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
         switch (requestCode) {
+            case 0:
+                if (resultCode == RESULT_OK) {
+                    startTrac();
+                    SignInFragment signInFragment= (SignInFragment) fragments.get(0);
+                    signInFragment.setSignType(1);
+                }
+                break;
             case 1:
                 if (resultCode == RESULT_OK) {
                     stopTrac();

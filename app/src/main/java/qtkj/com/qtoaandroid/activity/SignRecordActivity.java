@@ -25,6 +25,7 @@ import qtkj.com.qtoaandroid.fragment.BaseMapFragment;
 import qtkj.com.qtoaandroid.fragment.MapFragment;
 import qtkj.com.qtoaandroid.model.SignRecordDeal;
 import qtkj.com.qtoaandroid.utils.DateUtil;
+import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.view.SignRecordP;
 import qtkj.com.qtoaandroid.viewbar.calenderview.CalendarView;
 
@@ -159,7 +160,6 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
             tvSignInTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm"));
             if (signRecordDeal.getSign_out_address().equals("无位置信息")) {
                 llSignOut.setVisibility(View.GONE);
-                signRecordDeal.setSign_out_time(DateUtil.StringTolongDate(day + signRecordDeal.getPmEndTime(), "yyyy-MM-ddHH"));
             } else {
                 tvSignOutAddress.setText(signRecordDeal.getSign_out_address());
                 tvSignOutTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
@@ -169,7 +169,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
             switch (signRecordDeal.getJop_type()) {
                 case 0:
                     long amEnd = DateUtil.StringTolongDate(day + signRecordDeal.getAmEndTime(), "yyyy-MM-ddHH");
-                    Log.e("时间", amEnd + "");
+                    LogUtils.d(amEnd + "");
                     //未签退，轨迹一直记录，直接查询到下午下班时间段的轨迹信息
 
                     //签到时间大于中午下班时间，上午有轨迹显示地图

@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.permission.PermissionsChecker;
+import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.utils.StatusBarUtil;
 import qtkj.com.qtoaandroid.view.LoginPassP;
 
@@ -33,7 +34,7 @@ public class LoginActivity extends BaseActivity<LoginPassP> {
 
     @Override
     protected void Initialize() {
-
+        LogUtils.d("你好LogUtils工具类！");
         StatusBarUtil.transparencyBar(this);
         StatusBarUtil.StatusBarLightMode(this);
         presenter = new LoginPassP(this, this);

@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             style="@style/text_14_black"
-            android:text="北三环与中州大道交叉口龙湖中心办事处龙湖中心办事处"
+            android:text="正在加载位置信息..."
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"/>
         <TextView

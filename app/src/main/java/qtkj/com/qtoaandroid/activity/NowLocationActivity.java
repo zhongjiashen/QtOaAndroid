@@ -50,6 +50,7 @@ import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.model.NowLocationF;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
+import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.utils.MapUtil;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 import qtkj.com.qtoaandroid.viewbar.CircleImageView;
@@ -118,8 +119,8 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
                 if (marker != null) {
                     NowLocationF.DeptBean bean = map.get(marker.getExtraInfo().getInt("des") + "");
                     LatLng pt = new LatLng(marker.getExtraInfo().getDouble("latitude"), marker.getExtraInfo().getDouble("longitude"));
-                    Log.e("PT", pt.toString());
-                    LatLngToAddress(pt, Contest.baseurl + bean.getImg(), bean.getUserName(), bean.getUserId() + "", marker.getExtraInfo().getString("time"));
+                    LogUtils.d( pt.toString());
+                    showPopwindow(Contest.baseurl + bean.getImg(), bean.getUserName(),  bean.getUserId() + "", marker.getExtraInfo().getString("time"),pt);
                     return true;
                 } else {
                     return false;
@@ -256,7 +257,7 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
     /**
      * 显示popupWindow
      */
-    private void showPopwindow(String url, String name, String userId, String time, String address) {
+    private void showPopwindow(String url, String name, String userId, String time, LatLng pt) {
         //加载弹出框的布局
         View contentView = LayoutInflater.from(NowLocationActivity.this).inflate(
                 R.layout.popwindow_view, null);
@@ -265,13 +266,15 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
         popViewHolder.tvKind.setText(postname);
         popViewHolder.tvKindNumber.setText(postname + userId);
         popViewHolder.tvTime.setText(time.substring(10, 16));
-        popViewHolder.tvAddress.setText(address);
+
+
         Glide.with(this).load(url).into(popViewHolder.ivPhoto);
 
         //设置弹出框的宽度和高度
         PopupWindow popupWindow = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        LatLngToAddress(pt,popViewHolder.tvAddress,popupWindow);
         popupWindow.setFocusable(true);// 取得焦点
         //注意  要是点击外部空白处弹框消息  那么必须给弹框设置一个背景色  不然是不起作用的
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -283,6 +286,38 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
 //从底部显示
         popupWindow.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
+
+    }
+    /*百度地图转换
+               经纬度转换为地址信息*/
+    private void LatLngToAddress(LatLng pt, final TextView textView, PopupWindow window) {
+        final GeoCoder mSearch = GeoCoder.newInstance();
+        mSearch.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
+            @Override
+            public void onGetGeoCodeResult(GeoCodeResult result) {
+
+            }
+            @Override
+            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+                String address;
+                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+                    address = "未获取到详细地址信息！";
+                } else {
+                    //获取点击的坐标地址
+                    address = result.getAddress();
+                }
+                textView.setText(address);
+            }
+        });
+// 反Geo搜索
+        mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                .location(pt));
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                mSearch.destroy();
+            }
+        });
 
     }
 
@@ -324,12 +359,14 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
                     //获取点击的坐标地址
                     address = result.getAddress();
                 }
-                showPopwindow(url, name, userId, time, address);
+
             }
         });
 // 反Geo搜索
         mSearch.reverseGeoCode(new ReverseGeoCodeOption()
                 .location(latLng));
+
+
     }
 
 }

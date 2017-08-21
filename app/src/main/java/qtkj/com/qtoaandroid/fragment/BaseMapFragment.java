@@ -42,6 +42,7 @@ import qtkj.com.qtoaandroid.activity.SignRecordActivity;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.Constants;
+import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.utils.MapUtil;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 
@@ -153,7 +154,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
         this.startTime = startTime / 1000;
         this.endTime = endTime / 1000;
         this.entityName = entityName;
-
+        LogUtils.e(entityName);
         queryHistoryTrack();
 
     }
@@ -180,6 +181,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
     public void onResume() {
         super.onResume();
         this.b.onResume();
+        mapUtil.onResume();
     }
 
     public void onSaveInstanceState(Bundle var1) {
@@ -189,6 +191,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
     public void onPause() {
         super.onPause();
         this.b.onPause();
+        mapUtil.onPause();
     }
 
     public void onStop() {
@@ -220,8 +223,11 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
             public void onHistoryTrackCallback(HistoryTrackResponse response) {
                 int total = response.getTotal();
                 if (StatusCodes.SUCCESS != response.getStatus()) {
+                    LogUtils.d(response.toString());
 //                    viewUtil.showToast(getActivity(), getString(R.string.no_track_data));
                 } else if (0 == total) {
+                    LogUtils.d(getString(R.string.no_track_data));
+
 //                    viewUtil.showToast(getActivity(), getString(R.string.no_track_data));
                 } else {
                     List<TrackPoint> points = response.getTrackPoints();

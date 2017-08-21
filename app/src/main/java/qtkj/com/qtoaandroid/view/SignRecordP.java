@@ -3,11 +3,13 @@ package qtkj.com.qtoaandroid.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +20,8 @@ import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.model.SignRecord;
 import qtkj.com.qtoaandroid.model.SignRecordDeal;
+import qtkj.com.qtoaandroid.utils.DateUtil;
+import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.viewbar.calenderview.DayManager;
 
 /**
@@ -95,7 +99,17 @@ public class SignRecordP extends BasePressent{
             signRecordDeal.setSign_in_address(signRecord.getPosition());
             signRecordDeal.setSign_out_address(signRecord.getOutPosition());
             signRecordDeal.setSign_in_time(signRecord.getSignTime());
-            signRecordDeal.setSign_out_time(signRecord.getOutSignTime());
+            if (signRecordDeal.getSign_out_address().equals("无位置信息")) {
+                if(i==0){
+                    signRecordDeal.setSign_out_time(new Date().getTime());
+                }else {
+                    signRecordDeal.setSign_out_time(DateUtil.StringTolongDate(moth+"-"+key + signRecordDeal.getPmStartTime(), "yyyy-MM-ddHH"));
+                    LogUtils.d(signRecordDeal.getSign_out_time()+"");
+                }
+
+            }else {
+                signRecordDeal.setSign_out_time(signRecord.getOutSignTime());
+            }
             signRecordDeal.setAmEndTime(signRecord.getAmEndTime());
             signRecordDeal.setPmStartTime(signRecord.getPmStartTime());
             signRecordDeal.setPmEndTime(signRecord.getPmEndTime());

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,7 +128,7 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
         trackApp = (MyApplication) getActivity().getApplicationContext();
         viewUtil = new ViewUtil();
         mapUtil = MapUtil.getNewInstance();
-        BitmapUtil.init();
+
     }
 
     public View onCreateView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
@@ -167,8 +168,11 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
     }
 
     public void onResume() {
+        BitmapUtil.init();
         super.onResume();
         this.b.onResume();
+        mapUtil.onResume();
+
     }
 
     public void onSaveInstanceState(Bundle var1) {
@@ -178,6 +182,8 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
     public void onPause() {
         super.onPause();
         this.b.onPause();
+        mapUtil.onPause();
+
     }
 
     public void onStop() {
@@ -207,9 +213,11 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
             public void onHistoryTrackCallback(HistoryTrackResponse response) {
                 int total = response.getTotal();
                 if (StatusCodes.SUCCESS != response.getStatus()) {
+                    Log.e("MapFragment",response.toString());
 //                    viewUtil.showToast(getActivity(),getString(R.string.no_track_data));
                 } else if (0 == total) {
 //                    viewUtil.showToast(getActivity(), getString(R.string.no_track_data));
+                    Log.e("MapFragment",getString(R.string.no_track_data));
                 } else {
                     List<TrackPoint> points = response.getTrackPoints();
                     if (null != points) {
@@ -226,7 +234,7 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
                     historyTrackRequest.setPageIndex(++pageIndex);
                     queryHistoryTrack();
                 } else {
-                    BitmapUtil.init();
+
                     mapUtil.drawHistoryTrack(trackPoints, sortType);
                 }
             }

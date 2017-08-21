@@ -31,6 +31,7 @@ import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.activity.AttendanceManagementActivity;
 import qtkj.com.qtoaandroid.activity.MainActivity;
 import qtkj.com.qtoaandroid.activity.PhotoRecordActivity;
+import qtkj.com.qtoaandroid.activity.SignActivity;
 import qtkj.com.qtoaandroid.activity.SignOutActivity;
 import qtkj.com.qtoaandroid.activity.SignRecordActivity;
 import qtkj.com.qtoaandroid.model.Login;
@@ -160,15 +161,16 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
                         .enableReserveRaw(true)
                         .create();
                 takePhoto.onEnableCompress(config, true);
-                takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
+                takePhoto.onPickFromCapture(imageUri);
 //                takePhoto.onPickFromDocumentsWithCrop(imageUri,getCropOptions());
                 break;
             case R.id.iv_sign_in:
                 if(mLogin.getIs_sign()==1) {
-                    ViewUtil.startActivityForResult(getActivity(), SignOutActivity.class,1);
+                    startActivityForResult(new Intent(getActivity(), SignActivity.class).putExtra("type",1),1);
                 }else {
-                    MainActivity mainActivity = (MainActivity) getActivity();
-                    mainActivity.startBDLocation(0);
+                    startActivityForResult(new Intent(getActivity(), SignActivity.class).putExtra("type",0),0);
+//                    MainActivity mainActivity = (MainActivity) getActivity();
+//                    mainActivity.startBDLocation(0);
                 }
                 break;
         }

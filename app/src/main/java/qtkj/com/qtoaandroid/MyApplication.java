@@ -21,6 +21,7 @@ import com.baidu.trace.api.track.OnTrackListener;
 import com.baidu.trace.model.BaseRequest;
 import com.baidu.trace.model.OnCustomAttributeListener;
 import com.baidu.trace.model.ProcessOption;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,6 +84,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
+        //腾讯Bugly,崩溃日志跟踪
+        CrashReport.initCrashReport(mContext, "a153d156a3", false);
+
         // 若为创建独立进程，则不初始化成员变量
         if ("com.baidu.track:remote".equals(CommonUtil.getCurProcessName(mContext))) {
             return;
