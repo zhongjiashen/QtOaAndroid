@@ -22,7 +22,7 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
     protected List<T> list = new ArrayList<>();
     protected Activity activity;
     private final int NULLDATA = 0;
-    private final int WORD = 1;
+    protected final int WORD = 1;
 
 
     public BaseRecycleViewAdapter(Activity activity) {

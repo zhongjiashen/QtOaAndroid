@@ -71,6 +71,10 @@ public abstract class BasePressent {
                         mDialog.dismiss();
                     }
 
+                    @Override
+                    public void onCompleted() {
+                        super.onCompleted();
+                    }
                 });
     }
 

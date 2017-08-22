@@ -39,6 +39,7 @@ import qtkj.com.qtoaandroid.activity.MovementActivity;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.Constants;
+import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.utils.MapUtil;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 
@@ -145,7 +146,10 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
         this.startTime=startTime/1000;
         this.endTime=endTime/1000;
         this.entityName=entityName;
+        LogUtils.d(entityName+"_"+this.startTime+"-"+this.endTime);
+        trackPoints.clear();
         queryHistoryTrack();
+
 
     }
     public void onViewCreated(View var1, Bundle var2) {
@@ -168,7 +172,7 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
     }
 
     public void onResume() {
-        BitmapUtil.init();
+
         super.onResume();
         this.b.onResume();
         mapUtil.onResume();
@@ -193,7 +197,7 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
     public void onDestroyView() {
         super.onDestroyView();
         this.b.onDestroy();
-        BitmapUtil.clear();
+
     }
 
     public void onDestroy() {
@@ -213,12 +217,15 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
             public void onHistoryTrackCallback(HistoryTrackResponse response) {
                 int total = response.getTotal();
                 if (StatusCodes.SUCCESS != response.getStatus()) {
-                    Log.e("MapFragment",response.toString());
-//                    viewUtil.showToast(getActivity(),getString(R.string.no_track_data));
-                } else if (0 == total) {
+                    LogUtils.d(response.toString());
 //                    viewUtil.showToast(getActivity(), getString(R.string.no_track_data));
-                    Log.e("MapFragment",getString(R.string.no_track_data));
+                } else if (0 == total) {
+                    LogUtils.d(getString(R.string.no_track_data));
+
+//                    viewUtil.showToast(getActivity(), getString(R.string.no_track_data));
                 } else {
+                    LogUtils.d(response.toString());
+                    total = response.getTotal();
                     List<TrackPoint> points = response.getTrackPoints();
                     if (null != points) {
                         for (TrackPoint trackPoint : points) {

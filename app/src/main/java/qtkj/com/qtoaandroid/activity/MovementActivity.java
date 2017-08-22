@@ -14,6 +14,7 @@ import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.fragment.BaseMapFragment;
 import qtkj.com.qtoaandroid.model.Login;
+import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.DateUtil;
 import qtkj.com.qtoaandroid.view.AddressBookDetailP;
 import qtkj.com.qtoaandroid.viewbar.CircleImageView;
@@ -64,7 +65,6 @@ public class MovementActivity extends BaseActivity<AddressBookDetailP> {
     @Override
     protected void onStart() {
         super.onStart();
-
         map.start(startTime, endTime, userId);
     }
 
@@ -72,4 +72,5 @@ public class MovementActivity extends BaseActivity<AddressBookDetailP> {
     public void onClick() {
         finish();
     }
+
 }

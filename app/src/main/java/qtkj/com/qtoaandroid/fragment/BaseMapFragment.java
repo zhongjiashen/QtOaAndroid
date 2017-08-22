@@ -134,8 +134,6 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
         Log.e("onCreate", "onCreate");
         trackApp = (MyApplication) getActivity().getApplicationContext();
         viewUtil = new ViewUtil();
-
-        BitmapUtil.init();
     }
 
     public View onCreateView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
@@ -154,7 +152,8 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
         this.startTime = startTime / 1000;
         this.endTime = endTime / 1000;
         this.entityName = entityName;
-        LogUtils.e(entityName);
+        LogUtils.d(entityName+"_"+this.startTime+"-"+this.endTime);
+        trackPoints.clear();
         queryHistoryTrack();
 
     }
@@ -182,6 +181,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
         super.onResume();
         this.b.onResume();
         mapUtil.onResume();
+
     }
 
     public void onSaveInstanceState(Bundle var1) {
@@ -201,11 +201,13 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
     public void onDestroyView() {
         super.onDestroyView();
         this.b.onDestroy();
-        BitmapUtil.clear();
+
     }
 
     public void onDestroy() {
         super.onDestroy();
+
+
     }
 
     public void onDetach() {
@@ -230,6 +232,8 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
 
 //                    viewUtil.showToast(getActivity(), getString(R.string.no_track_data));
                 } else {
+                    LogUtils.d(response.toString());
+
                     List<TrackPoint> points = response.getTrackPoints();
                     if (null != points) {
                         for (TrackPoint trackPoint : points) {
@@ -245,7 +249,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
                     historyTrackRequest.setPageIndex(++pageIndex);
                     queryHistoryTrack();
                 } else {
-                    BitmapUtil.init();
+
                     mapUtil.drawHistoryTrack(trackPoints, sortType);
                 }
             }

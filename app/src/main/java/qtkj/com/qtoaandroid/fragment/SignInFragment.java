@@ -1,6 +1,9 @@
 package qtkj.com.qtoaandroid.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -56,6 +59,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
 
     private InvokeParam invokeParam;
     private TakePhoto takePhoto;
+    private BroadcastReceiver mTimeRefreshReceiver;
 
     @Override
     protected int Rlayout() {
@@ -64,15 +68,35 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
 
     @Override
     protected void init() {
-        Date date = new Date();
+        updateTime(new Date());
+        tvWokeTime.setText("工作时间：" + MyApplication.login.getWorkStartTime() + " — " + MyApplication.login.getWorkEndTime());
+        mTimeRefreshReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (Intent.ACTION_TIME_TICK.equals(intent.getAction())) {
+                    updateTime(new Date());
+                }
+            }
+        };
+       getActivity().registerReceiver(mTimeRefreshReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
+    }
+
+    /**
+     * Called when the fragment is no longer in use.  This is called
+     * after {@link #onStop()} and before {@link #onDetach()}.
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mTimeRefreshReceiver);
+    }
+
+    public void updateTime(Date date){
         SimpleDateFormat formatter = new SimpleDateFormat("MM月dd日 E HH:mm");
         tvDate.setText(formatter.format(date));
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         tvTime.setText(formater.format(date));
-        tvWokeTime.setText("工作时间："+ MyApplication.login.getWorkStartTime()+" — "+MyApplication.login.getWorkEndTime());
-
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         getTakePhoto().onCreate(savedInstanceState);
@@ -118,16 +142,17 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     @Override
     public void onResume() {
         super.onResume();
-       mLogin=MyApplication.login;
-        if(mLogin.getIs_sign()==1){
+        mLogin = MyApplication.login;
+        if (mLogin.getIs_sign() == 1) {
             setSignType(1);
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.startTrac();
         }
 
     }
-    public void setSignType(int i){
-        switch (i){
+
+    public void setSignType(int i) {
+        switch (i) {
             case 0:
                 ivSignIn.setBackgroundResource(R.mipmap.ic_sign_in);
                 break;
@@ -142,10 +167,10 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_sign_in_record:
-                    startActivity(new Intent(getActivity(), SignRecordActivity.class).putExtra("userId",MyApplication.login.getUser_id()+""));
+                startActivity(new Intent(getActivity(), SignRecordActivity.class).putExtra("userId", MyApplication.login.getUser_id() + ""));
                 break;
             case R.id.tv_photo_record:
-                startActivity(new Intent(getActivity(), PhotoRecordActivity.class).putExtra("userId",MyApplication.login.getUser_id()+""));
+                startActivity(new Intent(getActivity(), PhotoRecordActivity.class).putExtra("userId", MyApplication.login.getUser_id() + ""));
                 break;
             case R.id.tv_attendance_management:
 
@@ -165,10 +190,10 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
 //                takePhoto.onPickFromDocumentsWithCrop(imageUri,getCropOptions());
                 break;
             case R.id.iv_sign_in:
-                if(mLogin.getIs_sign()==1) {
-                    startActivityForResult(new Intent(getActivity(), SignActivity.class).putExtra("type",1),1);
-                }else {
-                    startActivityForResult(new Intent(getActivity(), SignActivity.class).putExtra("type",0),0);
+                if (mLogin.getIs_sign() == 1) {
+                    startActivityForResult(new Intent(getActivity(), SignActivity.class).putExtra("type", 1), 1);
+                } else {
+                    startActivityForResult(new Intent(getActivity(), SignActivity.class).putExtra("type", 0), 0);
 //                    MainActivity mainActivity = (MainActivity) getActivity();
 //                    mainActivity.startBDLocation(0);
                 }
@@ -181,7 +206,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
         Toast.makeText(getActivity(), "成功", Toast.LENGTH_SHORT).show();
         MainActivity mainActivity = (MainActivity) getActivity();
         try {
-            String imagefile= Base64.encodeBase64File(result.getImage().getCompressPath());
+            String imagefile = Base64.encodeBase64File(result.getImage().getCompressPath());
             mainActivity.setImgStr(imagefile);
             mainActivity.startBDLocation(1);
         } catch (Exception e) {

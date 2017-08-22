@@ -30,7 +30,7 @@ public class PhotoRecordP extends BasePressent {
         Type jsonType = new TypeToken<List<PhotoRecord>>() {
         }.getType();
         List<PhotoRecord> list = gson.fromJson(response, jsonType);
-        view.returnData(0, list);
+        view.returnData(requestCode, list);
     }
 
     public void getphotoHistory(int requestCode, Map map) {

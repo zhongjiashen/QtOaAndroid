@@ -6,19 +6,22 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
+import android.view.accessibility.AccessibilityEvent;
 
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import qtkj.com.qtoaandroid.utils.LogUtils;
+
 /**
  * 自定义的日历控件
  * Created by xiaozhu on 2016/8/1.
  */
 public class CalendarView extends View {
-
+    float x = 0;
+    float y = 0;
     private Context context;
     /**
      * 画笔
@@ -93,46 +96,100 @@ public class CalendarView extends View {
 
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (MotionEvent.ACTION_DOWN == event.getAction()) {
-            //判断点击的是哪个日期
-            float x = event.getX();
-            float y = event.getY();
-            //计算点击的是哪个日期
-            int locationX = (int) (x * 7 / getMeasuredWidth());
-            int locationY = (int) ((calendar.getActualMaximum(Calendar.WEEK_OF_MONTH) + 1) * y / getMeasuredHeight());
-            if (locationY == 0) {
-                return super.onTouchEvent(event);
-            } else if (locationY == 1) {
-                calendar.set(Calendar.DAY_OF_MONTH, 1);
-                System.out.println("xiaozhu" + calendar.get(Calendar.DAY_OF_WEEK) + ":" + locationX);
-                if (locationX < calendar.get(Calendar.DAY_OF_WEEK) - 1) {
-                    return super.onTouchEvent(event);
-                }
-            } else if (locationY == calendar.getActualMaximum(Calendar.WEEK_OF_MONTH)) {
-                calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
-                if (locationX > calendar.get(Calendar.DAY_OF_WEEK) + 1) {
-                    return super.onTouchEvent(event);
-                }
-            }
-            calendar.set(Calendar.WEEK_OF_MONTH, (int) locationY);
-            calendar.set(Calendar.DAY_OF_WEEK, (int) (locationX + 1));
-            DayManager.setSelect(calendar.get(Calendar.DAY_OF_MONTH));
-            if (listener!=null){
-                listener.selectChange(this,calendar.getTime());
-            }
-            invalidate();
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                LogUtils.d("ACTION_DOWN");
+                x = event.getX();
+                y = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                LogUtils.d("ACTION_MOVE");
+//                moveX += Math.abs(event.getX() - DownX);//X轴距离
+//                moveY += Math.abs(event.getY() - DownY);//y轴距离
+//                DownX = event.getX();
+//                DownY = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                LogUtils.d("ACTION_UP");
+                if (Math.abs(event.getX() - x) < 20 || Math.abs(event.getY() - y) < 20) {
+                    //计算点击的是哪个日期
+                    int locationX = (int) (x * 7 / getMeasuredWidth());
+                    int locationY = (int) ((calendar.getActualMaximum(Calendar.WEEK_OF_MONTH) + 1) * y / getMeasuredHeight());
+                    if (locationY == 0) {
+                        return super.dispatchTouchEvent(event);//继续执行后面的代码
+                    } else if (locationY == 1) {
+                        calendar.set(Calendar.DAY_OF_MONTH, 1);
+                        System.out.println("xiaozhu" + calendar.get(Calendar.DAY_OF_WEEK) + ":" + locationX);
+                        if (locationX < calendar.get(Calendar.DAY_OF_WEEK) - 1) {
+                            return super.dispatchTouchEvent(event);
+                        }
+                    } else if (locationY == calendar.getActualMaximum(Calendar.WEEK_OF_MONTH)) {
+                        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+                        if (locationX > calendar.get(Calendar.DAY_OF_WEEK) + 1) {
+                            return super.dispatchTouchEvent(event);
+                        }
+                    }
+                    calendar.set(Calendar.WEEK_OF_MONTH, (int) locationY);
+                    calendar.set(Calendar.DAY_OF_WEEK, (int) (locationX + 1));
+                    DayManager.setSelect(calendar.get(Calendar.DAY_OF_MONTH));
+                    if (listener != null) {
+                        listener.selectChange(this, calendar.getTime());
+                    }
+                    invalidate();
+                }
+                else {
+                    return true;
+                }
+                break;
         }
-        return super.onTouchEvent(event);
+        return true;//继续执行后面的代码
+
     }
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        if (MotionEvent.ACTION_DOWN == event.getAction()) {
+//            //判断点击的是哪个日期
+//            float x = event.getX();
+//            float y = event.getY();
+//            //计算点击的是哪个日期
+//            int locationX = (int) (x * 7 / getMeasuredWidth());
+//            int locationY = (int) ((calendar.getActualMaximum(Calendar.WEEK_OF_MONTH) + 1) * y / getMeasuredHeight());
+//            if (locationY == 0) {
+//                return super.onTouchEvent(event);
+//            } else if (locationY == 1) {
+//                calendar.set(Calendar.DAY_OF_MONTH, 1);
+//                System.out.println("xiaozhu" + calendar.get(Calendar.DAY_OF_WEEK) + ":" + locationX);
+//                if (locationX < calendar.get(Calendar.DAY_OF_WEEK) - 1) {
+//                    return super.onTouchEvent(event);
+//                }
+//            } else if (locationY == calendar.getActualMaximum(Calendar.WEEK_OF_MONTH)) {
+//                calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+//                if (locationX > calendar.get(Calendar.DAY_OF_WEEK) + 1) {
+//                    return super.onTouchEvent(event);
+//                }
+//            }
+//            calendar.set(Calendar.WEEK_OF_MONTH, (int) locationY);
+//            calendar.set(Calendar.DAY_OF_WEEK, (int) (locationX + 1));
+//            DayManager.setSelect(calendar.get(Calendar.DAY_OF_MONTH));
+//            if (listener != null) {
+//                listener.selectChange(this, calendar.getTime());
+//            }
+//            invalidate();
+//
+//        }
+//        return super.onTouchEvent(event);
+//    }
 
     /**
      * 设置日期选择改变监听
+     *
      * @param listener
      */
-    public void setOnSelectChangeListener (OnSelectChangeListener listener){
+    public void setOnSelectChangeListener(OnSelectChangeListener listener) {
 
         this.listener = listener;
     }

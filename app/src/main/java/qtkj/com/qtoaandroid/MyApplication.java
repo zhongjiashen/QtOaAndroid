@@ -66,8 +66,8 @@ public class MyApplication extends Application {
     /**
      * 轨迹服务ID
      */
-//    public long serviceId = 148016;
-    public long serviceId = 147652;
+    public long serviceId = 148016;
+//    public long serviceId = 147652;
 
     /**
      * Entity标识

@@ -24,6 +24,7 @@ import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.fragment.BaseMapFragment;
 import qtkj.com.qtoaandroid.fragment.MapFragment;
 import qtkj.com.qtoaandroid.model.SignRecordDeal;
+import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.DateUtil;
 import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.view.SignRecordP;
@@ -74,6 +75,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
     @BindView(R.id.map2)
     FrameLayout map2;
     FragmentManager manager;
+    Date lastdate;
     @Override
     protected int layout() {
         return R.layout.activity_sign_record;
@@ -89,6 +91,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
 
     @Override
     protected void Initialize() {
+        BitmapUtil.init();
         cbMonth.setText(DateUtil.DateToString(new Date(), "yyyy年MM月"));
         mDialogYearMonth = new TimePickerDialog.Builder()
                 .setType(Type.YEAR_MONTH)
@@ -148,69 +151,79 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
     }
 
     private void init(Date date) {
-        String day = DateUtil.DateToString(date, "yyyy-MM-dd");
-        SignRecordDeal signRecordDeal = day_map.get(DateUtil.DateToString(date, "dd"));
-        if (signRecordDeal == null) {
-            llAll.setVisibility(View.GONE);
-        } else {
-            llAll.setVisibility(View.VISIBLE);
-            tvDayState.setText(signRecordDeal.getDay_state());
-            tvDate.setText(signRecordDeal.getDate());
-            tvSignInAddress.setText(signRecordDeal.getSign_in_address());
-            tvSignInTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm"));
-            if (signRecordDeal.getSign_out_address().equals("无位置信息")) {
-                llSignOut.setVisibility(View.GONE);
+        if(lastdate==null||!DateUtil.DateToString(lastdate, "yyyy-MM-dd").equals(DateUtil.DateToString(date, "yyyy-MM-dd"))) {
+            lastdate=date;
+            String day = DateUtil.DateToString(date, "yyyy-MM-dd");
+            SignRecordDeal signRecordDeal = day_map.get(DateUtil.DateToString(date, "dd"));
+            if (signRecordDeal == null) {
+                llAll.setVisibility(View.GONE);
             } else {
-                tvSignOutAddress.setText(signRecordDeal.getSign_out_address());
-                tvSignOutTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
-            }
+                llAll.setVisibility(View.VISIBLE);
+                tvDayState.setText(signRecordDeal.getDay_state());
+                tvDate.setText(signRecordDeal.getDate());
+                tvSignInAddress.setText(signRecordDeal.getSign_in_address());
+                tvSignInTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm"));
+                if (signRecordDeal.getSign_out_address().equals("无位置信息")) {
+                    llSignOut.setVisibility(View.GONE);
+                } else {
+                    llSignOut.setVisibility(View.VISIBLE);
+                    tvSignOutAddress.setText(signRecordDeal.getSign_out_address());
+                    tvSignOutTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
+                }
 
-            long pmStart = DateUtil.StringTolongDate(day + signRecordDeal.getPmStartTime(), "yyyy-MM-ddHH");
-            switch (signRecordDeal.getJop_type()) {
-                case 0:
-                    long amEnd = DateUtil.StringTolongDate(day + signRecordDeal.getAmEndTime(), "yyyy-MM-ddHH");
-                    LogUtils.d(amEnd + "");
-                    //未签退，轨迹一直记录，直接查询到下午下班时间段的轨迹信息
+                long pmStart = DateUtil.StringTolongDate(day + signRecordDeal.getPmStartTime(), "yyyy-MM-ddHH");
+                switch (signRecordDeal.getJop_type()) {
+                    case 0:
+                        long amEnd = DateUtil.StringTolongDate(day + signRecordDeal.getAmEndTime(), "yyyy-MM-ddHH");
+                        LogUtils.d(amEnd + "");
+                        //未签退，轨迹一直记录，直接查询到下午下班时间段的轨迹信息
 
-                    //签到时间大于中午下班时间，上午有轨迹显示地图
-                    if (amEnd > signRecordDeal.getSign_in_time()) {
-                        Log.e("S", amEnd + "");
+                        //签到时间大于中午下班时间，上午有轨迹显示地图
+                        if (amEnd > signRecordDeal.getSign_in_time()) {
+                            Log.e("S", amEnd + "");
+                            tvAmTime.setVisibility(View.VISIBLE);
+                            map1.setVisibility(View.VISIBLE);
+                            tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm") + " - " + signRecordDeal.getAmEndTime());
+                            mapF1.start(signRecordDeal.getSign_in_time(), amEnd, userId);
+
+
+                        } else {
+                            tvAmTime.setVisibility(View.GONE);
+                            map1.setVisibility(View.GONE);
+                        }
+
+                        if (pmStart < signRecordDeal.getSign_out_time()) {
+                            tvPmTime.setVisibility(View.VISIBLE);
+                            map2.setVisibility(View.VISIBLE);
+
+                            tvPmTime.setText(signRecordDeal.getPmStartTime() + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
+                            mapF2.start(pmStart, signRecordDeal.getSign_out_time(), userId);
+
+                        } else {
+                            tvPmTime.setVisibility(View.GONE);
+                            map2.setVisibility(View.GONE);
+                        }
+
+                        break;
+                    case 1:
                         tvAmTime.setVisibility(View.VISIBLE);
                         map1.setVisibility(View.VISIBLE);
-                        tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm") + " - " + signRecordDeal.getAmEndTime());
-                        mapF1.start(signRecordDeal.getSign_in_time(), amEnd, userId);
 
-
-                    } else {
-                        tvAmTime.setVisibility(View.GONE);
-                        map1.setVisibility(View.GONE);
-                    }
-
-                    if (pmStart < signRecordDeal.getSign_out_time()) {
-                        tvPmTime.setVisibility(View.VISIBLE);
-                        map2.setVisibility(View.VISIBLE);
-
-                        tvPmTime.setText(signRecordDeal.getPmStartTime() + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
-                        mapF2.start(pmStart, signRecordDeal.getSign_out_time(), userId);
-
-                    } else {
                         tvPmTime.setVisibility(View.GONE);
                         map2.setVisibility(View.GONE);
-                    }
+                        tvAmTime.setText(signRecordDeal.getSign_in_time() + " - " + signRecordDeal.getSign_out_time());
+                        mapF1.start(signRecordDeal.getSign_in_time(), signRecordDeal.getSign_out_time(), userId);
 
-                    break;
-                case 1:
-                    tvAmTime.setVisibility(View.VISIBLE);
-                    map1.setVisibility(View.VISIBLE);
+                        break;
+                }
 
-                    tvPmTime.setVisibility(View.GONE);
-                    map2.setVisibility(View.GONE);
-                    tvAmTime.setText(signRecordDeal.getSign_in_time() + " - " + signRecordDeal.getSign_out_time());
-                    mapF1.start(signRecordDeal.getSign_in_time(), signRecordDeal.getSign_out_time(), userId);
-
-                    break;
             }
-
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BitmapUtil.clear();
     }
 }

@@ -70,11 +70,11 @@ public class SignRecordP extends BasePressent{
                     }
                     break;
                 case 1:
-                    signRecordDeal.setDay_state("迟到、");
+                    signRecordDeal.setDay_state("迟到");
                     latearrivalDays.add(signRecord.getDay());
                     break;
                 case 3:
-                    signRecordDeal.setDay_state("忘记打卡、");
+                    signRecordDeal.setDay_state("忘记打卡");
                     forgetclockDays.add(signRecord.getDay());
                     break;
                 case 4:
@@ -103,7 +103,7 @@ public class SignRecordP extends BasePressent{
                 if(i==0){
                     signRecordDeal.setSign_out_time(new Date().getTime());
                 }else {
-                    signRecordDeal.setSign_out_time(DateUtil.StringTolongDate(moth+"-"+key + signRecordDeal.getPmStartTime(), "yyyy-MM-ddHH"));
+                    signRecordDeal.setSign_out_time(DateUtil.StringTolongDate(moth+"-"+key + signRecord.getPmEndTime(), "yyyy-MM-ddHH"));
                     LogUtils.d(signRecordDeal.getSign_out_time()+"");
                 }
 
@@ -120,6 +120,7 @@ public class SignRecordP extends BasePressent{
         DayManager.setLatearrivalDays(latearrivalDays);
         DayManager.setForgetclockDays(forgetclockDays);
         DayManager.setAbsenteeismDays(absenteeismDays);
+        DayManager.setSelect(-1);
        view.returnData(0,map);
     }
 

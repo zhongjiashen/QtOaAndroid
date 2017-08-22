@@ -21,7 +21,11 @@ public class SignRecordDeal {
     }
 
     public void setDay_state(String day_state) {
-        this.day_state = this.day_state+day_state;
+        if(this.day_state.equals("")){
+            this.day_state=day_state;
+        }else {
+            this.day_state = this.day_state +"、"+ day_state;
+        }
     }
 
     public String getDate() {

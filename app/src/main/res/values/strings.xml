@@ -9,6 +9,7 @@
     <string name="sen_code">发送验证码</string>
     <string name="pass_login">密码登录</string>
     <string name="code_hit">请输入验证码</string>
+    <string name="old_pass_hit">请输入旧密码（至少6位）</string>
     <string name="new_pass_hit">请输入新密码（至少6位）</string>
     <string name="ok_pass_hit">请确认新密码（至少6位）</string>
     <string name="ok_update">确认修改</string>
@@ -55,4 +56,5 @@
     <string name="string_help_text">\"当前应用缺少必要权限。请点击\\\"设置\\\"-\\\"权限\\\"-打开所需权限。\"</string>
     <string name="quit">退出</string>
     <string name="settings">设置</string>
+    <string name="loading">加载中…</string>
 </resources>

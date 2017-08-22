@@ -270,15 +270,15 @@ public class MapUtil {
             }
             return;
         }
-
         if (points.size() == 1) {
             OverlayOptions startOptions = new MarkerOptions().position(points.get(0)).icon(bmStart)
                     .zIndex(9).draggable(true);
             baiduMap.addOverlay(startOptions);
             setMapStatus(points.get(0), 15.0F);
+            LogUtils.d("points.size()=1");
             return;
         }
-
+        LogUtils.d("points.size()>1");
         LatLng startPoint;
         LatLng endPoint;
         if (sortType == SortType.asc) {
@@ -296,7 +296,6 @@ public class MapUtil {
         // 添加终点图标
         OverlayOptions endOptions = new MarkerOptions().position(endPoint)
                 .icon(bmEnd).zIndex(9).draggable(true);
-
         // 添加路线（轨迹）
         OverlayOptions polylineOptions = new PolylineOptions().width(10)
                 .color(0xFF5676FC).points(points);
@@ -328,6 +327,7 @@ public class MapUtil {
         MapStatus.Builder builder = new MapStatus.Builder();
         mapStatus = builder.target(point).zoom(zoom).build();
         baiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(mapStatus));
+        LogUtils.d("setMapStatus");
     }
 
     public void refresh() {

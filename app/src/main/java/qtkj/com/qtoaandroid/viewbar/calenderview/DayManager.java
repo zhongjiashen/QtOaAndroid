@@ -100,6 +100,7 @@ public class DayManager {
      */
     public static void setCurrent(int current) {
         DayManager.current = current;
+
     }
 
     private static int select = -1;
@@ -117,6 +118,7 @@ public class DayManager {
      * @return 返回的天数的集合
      */
     public static List<Day> createDayByCalendar(Calendar calendar, int width, int heigh) {
+
         //初始化休息的天数
         initRestDays(calendar);
         //模拟数据
@@ -138,7 +140,6 @@ public class DayManager {
             day.location_y = 0;
             day.text = weeks[i];
             days.add(day);
-
         }
         int count = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
