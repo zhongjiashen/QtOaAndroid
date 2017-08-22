@@ -10,6 +10,8 @@ import android.view.MotionEvent;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
+import qtkj.com.qtoaandroid.utils.LogUtils;
+
 /****
  * 这里你要明白几个方法执行的流程： 首先ImageView是继承自View的子类.
  * onLayout方法：是一个回调方法.该方法会在在View中的layout方法中执行，在执行layout方法前面会首先执行setFrame方法.
@@ -23,7 +25,7 @@ import android.widget.ImageView;
  * @author zhangjia
  *
  */
-public class DragImageView extends android.support.v7.widget.AppCompatImageView {
+public class DragImageView extends ImageView {
 
     private Activity mActivity;
 
@@ -89,6 +91,8 @@ public class DragImageView extends android.support.v7.widget.AppCompatImageView 
 
     public DragImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mActivity = (Activity) context;
+        LogUtils.d("DragImageView");
     }
 
     /***
@@ -430,12 +434,12 @@ public class DragImageView extends android.support.v7.widget.AppCompatImageView 
         @Override
         protected void onProgressUpdate(final Integer... values) {
             super.onProgressUpdate(values);
-//            mActivity.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
+            mActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
                     setFrame(values[0], values[1], values[2], values[3]);
-//                }
-//            });
+                }
+            });
 
         }
 

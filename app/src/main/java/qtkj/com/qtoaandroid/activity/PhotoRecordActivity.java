@@ -35,7 +35,7 @@ public class PhotoRecordActivity extends BaseActivity<PhotoRecordP> {
     private Handler handler = new Handler();
     Map<String, String> map;
     List<PhotoRecord> list;
-    private int page=0;
+    private int page=1;
     boolean isLoading;
     @Override
     protected int layout() {
@@ -82,7 +82,7 @@ public class PhotoRecordActivity extends BaseActivity<PhotoRecordP> {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                page=0;
+                page=1;
                 map.put("pageIndex", page+"");
                 presenter.getphotoHistory(0, map);
                 handler.postDelayed(new Runnable() {

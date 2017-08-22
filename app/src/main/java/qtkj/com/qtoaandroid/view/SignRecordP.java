@@ -120,7 +120,7 @@ public class SignRecordP extends BasePressent{
         DayManager.setLatearrivalDays(latearrivalDays);
         DayManager.setForgetclockDays(forgetclockDays);
         DayManager.setAbsenteeismDays(absenteeismDays);
-        DayManager.setSelect(-1);
+
        view.returnData(0,map);
     }
 

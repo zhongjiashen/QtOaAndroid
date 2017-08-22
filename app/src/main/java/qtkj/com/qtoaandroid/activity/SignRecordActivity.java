@@ -29,6 +29,7 @@ import qtkj.com.qtoaandroid.utils.DateUtil;
 import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.view.SignRecordP;
 import qtkj.com.qtoaandroid.viewbar.calenderview.CalendarView;
+import qtkj.com.qtoaandroid.viewbar.calenderview.DayManager;
 
 /**
  * Created by Administrator on 2017/8/5 0005.
@@ -85,8 +86,16 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
         day_map = (Map<String, SignRecordDeal>) data;
+       if( map.get("time").equals(DateUtil.DateToString(new Date(), "yyyy-MM"))){
+           init(new Date());
+           int d=Integer.parseInt(DateUtil.DateToString(new Date(), "dd"));
+           DayManager.setSelect(d);
+       }else {
+           DayManager.setSelect(-1);
+
+       }
         mCalendarView.invalidate();
-        init(new Date());
+
     }
 
     @Override
@@ -134,6 +143,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(d);
         mCalendarView.setCalendar(calendar);
+        llAll.setVisibility(View.GONE);
         map.put("time", DateUtil.DateToString(d, "yyyy-MM"));
         presenter.getDate(0, map);
     }
