@@ -24,7 +24,7 @@ public class UpdateNameActivity extends BaseActivity<UpdadeNameP> {
     @Override
     public void returnData(int requestCode, Object data) {
         showShortToast("修改名字成功！");
-        MyApplication.login.setUser_name(etName.getText().toString());
+        MyApplication.login.setUserName(etName.getText().toString());
         finish();
     }
 
@@ -52,7 +52,7 @@ public class UpdateNameActivity extends BaseActivity<UpdadeNameP> {
                     return;
                 }
                 Map<String,String> map=new HashMap();
-                map.put("userId", MyApplication.login.getUser_id()+"");
+                map.put("userId", MyApplication.login.getUserId()+"");
                 map.put("userName", name);
                 presenter.update_name(0,map);
                 break;

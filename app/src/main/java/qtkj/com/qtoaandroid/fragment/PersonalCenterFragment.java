@@ -55,9 +55,9 @@ public class PersonalCenterFragment extends BaseFragmengt {
         super.onResume();
         Login login= MyApplication.login;
         if(login!=null){
-            tvNick.setText(login.getUser_name());
-            tvKind.setText(login.getPost_name());
-            tvKindNumber.setText(login.getPost_name()+login.getUser_id());
+            tvNick.setText(login.getUserName());
+            tvKind.setText(login.getPostName());
+            tvKindNumber.setText(login.getPostName()+login.getUserId());
             Glide.with(this).load(Contest.baseurl+login.getImg()).error(R.mipmap.ic_photo).bitmapTransform(new CropCircleTransformation(getActivity())).into(ivPhoto);
         }
     }

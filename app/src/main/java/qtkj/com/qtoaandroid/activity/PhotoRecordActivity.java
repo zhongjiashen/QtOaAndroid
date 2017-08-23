@@ -72,7 +72,8 @@ public class PhotoRecordActivity extends BaseActivity<PhotoRecordP> {
     public void showShortToast(String text) {
         super.showShortToast(text);
         swipeRefreshLayout.setRefreshing(false);
-        isLoading = false;
+
+
     }
 
     @Override
@@ -98,7 +99,7 @@ public class PhotoRecordActivity extends BaseActivity<PhotoRecordP> {
         recyclerView.setAdapter(adapter = new PhotoRecordAdapter(this));
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(final RecyclerView recyclerView, int newState) {
                 //当前RecyclerView显示出来的最后一个的item的position
                 int lastPosition = -1;
 
@@ -128,8 +129,13 @@ public class PhotoRecordActivity extends BaseActivity<PhotoRecordP> {
                             page=page+1;
                             map.put("pageIndex", page+"");
                             presenter.getphotoHistory(1, map);
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    isLoading=false;
 
-
+                                }
+                            }, 5000);
                         }
                     }
                     }

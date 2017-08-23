@@ -354,7 +354,7 @@ public class MainActivity extends BaseActivity<MainP> {
             if (action.equals("com.qtoaandroid.myLocation")) {
                 BDLocation bdLocation = intent.getParcelableExtra("location");
                 Map<String, String> map = new HashMap<>();
-                map.put("userId", MyApplication.login.getUser_id() + "");
+                map.put("userId", MyApplication.login.getUserId() + "");
                 map.put("position", bdLocation.getAddrStr());
                 switch (type) {
                     case 0:

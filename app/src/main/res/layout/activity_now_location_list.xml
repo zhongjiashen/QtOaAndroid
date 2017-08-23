@@ -23,15 +23,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/now_location"/>
-        <TextView
-            android:id="@+id/tv_right"
-            style="@style/text_15_white"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="地图模式"
-            android:gravity="center_vertical"
-            android:layout_marginRight="15dp"/>
     </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rl_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

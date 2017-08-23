@@ -78,9 +78,9 @@ public class OkChangePassActivity extends BaseActivity<OkChangePassP> {
                     return;
                 }
                 map.put("oldPwd",oldpass);
-                map.put("mobile",MyApplication.login.getUser_phone());
+                map.put("mobile",MyApplication.login.getUserPhone());
                 map.put("password",newpass);
-                map.put("userId",MyApplication.login.getUser_id()+"");
+                map.put("userId",MyApplication.login.getUserId()+"");
                 presenter.modifPwd(0,map);
                 break;
         }

@@ -12,6 +12,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.utils.DensityUtils;
 import qtkj.com.qtoaandroid.viewbar.dragzoomimageview.DragImageView;
 
 /**
@@ -54,7 +55,7 @@ public class DragImageActivity extends BaseActivity {
                         getWindow().getDecorView()
                                 .getWindowVisibleDisplayFrame(frame);
 
-                        divView.setScreen_H(window_height - frame.top);
+                        divView.setScreen_H(window_height - DensityUtils.dp2px(DragImageActivity.this,49)-frame.top);
                         divView.setScreen_W(window_width);
 
 

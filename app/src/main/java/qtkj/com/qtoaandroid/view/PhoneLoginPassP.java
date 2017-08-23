@@ -30,7 +30,7 @@ public class PhoneLoginPassP extends BasePressent{
             }.getType();
             Login login = gson.fromJson(response, jsonType);
             MyApplication.login = login;
-            MyApplication.entityName=login.getUser_id()+"";
+            MyApplication.entityName=login.getUserId()+"";
 
 
         }

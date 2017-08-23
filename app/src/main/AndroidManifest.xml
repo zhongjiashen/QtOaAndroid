@@ -68,6 +68,7 @@
         <activity android:name=".activity.AttendanceManagementActivity"/>
         <activity android:name=".activity.SignRecordActivity"/>
         <activity android:name=".activity.NowLocationActivity"/>
+        <activity android:name=".activity.NowLocationListActivity"/>
         <activity android:name=".activity.UpdateNameActivity"/>
         <activity android:name=".activity.DragImageActivity"/>
         <activity android:name=".activity.SignOutActivity"/>

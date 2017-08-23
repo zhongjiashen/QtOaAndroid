@@ -93,9 +93,9 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
     protected void onStart() {
         super.onStart();
         if(login!=null){
-            tvName.setText(login.getUser_name());
-            tvJobs.setText(login.getPost_name());
-            tvJobsNumbers.setText(login.getPost_name()+login.getPost_id());
+            tvName.setText(login.getUserName());
+            tvJobs.setText(login.getPostName());
+            tvJobsNumbers.setText(login.getPostName()+login.getPostId());
             tvWorkingTime.setText(login.getWorkStartTime()+" — "+login.getWorkEndTime());
             Glide.with(this).load(Contest.baseurl+login.getImg()).error(R.mipmap.ic_photo).bitmapTransform(new CropCircleTransformation(this)).into(ivHeadPortrait);
         }
@@ -145,7 +145,7 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
             String imagefile= Base64.encodeBase64File(result.getImage().getCompressPath());
             Map map=new HashMap();
             map.put("imgStr",imagefile);
-            map.put("userId",login.getUser_id()+"");
+            map.put("userId",login.getUserId()+"");
             presenter.getImgUpload64(0,map);
         } catch (Exception e) {
             e.printStackTrace();

@@ -109,8 +109,6 @@ public class DailyFragment extends BaseFragmengt<DailyP> implements OnDateSetLis
                 .build();
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_daily_head, null);
         viewHolder = new ViewHolder(view);
-
-
         elv.addHeaderView(view);
         elv.setAdapter(adapte = new DailyExpandableListViewAdapter(getActivity()));
         lazyInit();

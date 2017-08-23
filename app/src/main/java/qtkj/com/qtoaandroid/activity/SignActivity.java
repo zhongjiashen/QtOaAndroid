@@ -58,10 +58,10 @@ public class SignActivity extends BaseActivity<SignOutP> {
             case 0:
                 if (type == 1) {
                     showShortToast("签退成功！");
-                    MyApplication.login.setIs_sign(0);
+                    MyApplication.login.setIsSign(0);
                 } else {
                     showShortToast("签到成功！");
-                    MyApplication.login.setIs_sign(1);
+                    MyApplication.login.setIsSign(1);
                 }
                 setResult(RESULT_OK, null);
                 finish();
@@ -116,7 +116,7 @@ public class SignActivity extends BaseActivity<SignOutP> {
                 tvAddress.setText(bdLocation.getAddrStr());
                 map = new HashMap<>();
                 map.put("type", type + "");
-                map.put("userId", MyApplication.login.getUser_id() + "");
+                map.put("userId", MyApplication.login.getUserId() + "");
                 map.put("position", bdLocation.getAddrStr());
                 map.put("workStartTime", MyApplication.login.getWorkStartTime());
                 map.put("workEndTime", MyApplication.login.getWorkEndTime());

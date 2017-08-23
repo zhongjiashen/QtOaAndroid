@@ -49,7 +49,7 @@ public class SignOutActivity extends BaseActivity<SignOutP> {
         switch (requestCode){
             case 0:
                 showShortToast("签退成功！");
-                MyApplication.login.setIs_sign(0);
+                MyApplication.login.setIsSign(0);
                 setResult(RESULT_OK, null);
                 finish();
                 break;
@@ -91,7 +91,7 @@ public class SignOutActivity extends BaseActivity<SignOutP> {
                 tvAddress.setText(bdLocation.getAddrStr());
                 map=new HashMap<>();
                 map.put("type","1");
-                map.put("userId", MyApplication.login.getUser_id()+"");
+                map.put("userId", MyApplication.login.getUserId()+"");
                 map.put("position",bdLocation.getAddrStr());
                 map.put("workStartTime",MyApplication.login.getWorkStartTime());
                 map.put("workEndTime",MyApplication.login.getWorkEndTime());

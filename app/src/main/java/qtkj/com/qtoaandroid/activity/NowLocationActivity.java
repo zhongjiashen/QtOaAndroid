@@ -1,5 +1,6 @@
 package qtkj.com.qtoaandroid.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -47,7 +48,9 @@ import butterknife.OnClick;
 import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.dialog.LoadingDialog;
 import qtkj.com.qtoaandroid.model.NowLocationF;
+import qtkj.com.qtoaandroid.model.NowLocationList;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.LogUtils;
@@ -80,10 +83,11 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
     private List<LatLng> entityPoints = new ArrayList<>();
     List<NowLocationF.DeptBean> list;
     List<String> EntityNames = new ArrayList<>();
-    Map<String, NowLocationF.DeptBean> map = new HashMap();
+//    Map<String, NowLocationF.DeptBean> map = new HashMap();
+    Map<String, NowLocationList> map = new HashMap();
     private boolean first = true;
     private String postname;
-
+    protected LoadingDialog mDialog;
     @Override
     protected int layout() {
         return R.layout.activity_now_location;
@@ -91,7 +95,17 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
 
     @Override
     protected void Initialize() {
-        tvRight.setText(getIntent().getStringExtra("number"));
+        mDialog=new LoadingDialog(this);
+        tvRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<NowLocationList> list=new ArrayList<>(map.values());
+                startActivity(new Intent(NowLocationActivity.this,NowLocationListActivity.class)
+                        .putExtra("list",new Gson().toJson(list))
+                        .putExtra("name",postname));
+            }
+        });
+//        tvRight.setText(getIntent().getStringExtra("number"));
         viewUtil = new ViewUtil();
         trackApp = (MyApplication) getApplicationContext();
         mapUtil = MapUtil.getInstance();
@@ -108,7 +122,11 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
         Log.e("NOW", list.toString() + "---------" + list_torsing);
         for (int i = 0; i < list.size(); i++) {
             EntityNames.add(list.get(i).getUserId() + "");
-            map.put(list.get(i).getUserId() + "", list.get(i));
+            NowLocationList nowLocationList=new NowLocationList();
+            nowLocationList.setUserId(list.get(i).getUserId());
+            nowLocationList.setUserName(list.get(i).getUserName());
+            nowLocationList.setImg(list.get(i).getImg());
+            map.put(list.get(i).getUserId() + "",nowLocationList );
         }
 
         queryEntityList();
@@ -117,10 +135,10 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if (marker != null) {
-                    NowLocationF.DeptBean bean = map.get(marker.getExtraInfo().getInt("des") + "");
-                    LatLng pt = new LatLng(marker.getExtraInfo().getDouble("latitude"), marker.getExtraInfo().getDouble("longitude"));
-                    LogUtils.d( pt.toString());
-                    showPopwindow(Contest.baseurl + bean.getImg(), bean.getUserName(),  bean.getUserId() + "", marker.getExtraInfo().getString("time"),pt);
+                    NowLocationList bean = map.get(marker.getExtraInfo().getInt("des") + "");
+//                    LatLng pt = new LatLng(marker.getExtraInfo().getDouble("latitude"), marker.getExtraInfo().getDouble("longitude"));
+//                    LogUtils.d( pt.toString());
+                    showPopwindow(Contest.baseurl + bean.getImg(), bean.getUserName(),  bean.getUserId() + "", marker.getExtraInfo().getString("time"),bean.getPt());
                     return true;
                 } else {
                     return false;
@@ -133,6 +151,7 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
      * 查询实时位置
      */
     private void queryEntityList() {
+        mDialog.show();
         trackApp.initRequest(mEntityListRequest);
         mEntityListRequest.setPageIndex(pageIndex);
         mEntityListRequest.setPageSize(10);
@@ -158,19 +177,23 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
             public void onEntityListCallback(EntityListResponse response) {
                 int total = response.getTotal();
                 if (StatusCodes.SUCCESS != response.getStatus()) {
-                    viewUtil.showToast(NowLocationActivity.this, response.getMessage());
+                    viewUtil.showToast(NowLocationActivity.this, "员工未上传实时位置！");
+                    LogUtils.d(response.getMessage());
                 } else if (0 == total) {
-                    viewUtil.showToast(NowLocationActivity.this, getString(R.string.no_entity_data));
+                    LogUtils.d(getString(R.string.no_entity_data));
+                    viewUtil.showToast(NowLocationActivity.this, "员工未上传实时位置！");
                 } else {
                     Log.e("实时位置", "1");
                     List<EntityInfo> entities = response.getEntities();
                     if (null != entities) {
                         Log.e("实时位置", "2");
                         for (EntityInfo entityInfo : entities) {
-                            NowLocationF.DeptBean bean = map.get(entityInfo.getEntityName());
+                            NowLocationList bean = map.get(entityInfo.getEntityName());
                             if (!CommonUtil.isZeroPoint(entityInfo.getLatestLocation().getLocation().latitude,
                                     entityInfo.getLatestLocation().getLocation().longitude)) {
                                 LatLng pt = MapUtil.convertTrace2Map(entityInfo.getLatestLocation().getLocation());
+                                bean.setPt(pt);
+                                map.put(bean.getUserId()+"",bean);
                                 View contentView = LayoutInflater.from(NowLocationActivity.this).inflate(R.layout.overlay_view, null);
                                 ViewHolder holder = new ViewHolder(contentView);
                                 Glide.with(NowLocationActivity.this).load(Contest.baseurl + bean.getImg()).error(R.mipmap.ic_photo).into(holder.civView);
@@ -196,6 +219,8 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
                 if (total > 10 * pageIndex) {
                     mEntityListRequest.setPageIndex(++pageIndex);
                     queryEntityList();
+                }else {
+                    mDialog.dismiss();
                 }
                 Log.e("实时位置", response.toString());
 

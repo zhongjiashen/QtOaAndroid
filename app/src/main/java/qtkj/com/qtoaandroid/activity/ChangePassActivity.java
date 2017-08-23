@@ -43,7 +43,7 @@ public class ChangePassActivity extends BaseActivity<ChangePassOrPhoneP> {
         presenter = new ChangePassOrPhoneP(this, this);
         Login login = MyApplication.login;
         if (login != null) {
-            etAccount.setText(login.getUser_phone());
+            etAccount.setText(login.getUserPhone());
         }
 
     }

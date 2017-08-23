@@ -2,6 +2,7 @@ package qtkj.com.qtoaandroid.adapter.expandablelistview;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.activity.AddressBookDetailActivity;
 import qtkj.com.qtoaandroid.model.Daily;
 import qtkj.com.qtoaandroid.utils.DateUtil;
 
@@ -97,7 +99,7 @@ public class DailyExpandableListViewAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         SubitemViewHolder subitemViewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_daily_subitem, parent, false);
@@ -111,6 +113,12 @@ public class DailyExpandableListViewAdapter extends BaseExpandableListAdapter {
         subitemViewHolder.tvKindNumber.setText(list.get(groupPosition).getChild().get(childPosition).getPostName()+list.get(groupPosition).getChild().get(childPosition).getUserId());
         subitemViewHolder.tvTime.setText("打卡时间："+ DateUtil.longDateToString(list.get(groupPosition).getChild().get(childPosition).getSignTime(),"HH:mm"));
         Glide.with(context).load(Contest.baseurl+list.get(groupPosition).getChild().get(childPosition).getImg()).error(R.mipmap.ic_photo).into(subitemViewHolder.ivPhoto);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, AddressBookDetailActivity.class).putExtra("userid",list.get(groupPosition).getChild().get(childPosition).getUserId()+""));
+            }
+        });
         return convertView;
     }
 

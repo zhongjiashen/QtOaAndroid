@@ -50,11 +50,11 @@ public class AddressBookDetailActivity extends BaseActivity<AddressBookDetailP> 
     public void returnData(int requestCode, Object data) {
         login = (Login) data;
         Glide.with(this).load(Contest.baseurl + login.getImg()).error(R.mipmap.ic_photo).into(ivPhoto);
-        tvNick.setText(login.getUser_name());
-        tvKind.setText(login.getPost_name());
-        tvKindNumber.setText(login.getPost_name() + login.getUser_id());
+        tvNick.setText(login.getUserName());
+        tvKind.setText(login.getPostName());
+        tvKindNumber.setText(login.getPostName() + login.getUserId());
         tvWorkeTime.setText("工作时间：" + login.getWorkStartTime() + " — " + login.getWorkEndTime());
-        tvPhone.setText("联系方式：" + login.getUser_phone());
+        tvPhone.setText("联系方式：" + login.getUserPhone());
     }
 
     /**
@@ -74,7 +74,7 @@ public class AddressBookDetailActivity extends BaseActivity<AddressBookDetailP> 
         switch (view.getId()) {
             case R.id.ll_call_phone:
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" +login.getUser_phone() );
+                Uri data = Uri.parse("tel:" +login.getUserPhone() );
                 intent.setData(data);
                 startActivity(intent);
                 break;

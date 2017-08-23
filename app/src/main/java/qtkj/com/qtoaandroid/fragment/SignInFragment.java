@@ -69,7 +69,14 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     @Override
     protected void init() {
         updateTime(new Date());
-        tvWokeTime.setText("工作时间：" + MyApplication.login.getWorkStartTime() + " — " + MyApplication.login.getWorkEndTime());
+        if(MyApplication.login!=null) {
+            if(MyApplication.login.getJobType()==0){
+
+                tvWokeTime.setText("工作时间：" + MyApplication.login.getAmStartTime().substring(0,5) + " — " + MyApplication.login.getAmEndTime().substring(0,5)+ "   " + MyApplication.login.getPmStartTime().substring(0,5)+ " — " + MyApplication.login.getPmEndTime().substring(0,5));
+            }else {
+                tvWokeTime.setText("工作时间：" + MyApplication.login.getWorkStartTime().substring(0,5) + " — " + MyApplication.login.getWorkEndTime().substring(0,5));
+            }
+        }
         mTimeRefreshReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -143,7 +150,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     public void onResume() {
         super.onResume();
         mLogin = MyApplication.login;
-        if (mLogin.getIs_sign() == 1) {
+        if (mLogin.getIsSign() == 1) {
             setSignType(1);
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.startTrac();
@@ -167,10 +174,10 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_sign_in_record:
-                startActivity(new Intent(getActivity(), SignRecordActivity.class).putExtra("userId", MyApplication.login.getUser_id() + ""));
+                startActivity(new Intent(getActivity(), SignRecordActivity.class).putExtra("userId", MyApplication.login.getUserId() + ""));
                 break;
             case R.id.tv_photo_record:
-                startActivity(new Intent(getActivity(), PhotoRecordActivity.class).putExtra("userId", MyApplication.login.getUser_id() + ""));
+                startActivity(new Intent(getActivity(), PhotoRecordActivity.class).putExtra("userId", MyApplication.login.getUserId() + ""));
                 break;
             case R.id.tv_attendance_management:
 
@@ -190,7 +197,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
 //                takePhoto.onPickFromDocumentsWithCrop(imageUri,getCropOptions());
                 break;
             case R.id.iv_sign_in:
-                if (mLogin.getIs_sign() == 1) {
+                if (mLogin.getIsSign() == 1) {
                     startActivityForResult(new Intent(getActivity(), SignActivity.class).putExtra("type", 1), 1);
                 } else {
                     startActivityForResult(new Intent(getActivity(), SignActivity.class).putExtra("type", 0), 0);

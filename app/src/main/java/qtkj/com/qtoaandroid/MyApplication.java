@@ -100,8 +100,8 @@ public class MyApplication extends Application {
 
     public void initTrace() {
         if (login != null) {
-            trackConf.edit().putString("entityName", login.getUser_id() + "");
-            trackConf.edit().putString("post_id", login.getPost_id() + "");
+            trackConf.edit().putString("entityName", login.getUserId() + "");
+            trackConf.edit().putString("post_id", login.getPostId() + "");
         }
         initNotification();
         mTrace = new Trace(serviceId, trackConf.getString("entityName", entityName));
@@ -111,7 +111,7 @@ public class MyApplication extends Application {
             public Map<String, String> onTrackAttributeCallback() {
                 //上传自定义参数
                 Map<String, String> map = new HashMap<>();
-                map.put("post_id", trackConf.getString("post_id", login.getPost_id() + ""));
+                map.put("post_id", trackConf.getString("post_id", login.getPostId() + ""));
                 return map;
             }
         });

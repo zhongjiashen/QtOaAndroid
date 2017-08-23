@@ -1,5 +1,6 @@
 package qtkj.com.qtoaandroid.fragment;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.activity.AddressBookDetailActivity;
 import qtkj.com.qtoaandroid.model.MonthReport;
 import qtkj.com.qtoaandroid.utils.DateUtil;
 import qtkj.com.qtoaandroid.view.fragment.MonthReportP;
@@ -125,7 +127,7 @@ public class MonthReportFragment extends BaseFragmengt<MonthReportP> implements 
                     view = convertView;
                     holder = (ViewHolder) convertView.getTag();
                 }
-                MonthReport.BottomBean bean = monthReport.getBottom().get(i);
+                final MonthReport.BottomBean bean = monthReport.getBottom().get(i);
                 if (bean != null) {
                     holder.tvName.setText(bean.getUserName());
                     holder.tvKind.setText(bean.getPostName());
@@ -136,6 +138,12 @@ public class MonthReportFragment extends BaseFragmengt<MonthReportP> implements 
                     holder.tvForget.setText(bean.getUserForget() + "");
                     holder.tvAbsenteeism.setText(bean.getUserAbsent() + "");
                     Glide.with(getActivity()).load(Contest.baseurl + bean.getImg()).error(R.mipmap.ic_photo).into(holder.ivPhoto);
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(getActivity(), AddressBookDetailActivity.class).putExtra("userid",bean.getUserId()+""));
+                        }
+                    });
                 }
 
                 return view;

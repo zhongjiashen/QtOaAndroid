@@ -24,19 +24,21 @@
     </RelativeLayout>
     <EditText
         android:id="@+id/et_account"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:background="@null"
         android:hint="@string/account_hit"
         style="@style/ettext_14_gray_gray"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="18dp"
         android:layout_marginRight="40dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/line"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="4dp"
         android:layout_marginLeft="@dimen/margin_38"
         android:layout_marginRight="@dimen/margin_38"/>
 
@@ -48,10 +50,11 @@
         <EditText
             android:id="@+id/et_code"
             style="@style/ettext_14_gray_gray"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="17dp"
+            android:layout_toLeftOf="@+id/v_line"
             android:layout_weight="1"
             android:background="@null"
             android:hint="@string/code_hit"/>
@@ -68,6 +71,7 @@
             android:layout_marginTop="17dp"
             android:gravity="center_vertical"/>
         <View
+            android:id="@+id/v_line"
             android:layout_width="1dp"
             android:layout_height="30dp"
             android:layout_marginTop="17dp"
@@ -83,9 +87,10 @@
     <EditText
         android:id="@+id/new_pass"
         style="@style/ettext_14_gray_gray"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="17dp"
         android:background="@null"
         android:hint="@string/new_pass_hit"
@@ -100,9 +105,10 @@
     <EditText
         android:id="@+id/et_ok_pass"
         style="@style/ettext_14_gray_gray"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="17dp"
         android:background="@null"
         android:hint="@string/ok_pass_hit"

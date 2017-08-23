@@ -2,7 +2,9 @@ package qtkj.com.qtoaandroid.adapter.recycleview;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,10 @@ import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.activity.DragImageActivity;
 import qtkj.com.qtoaandroid.model.PhotoRecord;
 import qtkj.com.qtoaandroid.utils.LogUtils;
+
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
 
 /**
  * Created by Administrator on 2017/8/4 0004.
@@ -74,6 +80,7 @@ public class PhotoRecordAdapter extends BaseRecycleViewAdapter<PhotoRecord> {
 
     public PhotoRecordAdapter(Activity activity) {
         super(activity);
+
     }
 
     @Override
@@ -96,7 +103,7 @@ public class PhotoRecordAdapter extends BaseRecycleViewAdapter<PhotoRecord> {
 
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         switch (getItemViewType(position)) {
             case WORD:
                 ViewHolder viewHolder = (ViewHolder) holder;
@@ -113,10 +120,20 @@ public class PhotoRecordAdapter extends BaseRecycleViewAdapter<PhotoRecord> {
                 break;
             case BOOTOM:
                 LogUtils.d("TTT");
-                BottomViewHolder hold= (BottomViewHolder) holder;
+                final BottomViewHolder hold= (BottomViewHolder) holder;
                 if(more){
                     hold.progressBar.setVisibility(View.GONE);
                     hold.tvLoding.setText("没有更多的数据了！");
+                }else {
+                    new CountDownTimer(5000, 1000) {
+                        public void onTick(long millisUntilFinished) {
+
+                        }
+                        public void onFinish() {
+                            hold.progressBar.setVisibility(View.GONE);
+                            hold.tvLoding.setText("加载失败！");
+                        }
+                    }.start();
                 }
                 break;
         }
@@ -149,4 +166,5 @@ public class PhotoRecordAdapter extends BaseRecycleViewAdapter<PhotoRecord> {
             ButterKnife.bind(this, itemView);
         }
     }
+
 }
