@@ -190,9 +190,9 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
 
                         //签到时间大于中午下班时间，上午有轨迹显示地图
                         if (amEnd > signRecordDeal.getSign_in_time()) {
-                            Log.e("S", amEnd + "");
                             tvAmTime.setVisibility(View.VISIBLE);
                             map1.setVisibility(View.VISIBLE);
+                            LogUtils.d(signRecordDeal.getSign_in_time() + "");
                             tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm") + " - " + signRecordDeal.getAmEndTime());
                             mapF1.start(signRecordDeal.getSign_in_time(), amEnd, userId);
 
@@ -205,7 +205,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
                         if (pmStart < signRecordDeal.getSign_out_time()) {
                             tvPmTime.setVisibility(View.VISIBLE);
                             map2.setVisibility(View.VISIBLE);
-
+                            LogUtils.d( "wdeaw");
                             tvPmTime.setText(signRecordDeal.getPmStartTime() + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
                             mapF2.start(pmStart, signRecordDeal.getSign_out_time(), userId);
 
@@ -218,10 +218,10 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
                     case 1:
                         tvAmTime.setVisibility(View.VISIBLE);
                         map1.setVisibility(View.VISIBLE);
-
+                        LogUtils.d( "夜班");
                         tvPmTime.setVisibility(View.GONE);
                         map2.setVisibility(View.GONE);
-                        tvAmTime.setText(signRecordDeal.getSign_in_time() + " - " + signRecordDeal.getSign_out_time());
+                        tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm")+ " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
                         mapF1.start(signRecordDeal.getSign_in_time(), signRecordDeal.getSign_out_time(), userId);
 
                         break;

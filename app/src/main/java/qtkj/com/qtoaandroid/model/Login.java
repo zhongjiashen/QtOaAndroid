@@ -35,7 +35,7 @@ public class Login implements Serializable {
     @SerializedName("am_start_time")
     private String amStartTime;
     @SerializedName("is_sign")
-    private int isSign;
+    private int isSign=-1;
     @SerializedName("am_end_time")
     private String amEndTime;
     @SerializedName("img")

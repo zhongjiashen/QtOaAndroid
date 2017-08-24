@@ -50,6 +50,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
+        <provider
+            android:name=".MyFileProvider"
+            android:authorities="qtkj.com.qtoaandroid.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/my_file_paths" />
+        </provider>
         <activity android:name=".activity.AppStartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

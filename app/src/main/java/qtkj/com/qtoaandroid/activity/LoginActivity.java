@@ -45,7 +45,7 @@ public class LoginActivity extends BaseActivity<LoginPassP> {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
         mPermissionsChecker = new PermissionsChecker(this);
-
+        presenter.update(1);
     }
 
     @OnClick({R.id.button, R.id.tv_forget_pass, R.id.phone_login})

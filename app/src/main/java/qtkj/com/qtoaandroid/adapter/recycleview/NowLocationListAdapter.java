@@ -65,7 +65,7 @@ public class NowLocationListAdapter extends BaseRecycleViewAdapter<NowLocationLi
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.tvKind.setText(postname);
             viewHolder.tvName.setText(list.get(position).getUserName());
-            Glide.with(activity).load(Contest.baseurl + list.get(position).getImg()).error(R.mipmap.ic_photo).into(viewHolder.ivPhoto);
+            Glide.with(activity).load(Contest.baseurl + list.get(position).getImg()).placeholder(R.mipmap.ic_photo).error(R.mipmap.ic_photo).into(viewHolder.ivPhoto);
             viewHolder.tvKindNumber.setText(postname + list.get(position).getUserId());
             viewHolder.tvAddress.setTag(position);
             if (mMap.get(position) == null) {

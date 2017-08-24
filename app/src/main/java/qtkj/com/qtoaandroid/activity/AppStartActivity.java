@@ -24,11 +24,10 @@ import qtkj.com.qtoaandroid.R;
 public class AppStartActivity extends Activity {
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
                     | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -42,27 +41,29 @@ public class AppStartActivity extends Activity {
         }
         final View view = View.inflate(this, R.layout.activity_start, null);
         setContentView(view);
-        if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
             return;
         }
         //渐变展示启动屏
-        AlphaAnimation aa = new AlphaAnimation(0.5f,1.0f);
+        AlphaAnimation aa = new AlphaAnimation(0.5f, 1.0f);
         aa.setDuration(3000);
         view.startAnimation(aa);
-        aa.setAnimationListener(new Animation.AnimationListener()
-        {
+        aa.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationEnd(Animation arg0) {
                 redirectTo();
             }
+
             @Override
-            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationRepeat(Animation animation) {
+            }
+
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void onAnimationStart(Animation animation) {
+            }
 
         });
-
 
 
     }
@@ -70,10 +71,10 @@ public class AppStartActivity extends Activity {
     /**
      * 跳转到...
      */
-    private void redirectTo(){
-
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+    private void redirectTo() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 

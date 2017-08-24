@@ -66,7 +66,7 @@ public class SignRecord {
     @SerializedName("ym")
     private String ym;
     @SerializedName("outPosition")
-    private String outPosition;
+    private String outPosition="无位置信息";
     @SerializedName("post_name")
     private String postName;
     @SerializedName("sign_time")

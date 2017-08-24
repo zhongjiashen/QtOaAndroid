@@ -9,7 +9,8 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        android:src="@mipmap/ic_photo"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +55,8 @@
         android:layout_marginRight="40dp"
         android:maxLines="1"
         style="@style/text_13_whigtgray"
-        android:text="该员工的当前位置信息无法获取！"/>
+        android:text="该员工的当前位置信息无法获取！"
+        />
     <TextView
         android:visibility="gone"
         android:id="@+id/tv_time"
