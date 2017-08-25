@@ -58,11 +58,10 @@ public class MainActivity extends BaseActivity<MainP> {
 
 
     private String imgStr;
+
     public void setImgStr(String imgStr) {
         this.imgStr = imgStr;
     }
-
-
 
 
     /**
@@ -236,7 +235,7 @@ public class MainActivity extends BaseActivity<MainP> {
                         editor.apply();
                         trackApp.mClient.startGather(traceListener);
                         registerReceiver();
-                    }else {
+                    } else {
                         viewUtil.showToast(MainActivity.this,
                                 String.format("onStartTraceCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
@@ -265,7 +264,7 @@ public class MainActivity extends BaseActivity<MainP> {
                         editor.apply();
 
                         unregisterPowerReceiver();
-                    }else {
+                    } else {
                         viewUtil.showToast(MainActivity.this,
                                 String.format("onStopTraceCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
@@ -290,7 +289,7 @@ public class MainActivity extends BaseActivity<MainP> {
                         editor.apply();
 
 
-                    }else {
+                    } else {
                         viewUtil.showToast(MainActivity.this,
                                 String.format("onStartGatherCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
@@ -314,7 +313,7 @@ public class MainActivity extends BaseActivity<MainP> {
                         editor.remove("is_gather_started");
                         editor.apply();
 
-                    }else {
+                    } else {
                         viewUtil.showToast(MainActivity.this,
                                 String.format("onStopGatherCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
@@ -340,6 +339,7 @@ public class MainActivity extends BaseActivity<MainP> {
             };
         }
     }
+
     private class MyBroadcastReciver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -357,8 +357,8 @@ public class MainActivity extends BaseActivity<MainP> {
                         presenter.signIn(0, map);
                         break;
                     case 1:
-                        map.put("imgStr",imgStr);
-                        presenter.imgByUserId(1,map);
+                        map.put("imgStr", imgStr);
+                        presenter.imgByUserId(1, map);
                         break;
                 }
                 LatLng latLng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
@@ -376,19 +376,19 @@ public class MainActivity extends BaseActivity<MainP> {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 0:
                 if (resultCode == RESULT_OK) {
                     startTrac();
-                    SignInFragment signInFragment= (SignInFragment) fragments.get(0);
+                    SignInFragment signInFragment = (SignInFragment) fragments.get(0);
                     signInFragment.setSignType(1);
                 }
                 break;
             case 1:
                 if (resultCode == RESULT_OK) {
                     stopTrac();
-                    SignInFragment signInFragment= (SignInFragment) fragments.get(0);
+                    SignInFragment signInFragment = (SignInFragment) fragments.get(0);
                     signInFragment.setSignType(0);
                 }
                 break;
