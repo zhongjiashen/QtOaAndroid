@@ -85,12 +85,7 @@ public class MainActivity extends BaseActivity<MainP> {
         super.returnData(requestCode, data);
         switch (requestCode) {
             case 0:
-//                showShortToast("签到成功！");
-//                MyApplication.login.setIs_sign(1);
-//                startTrac();
-//                type = -1;
-//                SignInFragment signInFragment= (SignInFragment) fragments.get(0);
-//                signInFragment.setSignType(1);
+
             case 1:
                 type = -1;
                 break;
