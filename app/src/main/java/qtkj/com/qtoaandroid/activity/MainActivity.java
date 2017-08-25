@@ -38,6 +38,7 @@ import qtkj.com.qtoaandroid.fragment.SignInFragment;
 import qtkj.com.qtoaandroid.receiver.TrackReceiver;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
+import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.utils.MyBDLocation;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 import qtkj.com.qtoaandroid.view.MainP;
@@ -127,6 +128,7 @@ public class MainActivity extends BaseActivity<MainP> {
         initListener();
         if (!trackApp.isTraceStarted) {
             trackApp.mClient.startTrace(trackApp.mTrace, traceListener);
+            LogUtils.d("开启服务");
         }
         if (!trackApp.isGatherStarted)
             trackApp.mClient.startGather(traceListener);
@@ -142,9 +144,7 @@ public class MainActivity extends BaseActivity<MainP> {
         if (trackApp.isTraceStarted) {
             trackApp.mClient.stopTrace(trackApp.mTrace, traceListener);
         }
-        if (trackApp.isGatherStarted) {
-            trackApp.mClient.stopGather(traceListener);
-        }
+
     }
 
     /**

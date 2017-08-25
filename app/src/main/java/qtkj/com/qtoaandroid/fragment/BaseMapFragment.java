@@ -339,7 +339,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
 // 设置交通方式为驾车
         processOption.setTransportMode(TransportMode.riding);
 // 设置纠偏选项
-        historyTrackRequest.setProcessOption(processOption);
+//        historyTrackRequest.setProcessOption(processOption);
         historyTrackRequest.setPageIndex(pageIndex);
         historyTrackRequest.setPageSize(Constants.PAGE_SIZE);
         trackApp.mClient.queryHistoryTrack(historyTrackRequest, mTrackListener);

@@ -16,6 +16,7 @@ import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.activity.ChangePassActivity;
 import qtkj.com.qtoaandroid.activity.ChangePhoneActivity;
 import qtkj.com.qtoaandroid.activity.LoginActivity;
+import qtkj.com.qtoaandroid.activity.MainActivity;
 import qtkj.com.qtoaandroid.activity.PersonalInformationActivity;
 import qtkj.com.qtoaandroid.activity.QuitActivity;
 import qtkj.com.qtoaandroid.model.Login;
@@ -79,6 +80,8 @@ public class PersonalCenterFragment extends BaseFragmengt {
             case R.id.tv_contact_us:
                 break;
             case R.id.tv_log_out:
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.stopTrac();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);//清空所在栈所有activity
                 startActivity(intent);

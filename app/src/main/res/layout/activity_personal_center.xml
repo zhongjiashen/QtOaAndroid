@@ -15,8 +15,8 @@
 
     <RelativeLayout
         android:id="@+id/rl_view"
-        android:layout_width="0dp"
-        android:layout_height="218dp"
+        android:layout_width="332dp"
+        android:layout_height="208dp"
         android:layout_marginEnd="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -25,7 +25,9 @@
         android:background="@mipmap/ic_4_3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view">
+        app:layout_constraintTop_toTopOf="@+id/view"
+        tools:layout_editor_absoluteY="20dp"
+        tools:layout_editor_absoluteX="13dp">
 
         <qtkj.com.qtoaandroid.viewbar.CircleImageView
             android:id="@+id/iv_photo"
@@ -86,24 +88,24 @@
             style="@style/text_14_gray"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_kind_number"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="10dp"/>
         <LinearLayout
             android:id="@+id/ll_call_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_worke_time"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="10dp">
             <TextView
                 android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/text_14_gray"
                 android:text="联系方式：18336302752"
-                android:layout_marginTop="5dp"/>
+                android:layout_gravity="center_vertical"/>
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="@mipmap/ic_call_phone"
                 android:layout_marginLeft="16dp"/>
         </LinearLayout>
@@ -114,9 +116,10 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_arrow_left"
         android:padding="10dp"
-        tools:layout_editor_absoluteY="0dp"
-        android:layout_marginLeft="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view"/>
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -100,6 +100,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
 
     @Override
     protected void Initialize() {
+        LogUtils.d("Initialize()");
         BitmapUtil.init();
         cbMonth.setText(DateUtil.DateToString(new Date(), "yyyy年MM月"));
         mDialogYearMonth = new TimePickerDialog.Builder()

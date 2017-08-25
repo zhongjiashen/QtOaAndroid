@@ -18,6 +18,7 @@ import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
@@ -195,9 +196,9 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
                                 bean.setPt(pt);
                                 map.put(bean.getUserId()+"",bean);
                                 View contentView = LayoutInflater.from(NowLocationActivity.this).inflate(R.layout.overlay_view, null);
-                                ViewHolder holder = new ViewHolder(contentView);
-                                Glide.with(NowLocationActivity.this).load(Contest.baseurl + bean.getImg()).error(R.mipmap.ic_photo).into(holder.civView);
-                                BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(getBitmapFromView(contentView));
+                                CircleImageView circleImageView=contentView.findViewById(R.id.civ_view);
+                                Glide.with(NowLocationActivity.this).load(Contest.baseurl + bean.getImg()).placeholder(R.mipmap.ic_photo).into(circleImageView);
+                                BitmapDescriptor bd = BitmapDescriptorFactory.fromView(contentView);
                                 MarkerOptions oo = new MarkerOptions().icon(bd).
                                         position(pt).zIndex(100);
                                 Bundle des = new Bundle();

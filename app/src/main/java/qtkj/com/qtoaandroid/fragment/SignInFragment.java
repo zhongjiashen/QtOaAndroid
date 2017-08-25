@@ -39,6 +39,7 @@ import qtkj.com.qtoaandroid.activity.SignOutActivity;
 import qtkj.com.qtoaandroid.activity.SignRecordActivity;
 import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.Base64;
+import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 
 /**
@@ -154,6 +155,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
             setSignType(1);
             MainActivity mainActivity = (MainActivity) getActivity();
             mainActivity.startTrac();
+            LogUtils.d("签到状态");
         }
 
     }
@@ -201,8 +203,6 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
                     startActivityForResult(new Intent(getActivity(), SignActivity.class).putExtra("type", 1), 1);
                 } else {
                     startActivityForResult(new Intent(getActivity(), SignActivity.class).putExtra("type", 0), 0);
-//                    MainActivity mainActivity = (MainActivity) getActivity();
-//                    mainActivity.startBDLocation(0);
                 }
                 break;
         }

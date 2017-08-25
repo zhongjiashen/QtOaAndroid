@@ -21,6 +21,10 @@
 
         layout="@layout/view_null_data"
         android:visibility="gone"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/SwipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ExpandableListView
         android:id="@+id/elv"
         android:groupIndicator="@null"
@@ -28,4 +32,5 @@
         android:layout_height="wrap_content"
         android:divider="@null"
        />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

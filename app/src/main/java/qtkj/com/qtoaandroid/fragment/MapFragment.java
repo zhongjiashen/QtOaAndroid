@@ -138,11 +138,12 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
         mapUtil.init(b);
         mapUtil.setCenter(trackApp);
         initListener();
-        trackPoints.clear();
+
         pageIndex = 1;
         return this.b;
     }
     public void start(long startTime,long endTime ,String entityName){
+        trackPoints.clear();
         this.startTime=startTime/1000;
         this.endTime=endTime/1000;
         this.entityName=entityName;
@@ -295,7 +296,7 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
     private void queryHistoryTrack() {
 
         trackApp.initRequest(historyTrackRequest);
-        historyTrackRequest.setEntityName(trackApp.entityName);
+        historyTrackRequest.setEntityName(entityName);
         historyTrackRequest.setStartTime(startTime);
         historyTrackRequest.setEndTime(endTime);
         // 设置需要纠偏

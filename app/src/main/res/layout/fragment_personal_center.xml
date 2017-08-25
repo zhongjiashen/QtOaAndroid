@@ -97,7 +97,7 @@
 
         <TextView
             android:id="@+id/tv_personal_information"
-            style="@style/text_16_black"
+            style="@style/text_15_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -115,7 +115,7 @@
 
         <TextView
             android:id="@+id/tv_change_phone"
-            style="@style/text_16_black"
+            style="@style/text_15_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -133,7 +133,7 @@
 
         <TextView
             android:id="@+id/tv_change_pass"
-            style="@style/text_16_black"
+            style="@style/text_15_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -155,7 +155,7 @@
 
         <TextView
             android:id="@+id/tv_longzihu_office"
-            style="@style/text_16_black"
+            style="@style/text_15_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -173,7 +173,7 @@
 
         <TextView
             android:id="@+id/tv_contact_us"
-            style="@style/text_16_black"
+            style="@style/text_15_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"

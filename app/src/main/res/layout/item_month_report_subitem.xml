@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="158dp"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:background="@color/pgbg">
 
     <View
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
-            android:background="@mipmap/ic_photo"/>
+            android:src="@mipmap/ic_photo"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -32,7 +33,7 @@
 
             <TextView
                 android:id="@+id/tv_name"
-                style="@style/text_16_black"
+                style="@style/text_15_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="张三"/>
@@ -62,7 +63,7 @@
             android:text="固定岗"/>
 
         <TextView
-            style="@style/text_14_gray"
+            style="@style/text_13_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/tv_days_number"
@@ -106,8 +107,8 @@
                 android:layout_height="wrap_content"
                 android:text="迟到（次）"
                 style="@style/text_12_gray"
-                android:layout_marginTop="6dp"/>
-
+                android:layout_marginTop="6dp"
+                android:paddingBottom="10dp"/>
         </LinearLayout>
         <View
             android:layout_width="1dp"
@@ -118,7 +119,8 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:background="@color/pgbg">
             <TextView
                 android:id="@+id/tv_early"
                 android:layout_width="wrap_content"

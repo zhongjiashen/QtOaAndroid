@@ -185,13 +185,14 @@ public class MyApplication extends Application {
         Intent notificationIntent = new Intent(this, MainActivity.class);
 
         Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
-                R.mipmap.ic_app);
+                R.mipmap.ic_noticfic);
+
 
         // 设置PendingIntent
         builder.setContentIntent(PendingIntent.getActivity(this, 0, notificationIntent, 0))
                 .setLargeIcon(icon)  // 设置下拉列表中的图标(大图标)
                 .setContentTitle("龙子湖街道办事处") // 设置下拉列表里的标题
-                .setSmallIcon(R.mipmap.ic_app) // 设置状态栏内的小图标
+                .setSmallIcon(R.mipmap.ic_small) // 设置状态栏内的小图标
                 .setContentText("服务正在运行...") // 设置上下文内容
                 .setWhen(System.currentTimeMillis()); // 设置该通知发生的时间
 
