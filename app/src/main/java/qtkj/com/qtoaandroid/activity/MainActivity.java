@@ -85,7 +85,6 @@ public class MainActivity extends BaseActivity<MainP> {
         super.returnData(requestCode, data);
         switch (requestCode) {
             case 0:
-
             case 1:
                 type = -1;
                 break;
