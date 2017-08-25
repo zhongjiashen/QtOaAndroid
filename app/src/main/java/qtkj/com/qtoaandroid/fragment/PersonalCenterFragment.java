@@ -85,6 +85,7 @@ public class PersonalCenterFragment extends BaseFragmengt {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);//清空所在栈所有activity
                 startActivity(intent);
+                getActivity().finish();
                 break;
         }
     }
