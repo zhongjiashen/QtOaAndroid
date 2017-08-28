@@ -294,7 +294,7 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
         popViewHolder.tvTime.setText(time.substring(10, 16));
 
 
-        Glide.with(this).load(url).into(popViewHolder.ivPhoto);
+        Glide.with(this).load(url).error(R.mipmap.ic_photo).into(popViewHolder.ivPhoto);
 
         //设置弹出框的宽度和高度
         PopupWindow popupWindow = new PopupWindow(contentView,

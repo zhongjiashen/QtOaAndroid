@@ -54,7 +54,7 @@ public class PersonalCenterFragment extends BaseFragmengt {
     @Override
     public void onResume() {
         super.onResume();
-        Login login= MyApplication.login;
+        Login login= MyApplication.mApplication.getLogin();
         if(login!=null){
             tvNick.setText(login.getUserName());
             tvKind.setText(login.getPostName());

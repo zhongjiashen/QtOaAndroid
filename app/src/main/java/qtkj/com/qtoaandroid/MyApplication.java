@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
+import android.widget.RemoteViews;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.trace.LBSTraceClient;
@@ -32,6 +33,7 @@ import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.MyBDLocation;
 import qtkj.com.qtoaandroid.utils.NetUtil;
+import qtkj.com.qtoaandroid.utils.SharedPreferencesUtils;
 
 /**
  * Created by Administrator on 2017/8/7 0007.
@@ -78,15 +80,38 @@ public class MyApplication extends Application {
 
     public static int screenHeight = 0;
 
-    public static Login login;
+    private  Login login;
+    private SharedPreferencesUtils mPreferencesUtils;
+    public  Login getLogin() {
+        if(login==null){
+            login=  mPreferencesUtils.getObject("login",Login.class);
+        }
+        return login;
+    }
 
+    public  void setLogin(Login login) {
+        this.login = login;
+        if(mPreferencesUtils==null){
+            mPreferencesUtils=new SharedPreferencesUtils(mContext,"qtoa");
+        }
+        else {
+            mPreferencesUtils.setObject("login",login);
+        }
+    }
+   public static MyApplication mApplication;
     @Override
     public void onCreate() {
         super.onCreate();
+        mApplication=this;
         mContext = getApplicationContext();
+        if(mPreferencesUtils==null){
+            mPreferencesUtils=new SharedPreferencesUtils(mContext,"qtoa");
+        }
         //腾讯Bugly,崩溃日志跟踪
         CrashReport.initCrashReport(mContext, "a153d156a3", false);
-
+        if(login==null){
+            login=  mPreferencesUtils.getObject("login",Login.class);
+        }
         // 若为创建独立进程，则不初始化成员变量
         if ("com.baidu.track:remote".equals(CommonUtil.getCurProcessName(mContext))) {
             return;
@@ -185,14 +210,13 @@ public class MyApplication extends Application {
         Intent notificationIntent = new Intent(this, MainActivity.class);
 
         Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
-                R.mipmap.ic_noticfic);
-
+                R.mipmap.ic_notific);
 
         // 设置PendingIntent
         builder.setContentIntent(PendingIntent.getActivity(this, 0, notificationIntent, 0))
                 .setLargeIcon(icon)  // 设置下拉列表中的图标(大图标)
                 .setContentTitle("龙子湖街道办事处") // 设置下拉列表里的标题
-                .setSmallIcon(R.mipmap.ic_small) // 设置状态栏内的小图标
+                .setSmallIcon(R.mipmap.ic_notific) // 设置状态栏内的小图标
                 .setContentText("服务正在运行...") // 设置上下文内容
                 .setWhen(System.currentTimeMillis()); // 设置该通知发生的时间
 

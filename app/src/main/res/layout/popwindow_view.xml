@@ -14,7 +14,7 @@
         app:border_width="2dp"
         app:border_color="@color/white"
         android:layout_gravity="center_horizontal"
-        android:background="@mipmap/ic_launcher_round"/>
+        android:src="@mipmap/ic_photo"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,11 +47,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="固定岗"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="5dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp">
+        android:layout_marginTop="10dp">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"

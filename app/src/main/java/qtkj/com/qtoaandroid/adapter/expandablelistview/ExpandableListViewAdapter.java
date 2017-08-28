@@ -107,7 +107,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             convertView.setTag(subitemViewHolder);
         }
         subitemViewHolder = (SubitemViewHolder) convertView.getTag();
-        if(MyApplication.login.getType()==0)
+        if(MyApplication.mApplication.getLogin().getType()==0)
             subitemViewHolder.ivArrow.setVisibility(View.GONE);
         else {
             subitemViewHolder.ivArrow.setVisibility(View.VISIBLE);

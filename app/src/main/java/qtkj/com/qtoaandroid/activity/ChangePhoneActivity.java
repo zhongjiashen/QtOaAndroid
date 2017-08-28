@@ -38,7 +38,7 @@ public class ChangePhoneActivity extends BaseActivity<ChangePassOrPhoneP> {
     @Override
     protected void Initialize() {
         presenter = new ChangePassOrPhoneP(this, this);
-        Login login = MyApplication.login;
+        Login login = MyApplication.mApplication.getLogin();
         if (login != null) {
             etAccount.setText(login.getUserPhone());
         }

@@ -10,6 +10,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.view.UpdadeNameP;
 
 /**
@@ -20,11 +21,13 @@ import qtkj.com.qtoaandroid.view.UpdadeNameP;
 public class UpdateNameActivity extends BaseActivity<UpdadeNameP> {
     @BindView(R.id.et_name)
     EditText etName;
+    Login login;
 
     @Override
     public void returnData(int requestCode, Object data) {
         showShortToast("修改名字成功！");
-        MyApplication.login.setUserName(etName.getText().toString());
+        login.setUserName(etName.getText().toString());
+        MyApplication.mApplication.setLogin(login);
         finish();
     }
 
@@ -36,6 +39,7 @@ public class UpdateNameActivity extends BaseActivity<UpdadeNameP> {
     @Override
     protected void Initialize() {
         presenter = new UpdadeNameP(this, this);
+        login=MyApplication.mApplication.getLogin();
 
     }
 
@@ -52,7 +56,7 @@ public class UpdateNameActivity extends BaseActivity<UpdadeNameP> {
                     return;
                 }
                 Map<String,String> map=new HashMap();
-                map.put("userId", MyApplication.login.getUserId()+"");
+                map.put("userId",login.getUserId()+"");
                 map.put("userName", name);
                 presenter.update_name(0,map);
                 break;

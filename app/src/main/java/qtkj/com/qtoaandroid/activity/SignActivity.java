@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.DateUtil;
 import qtkj.com.qtoaandroid.utils.MapUtil;
@@ -45,7 +46,7 @@ public class SignActivity extends BaseActivity<SignOutP> {
     private MapUtil mapUtil = null;
     Map<String, String> map;
     int type = 0;
-
+    Login login;
     @Override
     protected int layout() {
         return R.layout.activity_sign_out;
@@ -58,11 +59,12 @@ public class SignActivity extends BaseActivity<SignOutP> {
             case 0:
                 if (type == 1) {
                     showShortToast("签退成功！");
-                    MyApplication.login.setIsSign(0);
+                   login.setIsSign(0);
                 } else {
                     showShortToast("签到成功！");
-                    MyApplication.login.setIsSign(1);
+                    login.setIsSign(1);
                 }
+                MyApplication.mApplication.setLogin(login);
                 setResult(RESULT_OK, null);
                 finish();
                 break;
@@ -71,6 +73,7 @@ public class SignActivity extends BaseActivity<SignOutP> {
 
     @Override
     protected void Initialize() {
+        login=MyApplication.mApplication.getLogin();
         mapUtil = MapUtil.getInstance();
         mapUtil.init((MapView) findViewById(R.id.mapView));
         BitmapUtil.init();
@@ -97,6 +100,7 @@ public class SignActivity extends BaseActivity<SignOutP> {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
+
                 finish();
                 break;
             case R.id.bt_ok:
@@ -116,10 +120,10 @@ public class SignActivity extends BaseActivity<SignOutP> {
                 tvAddress.setText(bdLocation.getAddrStr());
                 map = new HashMap<>();
                 map.put("type", type + "");
-                map.put("userId", MyApplication.login.getUserId() + "");
+                map.put("userId",login.getUserId() + "");
                 map.put("position", bdLocation.getAddrStr());
-                map.put("workStartTime", MyApplication.login.getWorkStartTime());
-                map.put("workEndTime", MyApplication.login.getWorkEndTime());
+                map.put("workStartTime", login.getWorkStartTime());
+                map.put("workEndTime", login.getWorkEndTime());
 
 
             }

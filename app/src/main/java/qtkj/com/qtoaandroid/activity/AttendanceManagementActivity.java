@@ -39,7 +39,7 @@ public class AttendanceManagementActivity extends BaseActivity {
 
     @Override
     protected void Initialize() {
-        Login login = MyApplication.login;
+        Login login = MyApplication.mApplication.getLogin();
         if (login != null) {
             if (login.getType() == 1) {
                 insufficientPermissions.setVisibility(View.GONE);

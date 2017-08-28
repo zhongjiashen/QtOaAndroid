@@ -35,12 +35,12 @@ import qtkj.com.qtoaandroid.activity.AttendanceManagementActivity;
 import qtkj.com.qtoaandroid.activity.MainActivity;
 import qtkj.com.qtoaandroid.activity.PhotoRecordActivity;
 import qtkj.com.qtoaandroid.activity.SignActivity;
-import qtkj.com.qtoaandroid.activity.SignOutActivity;
+
 import qtkj.com.qtoaandroid.activity.SignRecordActivity;
 import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.Base64;
 import qtkj.com.qtoaandroid.utils.LogUtils;
-import qtkj.com.qtoaandroid.utils.ViewUtil;
+
 
 /**
  * Created by Administrator on 2017/8/3 0003.
@@ -69,13 +69,14 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
 
     @Override
     protected void init() {
+        mLogin = MyApplication.mApplication.getLogin();
         updateTime(new Date());
-        if(MyApplication.login!=null) {
-            if(MyApplication.login.getJobType()==0){
+        if(mLogin!=null) {
+            if(mLogin.getJobType()==0){
 
-                tvWokeTime.setText("工作时间：" + MyApplication.login.getAmStartTime().substring(0,5) + " — " + MyApplication.login.getAmEndTime().substring(0,5)+ "   " + MyApplication.login.getPmStartTime().substring(0,5)+ " — " + MyApplication.login.getPmEndTime().substring(0,5));
+                tvWokeTime.setText("工作时间：" +mLogin.getAmStartTime().substring(0,5) + " — " +mLogin.getAmEndTime().substring(0,5)+ "   " + mLogin.getPmStartTime().substring(0,5)+ " — " +mLogin.getPmEndTime().substring(0,5));
             }else {
-                tvWokeTime.setText("工作时间：" + MyApplication.login.getWorkStartTime().substring(0,5) + " — " + MyApplication.login.getWorkEndTime().substring(0,5));
+                tvWokeTime.setText("工作时间：" + mLogin.getWorkStartTime().substring(0,5) + " — " + mLogin.getWorkEndTime().substring(0,5));
             }
         }
         mTimeRefreshReceiver = new BroadcastReceiver() {
@@ -150,13 +151,17 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     @Override
     public void onResume() {
         super.onResume();
-        mLogin = MyApplication.login;
-        if (mLogin.getIsSign() == 1) {
-            setSignType(1);
-            MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.startTrac();
-            LogUtils.d("签到状态");
-        }
+        mLogin = MyApplication.mApplication.getLogin();
+        MainActivity mainActivity = (MainActivity) getActivity();
+            if (mLogin.getIsSign() == 1) {
+                setSignType(1);
+
+                mainActivity.startTrac();
+                LogUtils.d("签到状态");
+            }else {
+                setSignType(0);
+                mainActivity.stopTrac();
+            }
 
     }
 
@@ -176,10 +181,10 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_sign_in_record:
-                startActivity(new Intent(getActivity(), SignRecordActivity.class).putExtra("userId", MyApplication.login.getUserId() + ""));
+                startActivity(new Intent(getActivity(), SignRecordActivity.class).putExtra("userId", mLogin.getUserId() + ""));
                 break;
             case R.id.tv_photo_record:
-                startActivity(new Intent(getActivity(), PhotoRecordActivity.class).putExtra("userId", MyApplication.login.getUserId() + ""));
+                startActivity(new Intent(getActivity(), PhotoRecordActivity.class).putExtra("userId", mLogin.getUserId() + ""));
                 break;
             case R.id.tv_attendance_management:
 

@@ -68,7 +68,7 @@ public class OkChangePhoneActivity extends BaseActivity<OkChangePhoneP> {
                 map.put("mobile",phone);
                 map.put("codeType","3");
                 map.put("authCode",code);
-                map.put("userId", MyApplication.login.getUserId()+"");
+                map.put("userId", MyApplication.mApplication.getLogin().getUserId()+"");
                 presenter.modifyPhone(0,map);
                 break;
         }
