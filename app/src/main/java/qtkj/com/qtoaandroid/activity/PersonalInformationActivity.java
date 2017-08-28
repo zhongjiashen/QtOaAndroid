@@ -74,7 +74,7 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
             case 0:
                 Glide.with(this).load(Contest.baseurl+data.toString()).error(R.mipmap.ic_photo).into(ivHeadPortrait);
                 login.setImg(data.toString());
-                MyApplication.login=login;
+                MyApplication.mApplication.setLogin(login);
                 break;
             case 1:
 
@@ -84,7 +84,7 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
     }
     @Override
     protected void Initialize() {
-        login= MyApplication.login;
+        login= MyApplication.mApplication.getLogin();
 
         presenter=new PersonalInformationP(this,this);
     }

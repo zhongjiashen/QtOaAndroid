@@ -95,7 +95,7 @@
              android:name="com.baidu.lbsapi.API_KEY"
              android:value="9Qv8KGb7FpATYGFNpQtcKf6B3GMHwDqj"/>
         <!--百度地图key配置-->
-       <!-- <meta-data
+      <!--  <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="1HcCivNvWRo74sCqWGGQMIcLqDziMWGL"/>-->
         <!--百度地图云轨迹服务-->

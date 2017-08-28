@@ -3,12 +3,12 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="71dp"
-                android:background="@color/pgbg">
+                android:background="@color/white">
     <qtkj.com.qtoaandroid.viewbar.CircleImageView
         android:id="@+id/iv_photo"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@mipmap/ic_photo"
+        android:src="@mipmap/ic_photo"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"/>
     <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="张三"
-            style="@style/text_15_black"/>
+            style="@style/text_14_black"/>
         <TextView
             android:id="@+id/tv_kind"
             android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
         android:layout_toRightOf="@+id/iv_photo"
         android:layout_marginTop="39dp"
         android:layout_marginLeft="10dp"
-        style="@style/text_13_gray"
+        style="@style/text_12_gray"
         android:text="固定岗"/>
     <TextView
         android:id="@+id/tv_time"

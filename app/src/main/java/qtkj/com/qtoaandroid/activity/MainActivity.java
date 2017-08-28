@@ -35,9 +35,11 @@ import qtkj.com.qtoaandroid.fragment.BaseFragmengt;
 import qtkj.com.qtoaandroid.fragment.NowLocationFragment;
 import qtkj.com.qtoaandroid.fragment.PersonalCenterFragment;
 import qtkj.com.qtoaandroid.fragment.SignInFragment;
+import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.receiver.TrackReceiver;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
+import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.utils.MyBDLocation;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 import qtkj.com.qtoaandroid.view.MainP;
@@ -58,11 +60,10 @@ public class MainActivity extends BaseActivity<MainP> {
 
 
     private String imgStr;
+
     public void setImgStr(String imgStr) {
         this.imgStr = imgStr;
     }
-
-
 
 
     /**
@@ -84,12 +85,7 @@ public class MainActivity extends BaseActivity<MainP> {
         super.returnData(requestCode, data);
         switch (requestCode) {
             case 0:
-//                showShortToast("签到成功！");
-//                MyApplication.login.setIs_sign(1);
-//                startTrac();
-//                type = -1;
-//                SignInFragment signInFragment= (SignInFragment) fragments.get(0);
-//                signInFragment.setSignType(1);
+                break;
             case 1:
                 type = -1;
                 break;
@@ -138,13 +134,10 @@ public class MainActivity extends BaseActivity<MainP> {
      * 开启鹰眼轨迹服务和采集
      */
     public void stopTrac() {
-        initListener();
         if (trackApp.isTraceStarted) {
             trackApp.mClient.stopTrace(trackApp.mTrace, traceListener);
         }
-        if (trackApp.isGatherStarted) {
-            trackApp.mClient.stopGather(traceListener);
-        }
+
     }
 
     /**
@@ -243,7 +236,7 @@ public class MainActivity extends BaseActivity<MainP> {
                         editor.apply();
                         trackApp.mClient.startGather(traceListener);
                         registerReceiver();
-                    }else {
+                    } else {
                         viewUtil.showToast(MainActivity.this,
                                 String.format("onStartTraceCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
@@ -272,7 +265,7 @@ public class MainActivity extends BaseActivity<MainP> {
                         editor.apply();
 
                         unregisterPowerReceiver();
-                    }else {
+                    } else {
                         viewUtil.showToast(MainActivity.this,
                                 String.format("onStopTraceCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
@@ -297,7 +290,7 @@ public class MainActivity extends BaseActivity<MainP> {
                         editor.apply();
 
 
-                    }else {
+                    } else {
                         viewUtil.showToast(MainActivity.this,
                                 String.format("onStartGatherCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
@@ -321,7 +314,7 @@ public class MainActivity extends BaseActivity<MainP> {
                         editor.remove("is_gather_started");
                         editor.apply();
 
-                    }else {
+                    } else {
                         viewUtil.showToast(MainActivity.this,
                                 String.format("onStopGatherCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
@@ -347,6 +340,7 @@ public class MainActivity extends BaseActivity<MainP> {
             };
         }
     }
+
     private class MyBroadcastReciver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -354,18 +348,19 @@ public class MainActivity extends BaseActivity<MainP> {
             if (action.equals("com.qtoaandroid.myLocation")) {
                 BDLocation bdLocation = intent.getParcelableExtra("location");
                 Map<String, String> map = new HashMap<>();
-                map.put("userId", MyApplication.login.getUserId() + "");
+                Login login=MyApplication.mApplication.getLogin();
+                map.put("userId", login.getUserId() + "");
                 map.put("position", bdLocation.getAddrStr());
                 switch (type) {
                     case 0:
                         map.put("type", "0");
-                        map.put("workStartTime", MyApplication.login.getWorkStartTime());
-                        map.put("workEndTime", MyApplication.login.getWorkEndTime());
+                        map.put("workStartTime", login.getWorkStartTime());
+                        map.put("workEndTime", login.getWorkEndTime());
                         presenter.signIn(0, map);
                         break;
                     case 1:
-                        map.put("imgStr",imgStr);
-                        presenter.imgByUserId(1,map);
+                        map.put("imgStr", imgStr);
+                        presenter.imgByUserId(1, map);
                         break;
                 }
                 LatLng latLng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
@@ -383,26 +378,27 @@ public class MainActivity extends BaseActivity<MainP> {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
-        switch (requestCode) {
-            case 0:
-                if (resultCode == RESULT_OK) {
-                    startTrac();
-                    SignInFragment signInFragment= (SignInFragment) fragments.get(0);
-                    signInFragment.setSignType(1);
-                }
-                break;
-            case 1:
-                if (resultCode == RESULT_OK) {
-                    stopTrac();
-                    SignInFragment signInFragment= (SignInFragment) fragments.get(0);
-                    signInFragment.setSignType(0);
-                }
-                break;
-
-            default:
-
-        }
+        super.onActivityResult(requestCode, resultCode, data);
+//
+//        switch (requestCode) {
+//
+//            case 0:
+//                if (resultCode == RESULT_OK) {
+//                    startTrac();
+//                    LogUtils.e("0SAFDGA");
+//                }
+//                break;
+//            case 1:
+//                if (resultCode == RESULT_OK) {
+//                    stopTrac();
+//                    LogUtils.e("QIANTUIDA");
+//
+//                }
+//                break;
+//
+//            default:
+//
+//        }
 
     }
 

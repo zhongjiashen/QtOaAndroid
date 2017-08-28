@@ -56,7 +56,7 @@ public class NowLocationFragment extends BaseFragmengt<NowLocationP> {
     }
     @Override
     protected void init() {
-        Login login = MyApplication.login;
+        Login login = MyApplication.mApplication.getLogin();
         if (login != null) {
             if(login.getType()==1){
                 presenter=new NowLocationP(this,getActivity());

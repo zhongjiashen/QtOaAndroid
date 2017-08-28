@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.Tool;
 import qtkj.com.qtoaandroid.view.OkChangePassP;
 
@@ -26,7 +27,7 @@ public class OkChangePassActivity extends BaseActivity<OkChangePassP> {
     EditText newPass;
     @BindView(R.id.et_ok_pass)
     EditText etOkPass;
-
+    Login login;
     @Override
     protected int layout() {
         return R.layout.avtivity_ok_change_pass;
@@ -35,7 +36,7 @@ public class OkChangePassActivity extends BaseActivity<OkChangePassP> {
     @Override
     protected void Initialize() {
         presenter = new OkChangePassP(this, this);
-
+       login=MyApplication.mApplication.getLogin();
     }
 
 
@@ -78,9 +79,10 @@ public class OkChangePassActivity extends BaseActivity<OkChangePassP> {
                     return;
                 }
                 map.put("oldPwd",oldpass);
-                map.put("mobile",MyApplication.login.getUserPhone());
+
+                map.put("mobile",login.getUserPhone());
                 map.put("password",newpass);
-                map.put("userId",MyApplication.login.getUserId()+"");
+                map.put("userId",login.getUserId()+"");
                 presenter.modifPwd(0,map);
                 break;
         }

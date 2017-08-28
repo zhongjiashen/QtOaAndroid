@@ -35,7 +35,7 @@ public class LoginPassP extends BasePressent {
                 Type jsonType = new TypeToken<Login>() {
                 }.getType();
                 Login login = gson.fromJson(response, jsonType);
-                MyApplication.login = login;
+                MyApplication.mApplication.setLogin(login);
                 MyApplication.entityName = login.getUserId() + "";
                 view.returnData(requestCode, null);
                 break;

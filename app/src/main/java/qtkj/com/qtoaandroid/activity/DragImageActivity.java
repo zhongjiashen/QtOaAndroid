@@ -13,6 +13,7 @@ import butterknife.OnClick;
 import qtkj.com.qtoaandroid.Contest;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.utils.DensityUtils;
+import qtkj.com.qtoaandroid.utils.StatusBarUtil;
 import qtkj.com.qtoaandroid.viewbar.dragzoomimageview.DragImageView;
 
 /**
@@ -22,8 +23,7 @@ import qtkj.com.qtoaandroid.viewbar.dragzoomimageview.DragImageView;
 public class DragImageActivity extends BaseActivity {
     @BindView(R.id.div_view)
     DragImageView divView;
-    @BindView(R.id.rl_title)
-    RelativeLayout rlTitle;
+
     private int window_width, window_height;// 控件宽度
 
     @Override
@@ -33,6 +33,7 @@ public class DragImageActivity extends BaseActivity {
 
     @Override
     protected void Initialize() {
+        StatusBarUtil.transparencyBar(this);
         String url = Contest.baseurl + getIntent().getStringExtra("url");
         /** 获取可見区域高度 **/
         WindowManager manager = getWindowManager();
@@ -55,7 +56,8 @@ public class DragImageActivity extends BaseActivity {
                         getWindow().getDecorView()
                                 .getWindowVisibleDisplayFrame(frame);
 
-                        divView.setScreen_H(window_height - DensityUtils.dp2px(DragImageActivity.this,49)-frame.top);
+                        divView.setScreen_H(window_height
+                        );
                         divView.setScreen_W(window_width);
 
 
@@ -63,8 +65,4 @@ public class DragImageActivity extends BaseActivity {
                 });
     }
 
-    @OnClick(R.id.iv_back)
-    public void onClick() {
-        finish();
-    }
 }

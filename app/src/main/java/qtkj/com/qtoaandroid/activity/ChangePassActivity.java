@@ -41,7 +41,7 @@ public class ChangePassActivity extends BaseActivity<ChangePassOrPhoneP> {
     protected void Initialize() {
         tvTitle.setText("修改密码");
         presenter = new ChangePassOrPhoneP(this, this);
-        Login login = MyApplication.login;
+        Login login = MyApplication.mApplication.getLogin();
         if (login != null) {
             etAccount.setText(login.getUserPhone());
         }

@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/tv_sign_in_record"
-                style="@style/text_15_whigtgray"
+                style="@style/text_14_whigtgray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="42dp"
@@ -76,7 +76,7 @@
 
             <TextView
                 android:id="@+id/tv_photo_record"
-                style="@style/text_15_whigtgray"
+                style="@style/text_14_whigtgray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -89,7 +89,7 @@
 
             <TextView
                 android:id="@+id/tv_attendance_management"
-                style="@style/text_15_whigtgray"
+                style="@style/text_14_whigtgray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="42dp"

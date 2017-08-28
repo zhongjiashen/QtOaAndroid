@@ -1,6 +1,8 @@
 package qtkj.com.qtoaandroid.fragment;
 
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ExpandableListView;
 
@@ -27,6 +29,9 @@ public class AddressBookFragment extends BaseFragmengt<AddressBookP> {
     ExpandableListView elv;
     ExpandableListViewAdapter adapte;
     private List<AddressBook> list;
+    @BindView(R.id.SwipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+    private Handler handler = new Handler();
     @Override
     protected int Rlayout() {
         return R.layout.fragment_address_book;
@@ -38,7 +43,19 @@ public class AddressBookFragment extends BaseFragmengt<AddressBookP> {
         map=new HashMap<>();
         presenter.getaddressList(0,map);
         elv.setAdapter(adapte=new ExpandableListViewAdapter(getActivity()));
-
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.getaddressList(0,map);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
     }
 
     /**
@@ -49,6 +66,7 @@ public class AddressBookFragment extends BaseFragmengt<AddressBookP> {
      */
     @Override
     public void returnData(int requestCode, Object data) {
+        swipeRefreshLayout.setRefreshing(false);
         list= (List<AddressBook>) data;
         if(list==null||list.size()==0)
             insufficientPermissions.setVisibility(View.VISIBLE);

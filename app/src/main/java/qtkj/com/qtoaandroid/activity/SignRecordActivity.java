@@ -100,6 +100,7 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
 
     @Override
     protected void Initialize() {
+        LogUtils.d("Initialize()");
         BitmapUtil.init();
         cbMonth.setText(DateUtil.DateToString(new Date(), "yyyy年MM月"));
         mDialogYearMonth = new TimePickerDialog.Builder()
@@ -172,13 +173,13 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
                 tvDayState.setText(signRecordDeal.getDay_state());
                 tvDate.setText(signRecordDeal.getDate());
                 tvSignInAddress.setText(signRecordDeal.getSign_in_address());
-                tvSignInTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm"));
+                tvSignInTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "MM-dd HH:mm"));
                 if (signRecordDeal.getSign_out_address().equals("无位置信息")) {
                     llSignOut.setVisibility(View.GONE);
                 } else {
                     llSignOut.setVisibility(View.VISIBLE);
                     tvSignOutAddress.setText(signRecordDeal.getSign_out_address());
-                    tvSignOutTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
+                    tvSignOutTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "MM-dd HH:mm"));
                 }
 
                 long pmStart = DateUtil.StringTolongDate(day + signRecordDeal.getPmStartTime(), "yyyy-MM-ddHH");
@@ -193,21 +194,32 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
                             tvAmTime.setVisibility(View.VISIBLE);
                             map1.setVisibility(View.VISIBLE);
                             LogUtils.d(signRecordDeal.getSign_in_time() + "");
-                            tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm") + " - " + signRecordDeal.getAmEndTime());
-                            mapF1.start(signRecordDeal.getSign_in_time(), amEnd, userId);
-
+                            //当签退时间小于上午下班时间，已签退时间为准
+                            if(signRecordDeal.getSign_out_time()<amEnd){
+                                tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "MM-dd HH:mm") + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "MM-dd HH:mm"));
+                                mapF1.start(signRecordDeal.getSign_in_time(), signRecordDeal.getSign_out_time(), userId);
+                            }else {
+                                tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "MM-dd HH:mm") + " - " + DateUtil.longDateToString(amEnd, "MM-dd HH:mm"));
+                                mapF1.start(signRecordDeal.getSign_in_time(), amEnd, userId);
+                            }
 
                         } else {
                             tvAmTime.setVisibility(View.GONE);
                             map1.setVisibility(View.GONE);
                         }
-
+                        //判断签退时间是否在下午上班时间之前，如果在下午上班之前，则下午轨迹没有，否则下午轨迹有
                         if (pmStart < signRecordDeal.getSign_out_time()) {
                             tvPmTime.setVisibility(View.VISIBLE);
                             map2.setVisibility(View.VISIBLE);
                             LogUtils.d( "wdeaw");
-                            tvPmTime.setText(signRecordDeal.getPmStartTime() + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
-                            mapF2.start(pmStart, signRecordDeal.getSign_out_time(), userId);
+                            //判断签到时间是在下午上班之前还是之后，之前轨迹从下午上班时间开始统计，否则一签到时间开始统计
+                            if(pmStart>signRecordDeal.getSign_in_time()) {
+                                tvPmTime.setText(DateUtil.longDateToString(pmStart, "MM-dd HH:mm") + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "MM-dd HH:mm"));
+                                mapF2.start(pmStart, signRecordDeal.getSign_out_time(), userId);
+                            }else {
+                                tvPmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "MM-dd HH:mm") + " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "MM-dd HH:mm"));
+                                mapF2.start(signRecordDeal.getSign_in_time(), signRecordDeal.getSign_out_time(), userId);
+                            }
 
                         } else {
                             tvPmTime.setVisibility(View.GONE);
@@ -221,9 +233,8 @@ public class SignRecordActivity extends BaseActivity<SignRecordP> implements OnD
                         LogUtils.d( "夜班");
                         tvPmTime.setVisibility(View.GONE);
                         map2.setVisibility(View.GONE);
-                        tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "HH:mm")+ " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "HH:mm"));
+                        tvAmTime.setText(DateUtil.longDateToString(signRecordDeal.getSign_in_time(), "MM-dd HH:mm")+ " - " + DateUtil.longDateToString(signRecordDeal.getSign_out_time(), "MM-dd HH:mm"));
                         mapF1.start(signRecordDeal.getSign_in_time(), signRecordDeal.getSign_out_time(), userId);
-
                         break;
                 }
 

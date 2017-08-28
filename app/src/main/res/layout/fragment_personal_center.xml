@@ -84,8 +84,9 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:orientation="vertical"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rl_view">
@@ -97,7 +98,7 @@
 
         <TextView
             android:id="@+id/tv_personal_information"
-            style="@style/text_16_black"
+            style="@style/text_14_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -115,7 +116,7 @@
 
         <TextView
             android:id="@+id/tv_change_phone"
-            style="@style/text_16_black"
+            style="@style/text_14_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -133,7 +134,7 @@
 
         <TextView
             android:id="@+id/tv_change_pass"
-            style="@style/text_16_black"
+            style="@style/text_14_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -155,7 +156,7 @@
 
         <TextView
             android:id="@+id/tv_longzihu_office"
-            style="@style/text_16_black"
+            style="@style/text_14_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -173,7 +174,7 @@
 
         <TextView
             android:id="@+id/tv_contact_us"
-            style="@style/text_16_black"
+            style="@style/text_14_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -195,7 +196,7 @@
 
         <TextView
             android:id="@+id/tv_log_out"
-            style="@style/text_15_blue"
+            style="@style/text_14_blue"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:gravity="center"

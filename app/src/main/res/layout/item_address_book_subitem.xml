@@ -21,6 +21,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
+        android:src="@mipmap/ic_photo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -28,7 +29,7 @@
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/text_15_black"
+        style="@style/text_14_black"
         android:text="张三"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="18dp"
@@ -39,7 +40,7 @@
         android:id="@+id/tv_kind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/text_13_gray"
+        style="@style/text_12_gray"
         android:text="固定岗"
         app:layout_constraintLeft_toRightOf="@+id/iv_head_portrait"
         android:layout_marginLeft="10dp"

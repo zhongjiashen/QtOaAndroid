@@ -28,12 +28,14 @@ import qtkj.com.qtoaandroid.viewbar.calenderview.DayManager;
  * Created by Administrator on 2017/8/11 0011.
  */
 
-public class SignRecordP extends BasePressent{
+public class SignRecordP extends BasePressent {
 
     public SignRecordP(BaseView view, Activity activity) {
         super(view, activity);
     }
+
     private String moth;
+    private Map<String, SignRecordDeal> map;
 
     @Override
     protected void returnData(int requestCode, String response) {
@@ -41,19 +43,19 @@ public class SignRecordP extends BasePressent{
         Set<Integer> latearrivalDays = new HashSet<>();
         Set<Integer> forgetclockDays = new HashSet<>();
         Set<Integer> absenteeismDays = new HashSet<>();
-        Log.e("SignRecordP",response);
+        Log.e("SignRecordP", response);
         Gson gson = new Gson();
-        Type jsonType =  new TypeToken<List<SignRecord>>() {
+        Type jsonType = new TypeToken<List<SignRecord>>() {
         }.getType();
-        List<SignRecord> list= gson.fromJson(response,  jsonType);
-        Map<String,SignRecordDeal> map=new HashMap();
-        for( int i = 0 ; i < list.size() ; i++) {//内部不锁定，效率最高，但在多线程要考虑并发操作的问题。
-            SignRecord signRecord=list.get(i);
-            SignRecordDeal signRecordDeal=new SignRecordDeal();
-            String key=signRecord.getDay()+"";
-            switch (signRecord.getState()){
+        List<SignRecord> list = gson.fromJson(response, jsonType);
+        map = new HashMap();
+        for (int i = 0; i < list.size(); i++) {//内部不锁定，效率最高，但在多线程要考虑并发操作的问题。
+            SignRecord signRecord = list.get(i);
+            SignRecordDeal signRecordDeal = new SignRecordDeal();
+            String key = signRecord.getDay() + "";
+            switch (signRecord.getState()) {
                 case 0:
-                    switch (signRecord.getOutState()){
+                    switch (signRecord.getOutState()) {
                         case 0:
                             normalDays.add(signRecord.getDay());
                             break;
@@ -68,64 +70,64 @@ public class SignRecordP extends BasePressent{
                             break;
 
                     }
+                    handling(signRecordDeal, signRecord, key, i);
                     break;
                 case 1:
                     signRecordDeal.setDay_state("迟到");
                     latearrivalDays.add(signRecord.getDay());
+                    handling(signRecordDeal, signRecord, key, i);
                     break;
                 case 3:
                     signRecordDeal.setDay_state("忘记打卡");
                     forgetclockDays.add(signRecord.getDay());
+                    handling(signRecordDeal, signRecord, key, i);
                     break;
                 case 4:
                     absenteeismDays.add(signRecord.getDay());
-                    break;
-            }
-            switch (signRecord.getOutState()) {
-                case 0:
 
                     break;
-                case 2:
-                    signRecordDeal.setDay_state("早退");
-                    break;
-                case 3:
-                    signRecordDeal.setDay_state("忘记打卡");
-                    break;
-                case 4:
-                    signRecordDeal.setDay_state("缺勤");
-                    break;
             }
-            signRecordDeal.setDate(moth+"-"+key);
-            signRecordDeal.setSign_in_address(signRecord.getPosition());
-            signRecordDeal.setSign_out_address(signRecord.getOutPosition());
-            signRecordDeal.setSign_in_time(signRecord.getSignTime());
-            if (signRecordDeal.getSign_out_address().equals("无位置信息")) {
-                if(i==0){
-                    signRecordDeal.setSign_out_time(new Date().getTime());
-                }else {
-                    signRecordDeal.setSign_out_time(DateUtil.StringTolongDate(moth+"-"+key + signRecord.getPmEndTime(), "yyyy-MM-ddHH"));
-                    LogUtils.d(signRecordDeal.getSign_out_time()+"");
-                }
 
-            }else {
-                signRecordDeal.setSign_out_time(signRecord.getOutSignTime());
-            }
-            signRecordDeal.setAmEndTime(signRecord.getAmEndTime());
-            signRecordDeal.setPmStartTime(signRecord.getPmStartTime());
-            signRecordDeal.setPmEndTime(signRecord.getPmEndTime());
-            signRecordDeal.setJop_type(signRecord.getJobType());
-            map.put(key,signRecordDeal);
+
         }
         DayManager.setNormalDays(normalDays);
         DayManager.setLatearrivalDays(latearrivalDays);
         DayManager.setForgetclockDays(forgetclockDays);
         DayManager.setAbsenteeismDays(absenteeismDays);
 
-       view.returnData(0,map);
+        view.returnData(0, map);
     }
 
-    public void getDate(int requestCode,Map<String,String> map){
-        moth=map.get("time");
-        post("signHistory.json",requestCode,map);
+    public void getDate(int requestCode, Map<String, String> map) {
+        moth = map.get("time");
+        post("signHistory.json", requestCode, map);
+    }
+
+    /**
+     * 处理打卡记录数据
+     */
+    private void handling(SignRecordDeal signRecordDeal, SignRecord signRecord, String key, int i) {
+        switch (signRecord.getOutState()) {
+            case 0:
+
+                break;
+            case 2:
+                signRecordDeal.setDay_state("早退");
+                break;
+            case 3:
+                signRecordDeal.setDay_state("忘记打卡");
+                break;
+
+        }
+        signRecordDeal.setDate(moth + "-" + key);
+        signRecordDeal.setSign_in_address(signRecord.getPosition());
+        signRecordDeal.setSign_out_address(signRecord.getOutPosition());
+        signRecordDeal.setSign_in_time(signRecord.getSignTime());
+        signRecordDeal.setSign_out_time(signRecord.getOutSignTime());
+        signRecordDeal.setAmEndTime(signRecord.getAmEndTime());
+        signRecordDeal.setPmStartTime(signRecord.getPmStartTime());
+        signRecordDeal.setPmEndTime(signRecord.getPmEndTime());
+        signRecordDeal.setJop_type(signRecord.getJobType());
+        map.put(key, signRecordDeal);
     }
 }

@@ -38,6 +38,9 @@ public abstract class BasePressent {
         this.view = view;
         mActivity = activity;
         mDialog=new LoadingDialog(activity);
+        mDialog.setCancelable(false);
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setCanceledOnTouchOutside(false);
     }
 
     protected void post(String url,final int requestCode, Map map) {
