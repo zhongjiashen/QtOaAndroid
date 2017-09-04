@@ -237,8 +237,8 @@ public class MainActivity extends BaseActivity<MainP> {
                         trackApp.mClient.startGather(traceListener);
                         registerReceiver();
                     } else {
-                        viewUtil.showToast(MainActivity.this,
-                                String.format("onStartTraceCallback, errorNo:%d, message:%s ", errorNo, message));
+//                        viewUtil.showToast(MainActivity.this,
+//                                String.format("onStartTraceCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
                 }
 
@@ -266,8 +266,8 @@ public class MainActivity extends BaseActivity<MainP> {
 
                         unregisterPowerReceiver();
                     } else {
-                        viewUtil.showToast(MainActivity.this,
-                                String.format("onStopTraceCallback, errorNo:%d, message:%s ", errorNo, message));
+//                        viewUtil.showToast(MainActivity.this,
+//                                String.format("onStopTraceCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
                 }
 
@@ -291,8 +291,8 @@ public class MainActivity extends BaseActivity<MainP> {
 
 
                     } else {
-                        viewUtil.showToast(MainActivity.this,
-                                String.format("onStartGatherCallback, errorNo:%d, message:%s ", errorNo, message));
+//                        viewUtil.showToast(MainActivity.this,
+//                                String.format("onStartGatherCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
                 }
 
@@ -315,8 +315,8 @@ public class MainActivity extends BaseActivity<MainP> {
                         editor.apply();
 
                     } else {
-                        viewUtil.showToast(MainActivity.this,
-                                String.format("onStopGatherCallback, errorNo:%d, message:%s ", errorNo, message));
+//                        viewUtil.showToast(MainActivity.this,
+//                                String.format("onStopGatherCallback, errorNo:%d, message:%s ", errorNo, message));
                     }
                 }
 

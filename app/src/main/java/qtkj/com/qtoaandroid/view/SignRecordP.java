@@ -52,7 +52,13 @@ public class SignRecordP extends BasePressent {
         for (int i = 0; i < list.size(); i++) {//内部不锁定，效率最高，但在多线程要考虑并发操作的问题。
             SignRecord signRecord = list.get(i);
             SignRecordDeal signRecordDeal = new SignRecordDeal();
-            String key = signRecord.getDay() + "";
+            String key;
+            if(signRecord.getDay()>10) {
+                 key = signRecord.getDay() + "";
+            }else {
+                 key = "0"+signRecord.getDay() ;
+            }
+
             switch (signRecord.getState()) {
                 case 0:
                     switch (signRecord.getOutState()) {

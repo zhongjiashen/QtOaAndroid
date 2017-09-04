@@ -82,7 +82,7 @@ public class AddressBookDetailActivity extends BaseActivity<AddressBookDetailP> 
                 finish();
                 break;
             case R.id.tv_sign_in_record:
-                startActivity(new Intent(this,SignRecordActivity.class).putExtra("userId",getIntent().getStringExtra("userid")));
+                startActivity(new Intent(this,SignRecordNewActivity.class).putExtra("userId",getIntent().getStringExtra("userid")));
                 break;
             case R.id.tv_photo_record:
                 startActivity(new Intent(this,PhotoRecordActivity.class).putExtra("userId",getIntent().getStringExtra("userid")));

@@ -13,8 +13,12 @@ import android.view.ViewGroup;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BaiduMapOptions;
 import com.baidu.mapapi.map.MapPoi;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.SupportMapFragment;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.trace.api.analysis.DrivingBehaviorResponse;
 import com.baidu.trace.api.analysis.OnAnalysisListener;
@@ -36,11 +40,13 @@ import java.util.List;
 import qtkj.com.qtoaandroid.MyApplication;
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.activity.MovementActivity;
+import qtkj.com.qtoaandroid.dialog.LoadingDialog;
 import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.Constants;
 import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.utils.MapUtil;
+import qtkj.com.qtoaandroid.utils.TMapUtil;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 
 /**
@@ -49,7 +55,7 @@ import qtkj.com.qtoaandroid.utils.ViewUtil;
 
 public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener {
     private static final String a = SupportMapFragment.class.getSimpleName();
-    private MapView b;
+    private TextureMapView b;
     private BaiduMapOptions c;
     private MyApplication trackApp = null;
 
@@ -58,7 +64,7 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
     /**
      * 地图工具
      */
-    private MapUtil mapUtil = null;
+    private TMapUtil mapUtil = null;
 
     /**
      * 历史轨迹请求
@@ -96,6 +102,11 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
      */
     private long lastQueryTime = 0;
     private int pageIndex = 1;
+
+    private static final LatLng GEO = new LatLng(34.8191536516, 113.8033878919);
+
+
+
     public MapFragment() {
     }
     public void setStype(int stype) {
@@ -118,23 +129,24 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
         return this.b == null?null:this.b.getMap();
     }
 
-    public MapView getMapView() {
+    public TextureMapView getMapView() {
         return this.b;
     }
 
 
-
+    protected LoadingDialog mDialog;
     public void onCreate(Bundle var1) {
         super.onCreate(var1);
         trackApp = (MyApplication) getActivity().getApplicationContext();
         viewUtil = new ViewUtil();
-        mapUtil = MapUtil.getNewInstance();
+        mapUtil = TMapUtil.getNewInstance();
 
     }
 
     public View onCreateView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
-        this.b = new MapView(this.getActivity(), this.c);
+        this.b = new TextureMapView(this.getActivity(), this.c);
         this.b.getMap().setOnMapClickListener(this);
+
         mapUtil.init(b);
         mapUtil.setCenter(trackApp);
         initListener();
@@ -144,6 +156,9 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
     }
     public void start(long startTime,long endTime ,String entityName){
         trackPoints.clear();
+        MapStatus.Builder builder = new MapStatus.Builder();
+        MapStatus mapStatus = builder.target(GEO).zoom(15.0F).build();
+        this.b.getMap().setMapStatus(MapStatusUpdateFactory.newMapStatus(mapStatus));
         this.startTime=startTime/1000;
         this.endTime=endTime/1000;
         this.entityName=entityName;
@@ -216,6 +231,7 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
         mTrackListener = new OnTrackListener() {
             @Override
             public void onHistoryTrackCallback(HistoryTrackResponse response) {
+                mDialog.dismiss();
                 int total = response.getTotal();
                 if (StatusCodes.SUCCESS != response.getStatus()) {
                     LogUtils.d(response.toString());
@@ -294,7 +310,13 @@ public class MapFragment extends Fragment implements BaiduMap.OnMapClickListener
      * 查询历史轨迹
      */
     private void queryHistoryTrack() {
-
+        if(mDialog==null){
+            mDialog=new LoadingDialog(getActivity());
+            mDialog.setCancelable(false);
+            mDialog.setCanceledOnTouchOutside(false);
+            mDialog.setCanceledOnTouchOutside(false);
+        }
+        mDialog.show();
         trackApp.initRequest(historyTrackRequest);
         historyTrackRequest.setEntityName(entityName);
         historyTrackRequest.setStartTime(startTime);

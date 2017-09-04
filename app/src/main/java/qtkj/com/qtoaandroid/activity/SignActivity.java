@@ -100,11 +100,14 @@ public class SignActivity extends BaseActivity<SignOutP> {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
-
                 finish();
                 break;
             case R.id.bt_ok:
-                presenter.signIn(0, map);
+                if(tvAddress.getText().toString().equals("正在获取位置信息...")){
+                    showShortToast("正在获取位置信息...");
+                }else {
+                    presenter.signIn(0, map);
+                }
                 break;
         }
     }

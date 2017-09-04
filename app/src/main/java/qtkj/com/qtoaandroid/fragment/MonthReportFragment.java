@@ -176,6 +176,7 @@ public class MonthReportFragment extends BaseFragmengt<MonthReportP> implements 
         super.lazyInit();
         if (!first) {
             map.put("time", DateUtil.DateToString(new Date(), "yyyy-MM"));
+            tvDate.setText(DateUtil.DateToString(new Date(), "yyyy年MM月"));
             presenter.getsignMonth(0, map);
 
         }

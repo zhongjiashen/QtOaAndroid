@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BaiduMapOptions;
 import com.baidu.mapapi.map.MapPoi;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
@@ -99,7 +101,7 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
     private long lastQueryTime = 0;
     private int pageIndex = 1;
     private int stype = 0;
-
+    private static final LatLng GEO = new LatLng(34.8191536516, 113.8033878919);
     public void setStype(int stype) {
         this.stype = stype;
     }
@@ -149,6 +151,10 @@ public class BaseMapFragment extends Fragment implements BaiduMap.OnMapClickList
     }
 
     public void start(long startTime, long endTime, String entityName) {
+        trackPoints.clear();
+        MapStatus.Builder builder = new MapStatus.Builder();
+        MapStatus mapStatus = builder.target(GEO).zoom(15.0F).build();
+        this.b.getMap().setMapStatus(MapStatusUpdateFactory.newMapStatus(mapStatus));
         this.startTime = startTime / 1000;
         this.endTime = endTime / 1000;
         this.entityName = entityName;

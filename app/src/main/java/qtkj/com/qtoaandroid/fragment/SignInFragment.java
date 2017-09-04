@@ -37,6 +37,7 @@ import qtkj.com.qtoaandroid.activity.PhotoRecordActivity;
 import qtkj.com.qtoaandroid.activity.SignActivity;
 
 import qtkj.com.qtoaandroid.activity.SignRecordActivity;
+import qtkj.com.qtoaandroid.activity.SignRecordNewActivity;
 import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.Base64;
 import qtkj.com.qtoaandroid.utils.LogUtils;
@@ -155,7 +156,6 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
         MainActivity mainActivity = (MainActivity) getActivity();
             if (mLogin.getIsSign() == 1) {
                 setSignType(1);
-
                 mainActivity.startTrac();
                 LogUtils.d("签到状态");
             }else {
@@ -181,7 +181,7 @@ public class SignInFragment extends BaseFragmengt implements TakePhoto.TakeResul
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_sign_in_record:
-                startActivity(new Intent(getActivity(), SignRecordActivity.class).putExtra("userId", mLogin.getUserId() + ""));
+                startActivity(new Intent(getActivity(), SignRecordNewActivity.class).putExtra("userId", mLogin.getUserId() + ""));
                 break;
             case R.id.tv_photo_record:
                 startActivity(new Intent(getActivity(), PhotoRecordActivity.class).putExtra("userId", mLogin.getUserId() + ""));

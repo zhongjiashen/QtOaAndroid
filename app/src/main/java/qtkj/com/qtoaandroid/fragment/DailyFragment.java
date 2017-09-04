@@ -132,7 +132,9 @@ public class DailyFragment extends BaseFragmengt<DailyP> implements OnDateSetLis
     public void lazyInit() {
         super.lazyInit();
         if (!first) {
+
             map.put("time", DateUtil.DateToString(new Date(), "yyyy-MM-dd"));
+            tvDate.setText(DateUtil.DateToString(new Date(), "yyyy年MM月dd日"));
             presenter.getsignDay(0, map);
         }
     }
