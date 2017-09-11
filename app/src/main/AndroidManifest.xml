@@ -44,6 +44,7 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
+        android:persistent="true"
         android:icon="@mipmap/ic_app"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_app"
@@ -87,6 +88,11 @@
         <activity android:name=".activity.OkChangePhoneActivity"/>
         <activity android:name=".activity.OkChangePassActivity"/>
         <activity android:name=".activity.AddressBookDetailActivity"/>
+        <activity
+            android:name=".activity.OnePiexlActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OnePixelActivity"/>
+
         <activity
             android:name=".activity.QuitActivity"
             android:theme="@android:style/Theme.Translucent"/>

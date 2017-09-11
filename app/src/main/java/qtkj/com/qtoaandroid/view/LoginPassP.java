@@ -16,6 +16,7 @@ import qtkj.com.qtoaandroid.dialog.SampleDialog;
 import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.model.Update;
 import qtkj.com.qtoaandroid.utils.LogUtils;
+import qtkj.com.qtoaandroid.utils.SPUtils;
 import qtkj.com.qtoaandroid.utils.UpdateApp;
 
 /**
@@ -23,6 +24,7 @@ import qtkj.com.qtoaandroid.utils.UpdateApp;
  */
 
 public class LoginPassP extends BasePressent {
+    Map map;
     SampleDialog sampleDialog;
     public LoginPassP(BaseView view, Activity activity) {
         super(view, activity);
@@ -37,6 +39,8 @@ public class LoginPassP extends BasePressent {
                 Login login = gson.fromJson(response, jsonType);
                 MyApplication.mApplication.setLogin(login);
                 MyApplication.entityName = login.getUserId() + "";
+                SPUtils.put(mActivity,"phone",map.get("mobile"));
+                SPUtils.put(mActivity,"password",map.get("password"));
                 view.returnData(requestCode, null);
                 break;
             case 1:
@@ -58,6 +62,8 @@ public class LoginPassP extends BasePressent {
                         mActivity.finish();
                     }
                 });
+                }else {
+                    view.returnData(requestCode, null);
                 }
                 break;
         }
@@ -65,6 +71,7 @@ public class LoginPassP extends BasePressent {
     }
 
     public void login(int requestCode, Map map) {
+        this.map=map;
         post("login.json", requestCode, map);
     }
     public void update(int requestCode) {

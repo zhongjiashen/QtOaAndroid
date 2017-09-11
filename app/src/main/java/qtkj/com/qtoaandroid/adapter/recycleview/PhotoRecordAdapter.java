@@ -54,7 +54,7 @@ public class PhotoRecordAdapter extends BaseRecycleViewAdapter<PhotoRecord> {
     public int getItemCount() {
         if (list.size() == 0)
             return 1;
-        else if (list.size() < 4)
+        else if (list.size() < 5)
             return list.size();
         else {
             loading=true;

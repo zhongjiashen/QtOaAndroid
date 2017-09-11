@@ -109,7 +109,7 @@ public class DailyExpandableListViewAdapter extends BaseExpandableListAdapter {
             subitemViewHolder = (SubitemViewHolder) convertView.getTag();
         }
         subitemViewHolder.tvName.setText(list.get(groupPosition).getChild().get(childPosition).getUserName());
-        subitemViewHolder.tvKind.setText(list.get(groupPosition).getChild().get(childPosition).getPostName());
+//        subitemViewHolder.tvKind.setText(list.get(groupPosition).getChild().get(childPosition).getPostName());
         subitemViewHolder.tvKindNumber.setText(list.get(groupPosition).getChild().get(childPosition).getPostName()+list.get(groupPosition).getChild().get(childPosition).getUserId());
         subitemViewHolder.tvTime.setText("打卡时间："+ DateUtil.longDateToString(list.get(groupPosition).getChild().get(childPosition).getSignTime(),"HH:mm"));
         Glide.with(context).load(Contest.baseurl+list.get(groupPosition).getChild().get(childPosition).getImg()).error(R.mipmap.ic_photo).into(subitemViewHolder.ivPhoto);
@@ -145,8 +145,8 @@ public class DailyExpandableListViewAdapter extends BaseExpandableListAdapter {
         ImageView ivPhoto;
         @BindView(R.id.tv_name)
         TextView tvName;
-        @BindView(R.id.tv_kind)
-        TextView tvKind;
+//        @BindView(R.id.tv_kind)
+//        TextView tvKind;
         @BindView(R.id.tv_kind_number)
         TextView tvKindNumber;
         @BindView(R.id.tv_time)

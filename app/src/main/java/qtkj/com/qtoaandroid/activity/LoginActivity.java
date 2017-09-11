@@ -12,8 +12,14 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.OnClick;
 import qtkj.com.qtoaandroid.R;
+import qtkj.com.qtoaandroid.adapter.fragment.FragmentTabAdapter;
+import qtkj.com.qtoaandroid.fragment.AddressBookFragment;
+import qtkj.com.qtoaandroid.fragment.NowLocationFragment;
+import qtkj.com.qtoaandroid.fragment.PersonalCenterFragment;
+import qtkj.com.qtoaandroid.fragment.SignInFragment;
 import qtkj.com.qtoaandroid.permission.PermissionsChecker;
 import qtkj.com.qtoaandroid.utils.LogUtils;
+import qtkj.com.qtoaandroid.utils.SPUtils;
 import qtkj.com.qtoaandroid.utils.StatusBarUtil;
 import qtkj.com.qtoaandroid.view.LoginPassP;
 
@@ -45,7 +51,14 @@ public class LoginActivity extends BaseActivity<LoginPassP> {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
         mPermissionsChecker = new PermissionsChecker(this);
-        presenter.update(1);
+        switch (getIntent().getIntExtra("stype",0)){
+            case 0:
+                presenter.update(1);
+                break;
+            case 1:
+                break;
+        }
+//        presenter.update(1);
     }
 
     @OnClick({R.id.button, R.id.tv_forget_pass, R.id.phone_login})
@@ -82,8 +95,13 @@ public class LoginActivity extends BaseActivity<LoginPassP> {
     @Override
     public void returnData(int requestCode, Object data) {
         super.returnData(requestCode, data);
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        switch (requestCode){
+            case 0:
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+                break;
+        }
+
     }
 
     @Override

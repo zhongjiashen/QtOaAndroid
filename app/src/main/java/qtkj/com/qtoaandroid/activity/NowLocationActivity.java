@@ -159,12 +159,11 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
         mEntityListRequest.setTag(5);
         mEntityListRequest.setCoordTypeOutput(CoordType.bd09ll);
         //设置活跃时间
-        long activeTime = System.currentTimeMillis() / 1000 - 5 * 60;
-// 过滤条件
+        long activeTime = System.currentTimeMillis() / 1000 - 30 * 60;
+        // 过滤条件
         FilterCondition filterCondition = new FilterCondition();
-// 查找当前时间5分钟之内有定位信息上传的entity
+        // 查找当前时间5分钟之内有定位信息上传的entity
         filterCondition.setActiveTime(activeTime);
-
         filterCondition.setEntityNames(EntityNames);
         Log.e("NOW", EntityNames.get(0) + "444" + EntityNames.toString());
         mEntityListRequest.setFilterCondition(filterCondition);
@@ -289,7 +288,6 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
                 R.layout.popwindow_view, null);
         popViewHolder popViewHolder = new popViewHolder(contentView);
         popViewHolder.tvNick.setText(name);
-        popViewHolder.tvKind.setText(postname);
         popViewHolder.tvKindNumber.setText(postname + userId);
         popViewHolder.tvTime.setText(time.substring(10, 16));
 
@@ -352,8 +350,6 @@ public class NowLocationActivity extends BaseActivity implements BaiduMap.OnMark
         CircleImageView ivPhoto;
         @BindView(R.id.tv_nick)
         TextView tvNick;
-        @BindView(R.id.tv_kind)
-        TextView tvKind;
         @BindView(R.id.tv_kind_number)
         TextView tvKindNumber;
         @BindView(R.id.tv_address)

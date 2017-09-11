@@ -39,6 +39,7 @@
     <string name="forget_sign_in">忘记打卡</string>
     <string name="absenteeism">缺勤</string>
     <string name="number_attendance">出勤人数</string>
+    <string name="month_number_attendance">出勤人次</string>
 
 
     <string name="font_type">微软雅黑</string>

@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_actual_number"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/number_attendance"/>
+                    android:text="@string/month_number_attendance"/>
             </RelativeLayout>
 
         </RelativeLayout>

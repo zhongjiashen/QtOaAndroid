@@ -31,8 +31,8 @@ public class PersonalCenterFragment extends BaseFragmengt {
     ImageView ivPhoto;
     @BindView(R.id.tv_nick)
     TextView tvNick;
-    @BindView(R.id.tv_kind)
-    TextView tvKind;
+//    @BindView(R.id.tv_kind)
+//    TextView tvKind;
     @BindView(R.id.tv_kind_number)
     TextView tvKindNumber;
 
@@ -57,7 +57,7 @@ public class PersonalCenterFragment extends BaseFragmengt {
         Login login= MyApplication.mApplication.getLogin();
         if(login!=null){
             tvNick.setText(login.getUserName());
-            tvKind.setText(login.getPostName());
+//            tvKind.setText(login.getPostName());
             tvKindNumber.setText(login.getPostName()+login.getUserId());
             Glide.with(this).load(Contest.baseurl+login.getImg()).error(R.mipmap.ic_photo).bitmapTransform(new CropCircleTransformation(getActivity())).into(ivPhoto);
         }

@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import qtkj.com.qtoaandroid.activity.MainActivity;
+import qtkj.com.qtoaandroid.activity.OnePiexlActivity;
 import qtkj.com.qtoaandroid.model.Login;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.MyBDLocation;
@@ -40,6 +41,15 @@ import qtkj.com.qtoaandroid.utils.SharedPreferencesUtils;
  */
 
 public class MyApplication extends Application {
+    private OnePiexlActivity mOnePiexlActivity;
+
+    public OnePiexlActivity getOnePiexlActivity() {
+        return mOnePiexlActivity;
+    }
+
+    public void setOnePiexlActivity(OnePiexlActivity onePiexlActivity) {
+        mOnePiexlActivity = onePiexlActivity;
+    }
 
     private LocRequest locRequest = null;
     public Context mContext = null;

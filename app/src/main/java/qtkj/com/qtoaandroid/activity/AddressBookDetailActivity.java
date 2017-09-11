@@ -27,8 +27,8 @@ public class AddressBookDetailActivity extends BaseActivity<AddressBookDetailP> 
     CircleImageView ivPhoto;
     @BindView(R.id.tv_nick)
     TextView tvNick;
-    @BindView(R.id.tv_kind)
-    TextView tvKind;
+//    @BindView(R.id.tv_kind)
+//    TextView tvKind;
     @BindView(R.id.tv_kind_number)
     TextView tvKindNumber;
     @BindView(R.id.tv_worke_time)
@@ -51,7 +51,7 @@ public class AddressBookDetailActivity extends BaseActivity<AddressBookDetailP> 
         login = (Login) data;
         Glide.with(this).load(Contest.baseurl + login.getImg()).error(R.mipmap.ic_photo).into(ivPhoto);
         tvNick.setText(login.getUserName());
-        tvKind.setText(login.getPostName());
+//        tvKind.setText(login.getPostName());
         tvKindNumber.setText(login.getPostName() + login.getUserId());
         tvWorkeTime.setText("工作时间：" + login.getWorkStartTime() + " — " + login.getWorkEndTime());
         tvPhone.setText("联系方式：" + login.getUserPhone());

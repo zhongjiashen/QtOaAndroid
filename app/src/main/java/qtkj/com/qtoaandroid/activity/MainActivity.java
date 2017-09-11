@@ -41,6 +41,7 @@ import qtkj.com.qtoaandroid.utils.BitmapUtil;
 import qtkj.com.qtoaandroid.utils.CommonUtil;
 import qtkj.com.qtoaandroid.utils.LogUtils;
 import qtkj.com.qtoaandroid.utils.MyBDLocation;
+import qtkj.com.qtoaandroid.utils.SPUtils;
 import qtkj.com.qtoaandroid.utils.ViewUtil;
 import qtkj.com.qtoaandroid.view.MainP;
 
@@ -89,24 +90,56 @@ public class MainActivity extends BaseActivity<MainP> {
             case 1:
                 type = -1;
                 break;
+            case 2:
+                fragments.add(new SignInFragment());
+                fragments.add(new NowLocationFragment());
+                fragments.add(new AddressBookFragment());
+                fragments.add(new PersonalCenterFragment());
+                FragmentTabAdapter tabAdapter = new FragmentTabAdapter(this, fragments, R.id.fl_main, rgBottom);
+                break;
 
         }
+    }
+
+    @Override
+    public void showShortToast(String text) {
+        super.showShortToast(text);
+        startActivity(new Intent(this,LoginActivity.class));
+        finish();
+
     }
 
     @Override
     protected void Initialize() {
         trackApp = (MyApplication) getApplicationContext();
         powerManager = (PowerManager) trackApp.getSystemService(Context.POWER_SERVICE);
-        fragments.add(new SignInFragment());
-        fragments.add(new NowLocationFragment());
-        fragments.add(new AddressBookFragment());
-        fragments.add(new PersonalCenterFragment());
-        FragmentTabAdapter tabAdapter = new FragmentTabAdapter(this, fragments, R.id.fl_main, rgBottom);
         myBDLocation = new MyBDLocation(getApplicationContext());
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.qtoaandroid.myLocation");
         this.registerReceiver(myBroadcastReciver = new MyBroadcastReciver(), intentFilter);
         presenter = new MainP(this, this);
+
+        switch (getIntent().getIntExtra("stype",0)){
+            case 0:
+                LogUtils.d("首页0");
+                fragments.add(new SignInFragment());
+                fragments.add(new NowLocationFragment());
+                fragments.add(new AddressBookFragment());
+                fragments.add(new PersonalCenterFragment());
+                FragmentTabAdapter tabAdapter = new FragmentTabAdapter(this, fragments, R.id.fl_main, rgBottom);
+                break;
+            case 1:
+                LogUtils.d("首页1");
+                Map map=new HashMap();
+                map.put("mobile", SPUtils.get(this,"phone","18"));
+                map.put("password", SPUtils.get(this,"password","18"));
+                presenter.login(2,map);
+                break;
+        }
+
+
+
+
 
     }
 
@@ -121,11 +154,12 @@ public class MainActivity extends BaseActivity<MainP> {
     public void startTrac() {
         trackApp.initTrace();
         initListener();
+        trackApp.mClient.setInterval(30, 60);
         if (!trackApp.isTraceStarted) {
             trackApp.mClient.startTrace(trackApp.mTrace, traceListener);
         }
-        if (!trackApp.isGatherStarted)
-            trackApp.mClient.startGather(traceListener);
+//        if (!trackApp.isGatherStarted)
+//            trackApp.mClient.startGather(traceListener);
 
 
     }

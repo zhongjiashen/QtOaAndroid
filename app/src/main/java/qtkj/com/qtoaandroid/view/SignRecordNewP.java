@@ -182,7 +182,7 @@ public class SignRecordNewP extends BasePressent {
             case 0:
                 signRecordDeal.setNight_sign_in_state("");
                 break;
-            case 2:
+            case 1:
                 if (b) {
                     latearrivalDays.add(day);
                 }

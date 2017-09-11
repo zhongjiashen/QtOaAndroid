@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import qtkj.com.qtoaandroid.R;
 import qtkj.com.qtoaandroid.utils.StatusBarUtil;

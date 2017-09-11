@@ -238,6 +238,7 @@ public class PersonalInformationActivity extends BaseActivity<PersonalInformatio
         wl.height = LayoutParams.WRAP_CONTENT;
         // 设置显示位置
         dialog.onWindowAttributesChanged(wl);
+        dialog.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
         // 设置点击外围解散
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();

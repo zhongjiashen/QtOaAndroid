@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="张三"
             style="@style/text_15_black"/>
-        <TextView
+        <!--<TextView
             android:id="@+id/tv_kind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             style="@style/text_10_blue"
             android:background="@drawable/shape_rounded_blue_bg"
             android:text="固定岗"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"/>-->
 
     </LinearLayout>
     <TextView

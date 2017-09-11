@@ -26,8 +26,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view"
-        tools:layout_editor_absoluteY="20dp"
-        tools:layout_editor_absoluteX="13dp">
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="20dp">
 
         <qtkj.com.qtoaandroid.viewbar.CircleImageView
             android:id="@+id/iv_photo"
@@ -35,9 +35,9 @@
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            app:border_width="2dp"
-            app:border_color="@color/white"
             android:src="@mipmap/ic_photo"
+            app:border_color="@color/white"
+            app:border_width="2dp"
             />
 
         <RelativeLayout
@@ -54,41 +54,32 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="张三"/>
-
-            <TextView
-                android:id="@+id/tv_kind"
-                style="@style/text_10_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="6dp"
-                android:layout_toRightOf="@+id/tv_nick"
-                android:background="@drawable/shape_rounded_blue_bg"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="固定岗"
-                />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_kind_number"
-            style="@style/text_14_whigtgray"
+            style="@style/text_14_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rl"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="10dp"
-            android:text="固定岗"/>
+            android:text="固定岗"
+            android:background="@drawable/shape_rounded_blue_bg"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"/>
+
         <TextView
             android:id="@+id/tv_worke_time"
+            style="@style/text_14_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="工作时间：9:00 - 18:00"
-            style="@style/text_14_gray"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/tv_kind_number"
-            android:layout_marginTop="10dp"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="工作时间：9:00 - 18:00"/>
+
         <LinearLayout
             android:id="@+id/ll_call_phone"
             android:layout_width="wrap_content"
@@ -96,30 +87,34 @@
             android:layout_below="@+id/tv_worke_time"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp">
+
             <TextView
                 android:id="@+id/tv_phone"
+                style="@style/text_14_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_14_gray"
-                android:text="联系方式：18336302752"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:text="联系方式：18336302752"/>
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@mipmap/ic_call_phone"
-                android:layout_marginLeft="16dp"/>
+                android:layout_marginLeft="16dp"
+                android:background="@mipmap/ic_call_phone"/>
         </LinearLayout>
     </RelativeLayout>
+
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_arrow_left"
-        android:padding="10dp"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:src="@mipmap/ic_arrow_left"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view"/>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -135,11 +130,9 @@
             android:background="@color/grayline"/>
 
 
-
-
         <TextView
             android:id="@+id/tv_sign_in_record"
-            style="@style/text_16_black"
+            style="@style/text_14_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -157,7 +150,7 @@
 
         <TextView
             android:id="@+id/tv_photo_record"
-            style="@style/text_16_black"
+            style="@style/text_14_black"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"

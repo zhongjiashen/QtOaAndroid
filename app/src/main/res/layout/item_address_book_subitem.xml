@@ -40,7 +40,7 @@
         android:id="@+id/tv_kind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/text_12_gray"
+        style="@style/text_12_whigtgray"
         android:text="固定岗"
         app:layout_constraintLeft_toRightOf="@+id/iv_head_portrait"
         android:layout_marginLeft="10dp"

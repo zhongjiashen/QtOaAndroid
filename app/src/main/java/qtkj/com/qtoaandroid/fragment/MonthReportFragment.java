@@ -64,8 +64,8 @@ public class MonthReportFragment extends BaseFragmengt<MonthReportP> implements 
         final MonthReport monthReport = (MonthReport) data;
         headViewHolder.tvTotalNumber.setText("/" + monthReport.getTotalSignCount());
         headViewHolder.tvActualNumber.setText(monthReport.getFactSignCount() + "");
-        headViewHolder.tvShould.setText("应到" +  monthReport.getTotalSignCount()+"人");
-        headViewHolder.tvRealized.setText("实到" + monthReport.getFactSignCount()+"人");
+        headViewHolder.tvShould.setText("应到" +  monthReport.getTotalSignCount()+"人次");
+        headViewHolder.tvRealized.setText("实到" + monthReport.getFactSignCount()+"人次");
         headViewHolder.tvLate.setText(monthReport.getTop().get(0).getLate() + "");
         headViewHolder.tvEarly.setText(monthReport.getTop().get(0).getEarly() + "");
         headViewHolder.tvForget.setText(monthReport.getTop().get(0).getForget() + "");
@@ -130,7 +130,7 @@ public class MonthReportFragment extends BaseFragmengt<MonthReportP> implements 
                 final MonthReport.BottomBean bean = monthReport.getBottom().get(i);
                 if (bean != null) {
                     holder.tvName.setText(bean.getUserName());
-                    holder.tvKind.setText(bean.getPostName());
+//                    holder.tvKind.setText(bean.getPostName());
                     holder.tvKindNumber.setText(bean.getPostName() + bean.getUserId());
                     holder.tvDaysNumber.setText(bean.getUserFact() + "");
                     holder.tvLate.setText(bean.getUserLate() + "");
@@ -200,8 +200,8 @@ public class MonthReportFragment extends BaseFragmengt<MonthReportP> implements 
         ImageView ivPhoto;
         @BindView(R.id.tv_name)
         TextView tvName;
-        @BindView(R.id.tv_kind)
-        TextView tvKind;
+//        @BindView(R.id.tv_kind)
+//        TextView tvKind;
         @BindView(R.id.tv_kind_number)
         TextView tvKindNumber;
         @BindView(R.id.tv_days_number)
